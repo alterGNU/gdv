@@ -1,7 +1,7 @@
 all: make
 
 make: main.c
-	gcc -Wall main.c -o main
+	gcc -Wall -ggdb main.c -o main
 
 clean:
 	rm -f main file*
