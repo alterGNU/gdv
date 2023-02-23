@@ -42,3 +42,5 @@ rm projet_scv/test.txt && tree
 cat file.tmp
 2e7484cb0a9a5220c0a4bd8cc039668f831497b54dfe175b28dd3599fa6a4681  main.c
 ```
+### Q1.3 Fonction `int hashFile(char* source, char* dest)`:
+- Fonction qui calcule le hash du fichier source et l'écrit dans le fichier dest.
