@@ -10,16 +10,8 @@ int main(int nbarg, char * argv[]){
     int hashFile(char*, char*);              // Prototype de la fonction exo 1 Q1.3
     char* original;
     char* destination;
-    if (nbarg != 3){
-        original="main.c";
-        destination="file.txt";
-    }else{
-        original=argv[1];
-        destination=argv[2];
-    }
-    // version operateur ternaire:
-    //original = (nbarg != 3) ? "main.c" : argv[1];
-    //destination = (nbarg != 3) ? "file.txt" : argv[2];
+    original = (nbarg != 3) ? "main.c" : argv[1];
+    destination = (nbarg != 3) ? "file.txt" : argv[2];
     hashFile(original, destination);
 }
 
