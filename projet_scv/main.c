@@ -2,5 +2,5 @@
 #include <stdlib.h>
 
 int main(){
-    printf("Hello World!\n");
+    system("sha256sum main.c > file.tmp");
 }

@@ -35,3 +35,10 @@ rm projet_scv/test.txt && tree
     ├── Makefile
     └── main.c
 ```
+### Q1.2 Commande `sha256sum`:
+- On ajoute au main.c la commande suivante : `system("sha256sum main.c > file.tmp")`
+- Ainsi aprés compilation et exécution de `main.c` on obtient le fichier `file.tmp`:
+```bash
+cat file.tmp
+2e7484cb0a9a5220c0a4bd8cc039668f831497b54dfe175b28dd3599fa6a4681  main.c
+```
