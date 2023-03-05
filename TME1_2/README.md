@@ -166,4 +166,7 @@ int main(){
  
 ### Partie 1 : Tableau à une dimension
 
-#### Q2.1
+#### Q2.1 - Creation fonction alloue_tableau
+#### Q2.2 - Creation fonction desalloue_tableau
+#### Q2.3 - Creation fonction remplir_tableau
+#### Q2.4 - Creation fonction afficher_tableau
