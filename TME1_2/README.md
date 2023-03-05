@@ -36,3 +36,48 @@ gcc -ggdb -o tme1_exo1p1 tme1_exo1p1.c && gdb tme1_exo1p1
 - Pour résoudre ce problème il suffit donc d'enlever le mot clé `unsigned`.On constate alors que cela resoud l'erreur.
 
 ### Partie 2 : Pb d'allocation mémoire
+
+#### Q1.4
+- A la lecture du programme on suppose qu'il doit:
+    - Utiliser la fonction `creer_adresse` qui :
+        - alloue dynamiquement l'espace necessaire pour la structure adresse
+        - affecte leurs valeurs aux differents attributs de cette structure
+        - puis retourne le pointeur vers l'instance de la structure ainsi créée
+    - Affiche les valeurs de l'instance d'adresse crée.
+- Compilation, execution et retour:
+    ```bash
+    gcc -o tme1_exo1p2 tme1_exo1p2.c && ./tme1_exo1p2
+    Segmentation fault (core dumped) 
+    ```
+    - Meme constat que précédemment.(cf Q1.1)
+
+#### Q1.5
+```bash
+...
+15	    strcpy(new->rue, r);
+(gdb) p new->rue
+$1 = 0x0
+(gdb) c
+Continuing.
+
+Program received signal SIGSEGV, Segmentation fault.
+__strcpy_sse2_unaligned () at ../sysdeps/x86_64/multiarch/strcpy-sse2-unaligned.S:668
+668	../sysdeps/x86_64/multiarch/strcpy-sse2-unaligned.S: No such file or directory.
+...
+```
+- constate que l'erreur survient à l'execution de la commande `strcpy`, cela pourrait venir du fait que la taille de la
+  destination(new->rue) ne soit pas suffisante pour acceuillir la source(r).
+- Pour corriger cela on alloue dynamiquement l'espace necessaire de la cible.
+    ```bash
+    ...
+    new->numero = n;
+    new->rue= (char*) malloc(sizeof(strlen(r)+1));
+    strcpy(new->rue, r);
+    ...
+    ```
+    Puis penser dans le main a tout libérer (ou faire fonciton pour ca)
+    ```bash
+    ...
+    free(maison->rue);
+    free(maison);
+    ```
