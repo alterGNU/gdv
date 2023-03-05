@@ -29,6 +29,11 @@ void affichageTableau(Tableau* t){
 	printf("]\n");
 }
 
+void libereTableau(Tableau *t){
+	free(t->tab);
+	free(t);
+}
+
 int main(){
 	Tableau* t;
 	t = initTableau(100);
@@ -38,5 +43,5 @@ int main(){
 	ajouterElement(-452,t);
 	ajouterElement(4587,t);
 	affichageTableau(t);	
-	free(t);
+	libereTableau(t);
 }
