@@ -166,7 +166,13 @@ int main(){
  
 ### Partie 1 : Tableau à une dimension
 
-#### Q2.1 - Creation fonction alloue_tableau
-#### Q2.2 - Creation fonction desalloue_tableau
-#### Q2.3 - Creation fonction remplir_tableau
-#### Q2.4 - Creation fonction afficher_tableau
+#### Q2.1 - Creation des fonctions:
+- `int* alloue_tab(int n)`
+- `void alloue_tableau(int **T,int n)`
+- `void desalloue_tableau(int *T)`
+- `void remplir_tableau(int *T, int t, int n)`
+- `void afficher_tableau(int *T, int t)`
+#### Q2.2 - Creation des fonctions:
+- `int somme_carre_difference(int *T, int t)` : Version suivant la formule donnée.
+- `int som_car_dif(int *T, int t)` : Version limitant les calculs à la matrice triangulaire .
+- `int scd(int *T, int t)` : Version de meilleur complexité en supprimant l'imbrication des deux boucles for.
