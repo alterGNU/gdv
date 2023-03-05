@@ -161,3 +161,9 @@ int main(){
 	libereTableau(t);
 }
 ```
+
+## Exo 2 : Algorithme et tableaux
+ 
+### Partie 1 : Tableau à une dimension
+
+#### Q2.1
