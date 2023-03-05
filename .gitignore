@@ -1,3 +1,11 @@
+# Fichiers sans extensions
+*
+!/**/
+!*.*
+
+# Swapfiles
+*.swp
+
 # Prerequisites
 *.d
 
@@ -51,10 +59,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# Swapfiles
-*.swp
 
-# Fichiers sans extensions
-*
-!/**/
-!*.*
