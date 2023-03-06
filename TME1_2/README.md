@@ -230,3 +230,22 @@ Les valeurs du tableau sont comprises entre [0, 100[.
     ...
     ```
 
+#### Q2.4 - Determiner si les éléments d'une matrice sont différents
+- Ajout des fonctions:
+    - `void remplir_indice(int **M, int n, int v)`: remplissant une matrice par ses indices => matrice dont les éléments
+      sont forcement différent, permet de tester les autres fonctions crées.
+    - `int check_elements_differents(int **M, int n)`: retourne 0 si tous les élements sont différents, 1 sinon et fait
+      toujours le pire des cas => pas de return quand trouvé => complexité 0(n^4)
+- Modification du main qui retourne:
+    ```bash
+    [  4,  5,  7,  2]
+    [  8,  0,  1,  5]
+    [  0,  8,  2,  6]
+    [  9,  9,  0,  8]
+    Les elements de la matrice NE sont PAS tous differents
+    [  0,  1,  2,  3]
+    [  4,  5,  6,  7]
+    [  8,  9, 10, 11]
+    [ 12, 13, 14, 15]
+    Les éléments de la matrices SONT tous differents
+    ```
