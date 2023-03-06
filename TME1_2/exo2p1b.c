@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#include <assert.h>
 #define MAXVAL 100
 
 int* alloue_tab(int n){

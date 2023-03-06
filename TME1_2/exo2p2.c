@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>    // pour srand afin de changer la seed
-#define DIM 4        // dimension de la matrice carre.
-#define BORNSUP 10  // Borne supérieur de l'intervalle des valeurs possibles.
+#include <assert.h>
+#include <time.h>      // pour srand afin de changer la seed
+#define BORNSUP 10000  // Borne supérieur de l'intervalle des valeurs possibles.
 
 int** alloue_matrice(int n){
     // Alloue la taille pour une matrice carré de taille nxn qu'elle retourne
@@ -65,8 +65,8 @@ int check_elements_differents(int **M, int n){
             int val = M[i][j];
             for (int l=0;l<n;l++){
                 for (int c=0;c<n;c++){
-                    if ((val == M[l][c])&&(i!=l)&&(c!=j)){
-                        res += 1;
+                    if ((val == M[l][c])&&((i!=l)||(c!=j))){
+                        res = 1;
                     }
                 }
             }
@@ -75,24 +75,93 @@ int check_elements_differents(int **M, int n){
     return res;
 }
 
+int check_elem_diff(int **M, int n){
+    // retourne 0 si tous les éléments de la matice sont différents sinon retourne 1
+    for (int i=0;i<n;i++){
+        for (int j=0;j<n;j++){
+            int val = M[i][j];
+            for (int l=0;l<n;l++){
+                for (int c=0;c<n;c++){
+                    if ((val == M[l][c])&&((i!=l)||c!=j)){
+                        return 1;
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+int ced(int **M, int n){
+    // retourne 0 si tous les éléments de la matice sont différents sinon retourne 1
+    // connaissant le nombre maximal distinct de l'intervalle des valeurs, utilise une
+    // matrice d'une dimension=V qu'il remplie en ne parcourant qu'une fois la matrice.
+    if (BORNSUP < n*n){return 1;} // cas trivial où il n'est pas possible d'avoir des elements distincts.
+    int v = BORNSUP;
+    int *grille=(int*)malloc(sizeof(int)*v);
+    if(grille == NULL) {printf("Error: Out of memory\n"); exit(-1); }
+
+    for (int i=0;i<v;i++){ grille[i]=-1; } // met l'ensemble des éléments de la grille à -1
+
+    for (int i=0;i<n;i++){
+        for (int j=0;j<n;j++){
+            int ind = M[i][j] ;
+            if (grille[ind]>0){
+                free(grille);
+                return 1;
+            }
+            grille[ind] = ind ;
+        }
+    }
+    free(grille);
+    return 0;
+}
+
 int main(){
     srand(time(NULL)); // change la seed pour faire varier la génération de nombre aléatoire.
-    int n = DIM;
-    int **mat1, **mat2;
 
-    // Matrice ayant une faible probabilité d'avoir des éléments différents
-    mat1=alloue_matrice(n);
-    remplir_matrice(mat1,n,BORNSUP);
-    afficher_matrice(mat1,n);
-    int diff1 = check_elements_differents(mat1,n);
-    printf((diff1>0) ? "Les elements de la matrice NE sont PAS tous differents\n" : "Les éléments de la matrices SONT tous differents\n");
-    desalloue_matrice(mat1,n);
+    clock_t tps_init, tps_fin;
+    int diff1, diff2, diff3;
+    double t1, t2, t3;
 
-    // Matrice dont tous les éléments sont differents
-    mat2=alloue_matrice(n);
-    remplir_indice(mat2,n,BORNSUP);
-    afficher_matrice(mat2,n);
-    int diff2 = check_elements_differents(mat2,n);
-    printf((diff2>0) ? "Les elements de la matrice NE sont PAS tous differents\n" : "Les éléments de la matrices SONT tous differents\n");
-    desalloue_matrice(mat2,n);
+    FILE * sortie;
+    sortie = fopen("matrice_elem_unique.txt", "w");
+    if(sortie==NULL){ // Verifie si l'ouverture s'est bien passée.
+        printf("Erreur lors de l'ouverture d'un fichier\n");
+        exit(1);
+    }
+
+
+    char * entete="set title \"Comparaison des temps d'execution\" \nset xlabel \"Nbr éléments\" \nset ylabel \"Temps d'execution (s)\" \nplot \"matrice_elem_unique.txt\" using 1:2 title \"Algo2\" with lines lc rgb \"blue\" lw 1.5 \nset term png\nset output \"vitesse_elem_uniq.png\"\nreplot \"matrice_elem_unique.txt\" using 1:3 title \"Algo3\" with lines lc rgb \"red\" lw 1.5\n\n# Nb. element,	Temps1,	Temps2\n";
+
+    fprintf(sortie,"%s",entete);
+
+    for (int n = 1;n<=110;n++){
+        int **mat;
+        mat=alloue_matrice(n);
+        remplir_matrice(mat,n,BORNSUP);
+
+        tps_init = clock();
+        diff2 = check_elem_diff(mat,n);
+        tps_fin = clock();
+        t2 = ((double)(tps_fin - tps_init))/ CLOCKS_PER_SEC;
+
+        tps_init = clock();
+        diff3 = ced(mat,n);
+        tps_fin = clock();
+        t3 = ((double)(tps_fin - tps_init))/ CLOCKS_PER_SEC;
+
+        desalloue_matrice(mat,n);
+
+        if(diff2 == diff3){
+            fprintf(sortie,"%d,\t%f,\t%f\n",n*n,t2,t3);
+        }else{
+            printf("ERREUR SUR LES FONCTIONS DE VERIFICATION D'UNICITE DES ELEMENTS\n");
+            exit(2);
+        }
+    }
+    fclose (sortie);
+    system("gnuplot matrice_elem_unique.txt");
+    return 0;
+
 }

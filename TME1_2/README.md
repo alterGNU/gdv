@@ -230,7 +230,7 @@ Les valeurs du tableau sont comprises entre [0, 100[.
     ...
     ```
 
-#### Q2.4 - Determiner si les éléments d'une matrice sont différents
+#### Q2.5 - Determiner si les éléments d'une matrice sont différents
 - Ajout des fonctions:
     - `void remplir_indice(int **M, int n, int v)`: remplissant une matrice par ses indices => matrice dont les éléments
       sont forcement différent, permet de tester les autres fonctions crées.
@@ -249,3 +249,19 @@ Les valeurs du tableau sont comprises entre [0, 100[.
     [ 12, 13, 14, 15]
     Les éléments de la matrices SONT tous differents
     ```
+- On améliore la fonction en utilisant un tableau d'une dimension (de taille V) nommé "grille" et dont on initialise les
+  case à la valeur -1.On parcour ensuite notre matrice, et pour chaque case de celle-ci, on modifie la valeur du tableau
+  grille à l'indexe correspondant ainsi si dans la grille la valeur est négative, c'est la première fois que l'on
+  rencontre cette valeur, sinon c'est un doublons => sortie de boucle.
+  Ainsi dans le pire des cas on parcours une fois la grille et une fois la matrice soit une complexité de O(V)+O(n²) VS
+  O(n^4)
+
+- ![image](./vitesse_elem_uniq.png)
+- Interprétation des résultats:
+    - On observe que l'algo3, courbre représentant l'algo-optimiser présente un coup constant, liés a la complexité de
+      la grille O(V), mais que ses variations sont assez faible comparer à l'algo2.
+    - La courbe Algo2 a une variation assez importante de ses temps d'execution, cela est due au remplissage aléatoire
+      qui peut souvent placé asser tot deux élément identiques, cependant on observe qu'en abscence de chance, cad qd on
+      temps vers le pire des cas, le temps d'execution est trés éloigné de l'algo2.
+    - On peut aussi observer que lorsque le nombre d'élément depasse celui de la borne supérieur, l'algo3 ne fait aucun
+      calcul est determine qu'il y a forcement un doublons.
