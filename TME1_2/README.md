@@ -172,7 +172,24 @@ int main(){
 - `void desalloue_tableau(int *T)`
 - `void remplir_tableau(int *T, int t, int n)`
 - `void afficher_tableau(int *T, int t)`
+
 #### Q2.2 - Creation des fonctions:
 - `int somme_carre_difference(int *T, int t)` : Version suivant la formule donnée.
 - `int som_car_dif(int *T, int t)` : Version limitant les calculs à la matrice triangulaire .
 - `int scd(int *T, int t)` : Version de meilleur complexité en supprimant l'imbrication des deux boucles for.
+
+#### Q.3 - Calcul et affichage du temps pris par les methodes
+- Résultat de valgrind (avant utilisation de gnuplot pour l'affichage des courbes):
+```bash
+Les valeurs du tableau sont comprises entre [0, 100[.
+[Taille tableau|Valeur trouvée|  Temps1  |  Temps2  |  Temps 3  ]
+[            1 |            0 |  0.000003|  0.000002|  0.000000 ]
+[           10 |       116496 |  0.000002|  0.000001|  0.000000 ]
+[          100 |      8541024 |  0.000073|  0.000002|  0.000000 ]
+[         1000 |    822658416 |  0.007008|  0.000011|  0.000000 ]
+[        10000 |  82114036944 |  0.266663|  0.000031|  0.000000 ]
+==11519== 
+==11519== HEAP SUMMARY:
+==11519==     in use at exit: 0 bytes in 0 blocks
+==11519==   total heap usage: 6 allocs, 6 frees, 45,468 bytes allocated
+```

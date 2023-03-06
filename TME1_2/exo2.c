@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
+#include <assert.h>
+#define MAXVAL 100
 
 int* alloue_tab(int n){
     // Alloue la taille pour un tableau d'entier n qu'elle retourne
@@ -37,37 +40,37 @@ void afficher_tableau(int *T, int t){
     printf("]\n");
 }
 
-int somme_carre_difference(int *T, int t){
+long somme_carre_difference(int *T, int t){
     // retourne la somme des carrés des différences entre les éléments du tableau 2a2 en
     // compte les doublons : (a,b) et (b,a) 
     // compte les elements avec eux meme : (a,a) (b,b)
-    int tot = 0;
+    long tot = 0;
     for (int i=0;i<t;i++){
         for (int j=0;j<t;j++){
-            int diff=T[i]-T[j];
+            long diff=T[i]-T[j];
             tot+=diff*diff;
         }
     }
     return tot/2;
 }
 
-int som_car_dif(int *T, int t){
+long som_car_dif(int *T, int t){
     // première amélioration, ne prend en compte que les éléments de la matrice triangulaire
     // pas de doublons : (a,b) et (b,a) 
     // pas de comparaions des elements avec eux meme : (a,a) (b,b)
-    int tot = 0;
+    long tot = 0;
     for (int i=0;i<t;i++){
         for (int j=i+1;j<t;j++){
-            int diff=T[i]-T[j];
+            long diff=T[i]-T[j];
             tot+=diff*diff;
         }
     }
     return tot;
 }
 
-int scd(int *T, int t){
+long scd(int *T, int t){
     // version plus performante de la fonction somme_carre_diff
-    int x=0, y=0;
+    long x=0, y=0;
     for (int i=0;i<t;i++){
         y+=T[i];
         x+=T[i]*T[i];
@@ -76,14 +79,36 @@ int scd(int *T, int t){
 }
 
 int main(){
-    srand(time(NULL));
-    int taille = 100;
+    srand(time(NULL)); // change la seed pour faire varier la génération de nombre aléatoire.
+    clock_t tps_init, tps_fin;
+    long s1, s2, s3;
+    double t1, t2, t3;
     int * tab;
-    alloue_tableau(&tab, taille);
-    remplir_tableau(tab,taille,100);
-    afficher_tableau(tab,taille);
-    printf("V1-La somme des carres des differences vaut:%d\n",somme_carre_difference(tab,taille));
-    printf("V2-La somme des carres des differences vaut:%d\n",som_car_dif(tab,taille));
-    printf("V3-La somme des carres des differences vaut:%d\n",scd(tab,taille));
-    desalloue_tableau(tab);
+    printf("Les valeurs du tableau sont comprises entre [0, %d[.\n",MAXVAL);
+        printf("[Taille tableau|Valeur trouvée|  Temps1  |  Temps2  |  Temps 3  ]\n");
+    for (int i=0;i<5;i++){
+        int taille = pow(10,i);
+        alloue_tableau(&tab, taille);
+        remplir_tableau(tab,taille,MAXVAL);
+        //afficher_tableau(tab,taille); // Pas d'affichage car trop long
+
+        tps_init = clock();
+        s1 = somme_carre_difference(tab,taille);
+        tps_fin = clock();
+        t1 = ((double)(tps_fin - tps_init))/ CLOCKS_PER_SEC;
+
+        tps_init = clock();
+        s2 = som_car_dif(tab,taille) ;
+        tps_fin = clock();
+        t2 = ((double)(tps_fin - tps_init))/ CLOCKS_PER_SEC;
+
+        tps_init = clock();
+        s3 = scd(tab, taille);
+        tps_fin = clock();
+        t2 = ((double)(tps_fin - tps_init))/ CLOCKS_PER_SEC;
+
+        assert((s1 == s2)&&(s2 == s3));
+        printf("[%13d | %12ld |%10f|%10f|%10f ]\n",taille,s1,t1,t2,t3);
+        desalloue_tableau(tab);
+    }
 }
