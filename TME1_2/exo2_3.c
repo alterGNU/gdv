@@ -91,7 +91,8 @@ int main(){
         exit(1);
     }
 
-    char * entete="set title \"Comparaison des temps d'execution\" \nset xlabel \"Taille tableau\" \nset ylabel \"Temps d'execution (s)\" \nplot \"sortie_vitesse.txt\" using 1:2 title \"Algo1\" with lines lc rgb \"blue\" lw 1.5 \nreplot \"sortie_vitesse.txt\" using 1:3 title \"Algo2\" with lines lc rgb \"green\" lw 1.5, \"sortie_vitesse.txt\" using 1:4 title \"Algo3\" with lines lc rgb \"red\" lw 3 \nset term postscript portrait \nset output \"01_courbes_vitesse.jpg\"\n\n# Taille tableau,	Temps1,	Temps2,	Temps3\n";
+
+    char * entete="set title \"Comparaison des temps d'execution\" \nset xlabel \"Taille tableau\" \nset ylabel \"Temps d'execution (s)\" \nplot \"sortie_vitesse.txt\" using 1:2 title \"Algo1\" with lines lc rgb \"blue\" lw 1.5 \nset term png\nset output \"01_courbes_vitesse.png\"\nreplot \"sortie_vitesse.txt\" using 1:3 title \"Algo2\" with lines lc rgb \"green\" lw 1.5, \"sortie_vitesse.txt\" using 1:4 title \"Algo3\" with lines lc rgb \"red\" lw 3\n\n# Taille tableau,	Temps1,	Temps2,	Temps3\n";
 
     fprintf(sortie,"%s",entete);
 

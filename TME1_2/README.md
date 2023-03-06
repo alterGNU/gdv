@@ -197,5 +197,5 @@ Les valeurs du tableau sont comprises entre [0, 100[.
 - exo2_3.c incrémente de maniére continue la taille du tableau et enregistre les resultats dans un fichiers puis utilise
   gnuplot pour générer un graphique permettant de visualiser le temps de calcul des differents algorithmes= complexité
   temporelle.:
-  - ![image](./01_courbes_vitesse.jpg)
+  - ![image](./01_courbes_vitesse.png)
  
