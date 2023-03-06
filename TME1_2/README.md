@@ -178,8 +178,8 @@ int main(){
 - `int som_car_dif(int *T, int t)` : Version limitant les calculs à la matrice triangulaire .
 - `int scd(int *T, int t)` : Version de meilleur complexité en supprimant l'imbrication des deux boucles for.
 
-#### Q.3 - Calcul et affichage du temps pris par les methodes
-- exo2.c permet de visualiser le résultat avant utilisation de gnuplot, voici le retour de valgrind:
+#### Q2.3 - Calcul et affichage du temps pris par les methodes
+- exo2p1a.c permet de visualiser le résultat avant utilisation de gnuplot, voici le retour de valgrind:
 ```bash
 Les valeurs du tableau sont comprises entre [0, 100[.
 [Taille tableau|Valeur trouvée|  Temps1  |  Temps2  |  Temps 3  ]
@@ -194,7 +194,7 @@ Les valeurs du tableau sont comprises entre [0, 100[.
 ==11519==   total heap usage: 6 allocs, 6 frees, 45,468 bytes allocated
 ```
 
-- exo2_3.c incrémente de maniére continue la taille du tableau et enregistre les resultats dans un fichiers puis utilise
+- exo2p1b.c incrémente de maniére continue la taille du tableau et enregistre les resultats dans un fichiers puis utilise
   gnuplot pour générer un graphique permettant de visualiser le temps de calcul des differents algorithmes= complexité
   temporelle.:
   - ![image](./01_courbes_vitesse.png)
@@ -205,3 +205,28 @@ Les valeurs du tableau sont comprises entre [0, 100[.
   - La courbe algo3 correspond a la fonction `scd(int *T, int t)` ayant une unique boucle for.On a donc une complexité
     ~O(n) où 2*n+2 opérations élémentaire sont effectuées.
  
+### Partie 2 : Tableau à deux dimensions (matrices)
+
+#### Q2.4 - Creation des fonctions:
+- Dans le fichier `./exo2p2.c` on créé les fonctions suivantes:
+    - `int** alloue_matrice(int n)`
+    - `void desalloue_matrice(int **M, int n)`
+    - `void remplir_matrice(int **M, int n, int v)`
+    - `void afficher_matrice(int **M, int n)`
+
+- Dont le valgrind retourne :
+    ```bash
+    ...
+    [ 14, 19, 53, 80, 95, 97]
+    [ 62,  0, 78, 89, 17, 39]
+    [ 24, 53,  8, 27, 27, 66]
+    [ 79, 48, 30, 71, 34, 23]
+    [ 79, 23, 49, 79, 20, 83]
+    [ 88, 34,  2, 93, 66, 49]
+    ==7747==
+    ==7747== HEAP SUMMARY:
+    ==7747==     in use at exit: 0 bytes in 0 blocks
+    ==7747==   total heap usage: 8 allocs, 8 frees, 1,360 bytes allocated
+    ...
+    ```
+
