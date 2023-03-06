@@ -105,7 +105,7 @@ int main(){
         tps_init = clock();
         s3 = scd(tab, taille);
         tps_fin = clock();
-        t2 = ((double)(tps_fin - tps_init))/ CLOCKS_PER_SEC;
+        t3 = ((double)(tps_fin - tps_init))/ CLOCKS_PER_SEC;
 
         assert((s1 == s2)&&(s2 == s3));
         printf("[%13d | %12ld |%10f|%10f|%10f ]\n",taille,s1,t1,t2,t3);

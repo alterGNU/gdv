@@ -179,17 +179,18 @@ int main(){
 - `int scd(int *T, int t)` : Version de meilleur complexité en supprimant l'imbrication des deux boucles for.
 
 #### Q.3 - Calcul et affichage du temps pris par les methodes
-- Résultat de valgrind (avant utilisation de gnuplot pour l'affichage des courbes):
+- exo2.c permet de visualiser le résultat avant utilisation de gnuplot, voici le retour de valgrind:
 ```bash
 Les valeurs du tableau sont comprises entre [0, 100[.
 [Taille tableau|Valeur trouvée|  Temps1  |  Temps2  |  Temps 3  ]
-[            1 |            0 |  0.000003|  0.000002|  0.000000 ]
-[           10 |       116496 |  0.000002|  0.000001|  0.000000 ]
-[          100 |      8541024 |  0.000073|  0.000002|  0.000000 ]
-[         1000 |    822658416 |  0.007008|  0.000011|  0.000000 ]
-[        10000 |  82114036944 |  0.266663|  0.000031|  0.000000 ]
+[            1 |            0 |  0.000004|  0.000003|  0.000006 ]
+[           10 |       121540 |  0.000004|  0.000003|  0.000003 ]
+[          100 |      7641451 |  0.000103|  0.000052|  0.000003 ]
+[         1000 |    863710876 |  0.009747|  0.004733|  0.000005 ]
+[        10000 |  82935707164 |  0.260068|  0.130243|  0.000031 ]
 ==11519== 
 ==11519== HEAP SUMMARY:
 ==11519==     in use at exit: 0 bytes in 0 blocks
 ==11519==   total heap usage: 6 allocs, 6 frees, 45,468 bytes allocated
 ```
+
