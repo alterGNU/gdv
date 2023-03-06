@@ -198,4 +198,10 @@ Les valeurs du tableau sont comprises entre [0, 100[.
   gnuplot pour générer un graphique permettant de visualiser le temps de calcul des differents algorithmes= complexité
   temporelle.:
   - ![image](./01_courbes_vitesse.png)
+  - La courbe algo1 correspond a la fonction `somme_carre_difference(int *T, int t)` ayant deux boucles for calculant
+    l'ensemble des combinaisons possibles, on a donc une complexité O(n²) où ~(3*n)²+1 opérations élémentaire sont effectuées.
+  - La courbe algo2 correspond a la fonction `som_car_diff(int *T, int t)` ayant deux boucles for calculant uniquement
+    les combinaisons differentes, on a donc une complexité O(n²) où ~(3*(n-1))²/2 opérations élémentaire sont effectuées.
+  - La courbe algo3 correspond a la fonction `scd(int *T, int t)` ayant une unique boucle for.On a donc une complexité
+    ~O(n) où 2*n+2 opérations élémentaire sont effectuées.
  
