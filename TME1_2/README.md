@@ -208,7 +208,7 @@ Les valeurs du tableau sont comprises entre [0, 100[.
 ### Partie 2 : Tableau à deux dimensions (matrices)
 
 #### Q2.4 - Creation des fonctions:
-- Dans le fichier `./exo2p2.c` on créé les fonctions suivantes:
+- Dans le fichier `./exo2p2a.c` on créé les fonctions suivantes:
     - `int** alloue_matrice(int n)`
     - `void desalloue_matrice(int **M, int n)`
     - `void remplir_matrice(int **M, int n, int v)`
@@ -231,7 +231,7 @@ Les valeurs du tableau sont comprises entre [0, 100[.
     ```
 
 #### Q2.5 - Determiner si les éléments d'une matrice sont différents
-- Ajout des fonctions:
+- Dans le fichier `exo2p2a.c` on ajoute les fonctions:
     - `void remplir_indice(int **M, int n, int v)`: remplissant une matrice par ses indices => matrice dont les éléments
       sont forcement différent, permet de tester les autres fonctions crées.
     - `int check_elements_differents(int **M, int n)`: retourne 0 si tous les élements sont différents, 1 sinon et fait
@@ -265,3 +265,32 @@ Les valeurs du tableau sont comprises entre [0, 100[.
       temps vers le pire des cas, le temps d'execution est trés éloigné de l'algo2.
     - On peut aussi observer que lorsque le nombre d'élément depasse celui de la borne supérieur, l'algo3 ne fait aucun
       calcul est determine qu'il y a forcement un doublons.
+
+#### Q2.6 - Produit matrices carrées
+- Dans le fichier `exo2p2b.c` on récupére les fonctions:
+    - `int** alloue_matrice(int n)`
+    - `void desalloue_matrice(int **M, int n)`
+    - `void remplir_matrice(int **M, int n, int v)`
+    - `void afficher_matrice(int **M, int n)`
+- Auxquelles on ajoute les fonctions:
+    - `int **produit_matrice_carre(int **m1, int**m2, int n)`: retourne la matrice produit des deux matrices carrées
+      passées en argument.
+
+- L'execution du programme retourne:
+    ```bash
+    ...
+    [  3,  6]
+    [  7,  5]
+    
+    [  3,  5]
+    [  6,  2]
+    
+    [ 45, 27]
+    [ 51, 45]
+    ==31891==
+    ==31891== HEAP SUMMARY:
+    ==31891==     in use at exit: 0 bytes in 0 blocks
+    ==31891==   total heap usage: 10 allocs, 10 frees, 1,168 bytes allocated
+    ...
+    ```
+
