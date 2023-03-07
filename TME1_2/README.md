@@ -293,4 +293,30 @@ Les valeurs du tableau sont comprises entre [0, 100[.
     ==31891==   total heap usage: 10 allocs, 10 frees, 1,168 bytes allocated
     ...
     ```
+- On ajoute les fonctions:
+    - `void remplir_matrice_Tsup(int **M, int n, int v)`:qui remplie une matrice triangulaire supérieure.
+    - `void remplir_matrice_Tinf(int **M, int n, int v)`:qui remplie une matrice triangulaire infiéreieur.
+    - `int **pt=prod_mat_tri(int **m1,int **m2,n)`: retourne la matrice produit des deux matrices triangulaire sup et
+      inf passée en paramètre
+    - `int identique(int **m1, int **m2, int n)`:qui retourne 0 si deux matrices sont identiques, 1 si non.
+
+- ![image](./produit_matrice_carre.png)
+```c
+int ** prod_mat_tri(int **m1, int ** m2, int n){
+    // retourne le produit d'une matrice triangulaire SUP par une INF
+    int **res=alloue_matrice(n);
+    for (int i=0;i<n;i++){
+        for (int j=0;j<n;j++){
+            for (int k=(i>j)?i:j;k<n;k++){
+                res[i][j]+=m1[i][k]*m2[k][j];
+            }
+        }
+    }
+    return res;
+}
+```
+- Interprétation des résultats:
+    - On observe que l'ecart entre l'algo1 de complexité O(n³) est l'algo2 O((2n/3)³) ne prenant pas en compte les zeros des
+      matrices triangulaires se creusent plus le nombre d'element des matrices augmente.
+
 
