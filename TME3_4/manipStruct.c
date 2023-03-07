@@ -1,5 +1,4 @@
 #include <stdio.h>    // pr printf
-#include <stdlib.h>   // pr free, exit
 #include "biblioLC.h" // pour struct Livre et Biblio
 #define BUFF 100      // taille max str
 

@@ -4,7 +4,7 @@
 
 ### Q1.1 : Creation header
 ### Q1.2 : Creation fonctions
-- Apres avoir créer les fonctions demandées, on les tests via l'execution de ce main.c :
+- Apres avoir créer les fonctions demandées, on les tests via l'execution de ce fichier manipStruct.c :
     ```c
     #include <stdio.h>    // pr printf
     #include <stdlib.h>   // pr free, exit
@@ -32,7 +32,7 @@
         
         return 0;
     ```
-- Le test (valgrind) retourne alors:
+- La cmd `gcc -Wall -o manipStruct manipStruct.c biblioLC.c && valgrind --leak-check=yes ./manipStruct` retourne alors:
     ```bash
     ...
     Créons une bibliothèque:
