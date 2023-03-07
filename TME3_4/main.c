@@ -1,19 +1,26 @@
-#include <stdio.h>    // pr printf scanf ...
-#include "biblioLC.h" // pr struct
+#include <stdio.h>    // pr printf
+#include <stdlib.h>   // pr free, exit
+#include "biblioLC.h" // pour struct Livre et Biblio
 #define BUFF 100      // taille max str
 
 int main(int argc, char *argv[]){
-    printf("Hello World!\nCréons des livres:\n");
+    printf("Créons une bibliothèque:\n");
 
-    char t[BUFF], a[BUFF];
-    printf("Entrer le titre du livre <espace> le nom de l'auteur (titre et non sans espace svp)\n");
-    scanf("%s %s", t, a);
+    char *t2="jeanBLOGUIN";
+    char *a2="humourNoir";
 
-    char *title=t;
-    char *autor=a;
+    char *t3="jean-michelFAURE";
+    char *a3="gin&co_obs&trick";
 
-    Livre* l1 = creer_livre(1 ,title ,autor);
-    afficher_livre(l1);
-    liberer_livre(l1);
+    Biblio* b1 = creer_biblio();
+
+    inserer_en_tete(b1, 1, t2, a2);
+    afficher_biblio(b1);
+
+    inserer_en_tete(b1, 2, t3, a3);
+    afficher_biblio(b1);
+
+    liberer_Biblio(b1);
+    
     return 0;
 }
