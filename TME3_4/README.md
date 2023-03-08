@@ -82,3 +82,10 @@
     ```
 - On constate qu'a l'issue de l'execution un ficher `save.txt` à bien été créé et contient l'ensemble de la bibliotheque
   au format demandé.
+
+### Q1.4 : Creation du main
+### Q1.5 : Creation du Makefile
+- Ajout des commandes:
+    - `make` : compile le main de la question 1.4.
+    - `make clean` : supprime le binaire du main ainsi que le fichier `save.txt` qu'il génére.
+### Q1.6 : Ajout de fonctions utiles
