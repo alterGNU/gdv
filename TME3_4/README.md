@@ -96,3 +96,5 @@
   si pas trouvé.
 - `void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur);` ~O(n) Supprime en parcourant la liste le
   livre correspondant aux 3arguments de la fonction
+- `Biblio *fusion(Biblio* b1, Biblio* b2);` soit b1 de taille n et b2 de taille m => ~O(n) Ajoute b2 à la suite de b1
+  puis supprime b1(b1->NULL, le free de la structure doit se faire dans le main via liberer_Biblio()).

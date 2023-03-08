@@ -29,5 +29,6 @@ Livre* search_by_num(Biblio* b,int num);
 Livre* search_by_title(Biblio* b,char *title);
 Biblio* same_autor(Biblio* b,char *autor);
 void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur);
+void fusion(Biblio* b1, Biblio* b2);
 
 #endif

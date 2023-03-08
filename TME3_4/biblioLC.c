@@ -20,9 +20,11 @@ Livre* creer_livre(int num, char *titre, char *auteur){
 }
 
 void liberer_livre(Livre* l){
-    free(l->titre);
-    free(l->auteur);
-    free(l);
+    if (l){              // Libére le livre passé en argument s'il n'est pas NULL
+        free(l->titre);
+        free(l->auteur);
+        free(l);
+    }
 }
 
 void afficher_livre(Livre *l){
@@ -42,16 +44,15 @@ Biblio* creer_biblio(){
 
 void afficher_biblio(Biblio* b){
     Livre *tmp = b->L;
-    if (tmp==NULL){
-        printf("La bibliotheque est vide\n");
-    }else{
-        printf("Voici les livres de la bibliothque:\n");
-        while (tmp!=NULL){
-            printf("\t- ");
-            afficher_livre(tmp);
-            tmp = tmp->suiv;
-        }
+    printf("Voici les livres de la bibliothque:\n");
+    int cpt=0;
+    while (tmp!=NULL){
+        printf("\t- ");
+        afficher_livre(tmp);
+        tmp = tmp->suiv;
+        cpt++;
     }
+    printf("La bibliotheque contient %d livre%s\n",cpt,(cpt!=0)?"s.":".");
 }
 
 void liberer_Biblio(Biblio* b){
@@ -62,6 +63,7 @@ void liberer_Biblio(Biblio* b){
         liberer_livre(l);
         l = n;
     }
+    b->L = NULL;
     free(b);
 }
 
@@ -126,7 +128,19 @@ void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur){
             }
             ante->suiv = (tmp) ? tmp->suiv : tmp; // ternaire pr cas où tmp est NULL ou non
         }
+        liberer_livre(tmp); // Possible car liberer_livre verifie si Livre != NULL
     }
     free(t);
     free(a);
 }
+
+void fusion(Biblio* b1, Biblio* b2){
+    if (b2==NULL){return ;}                           // Cas trivial où b2 vide
+    Livre *tmp1 = b1->L;
+    if (tmp1!=NULL){
+        while (tmp1->suiv!=NULL){ tmp1 = tmp1->suiv;} // parcour b1 jusqu'au bout
+    }
+    tmp1->suiv = b2->L;                               // joint fin b1 avec debur b2
+    b2->L = NULL;                                     // supprime l'entéte de b2
+}
+

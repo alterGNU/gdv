@@ -1,9 +1,27 @@
 #include <stdio.h>          // pour printf, FILE , fopen, fclose
 #include <stdlib.h>         // pour atoi
+#include <time.h>           // pour time...
 #include "biblioLC.h"       // pour struct Livre et Biblio
 #include "entreeSortieLC.h" // pour struct Livre et Biblio
 
+char* nom_alea(int t){
+    char * res = (char *) malloc(t*sizeof(char));
+    for( int i = 0; i < t; ++i){
+        res[i] = 'A' + random()%26;
+    }
+    return res;
+}
+
+char* titre_alea(int t){
+    char * res = (char *) malloc(t*sizeof(char));
+    for( int i = 0; i < t; ++i){
+        res[i] = 'a' + rand()%26;
+    }
+    return res;
+}
+
 int main(int argc, char *argv[]){
+    srand(time(NULL)); // change la seed pour faire varier la génération de nombre aléatoire.
     if (argc<3){
         printf("Manque des arguments:\nUsage : %s <nom_fichier> <nbr_ligne>\n",argv[0]);
         return 1;
@@ -64,6 +82,7 @@ int main(int argc, char *argv[]){
     printf("\nVoici la biblio de l'auteur 'jeanneDo':\n");
     afficher_biblio(b3);
     liberer_Biblio(b3);
+    liberer_Biblio(b);
     
     // test supprimer_ouvrage() --> utilisation de la biblio b1 de l'auteur xdrwv
     int i[5]={-1,3,544,2261,4211};
@@ -80,16 +99,16 @@ int main(int argc, char *argv[]){
     supprimer_ouvrage(b1,i[0],t[0],a[1]);// echec que auteur bon
     printf("\t- Livre = %d, %s, %s\n",i[0],t[0],a[1]);
     afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[4],t[1],a[1]);// Suppression livre du debut
+    supprimer_ouvrage(b1,i[4],t[1],a[1]);// Suppression dernier
     printf("Apres suppression dernier livre:(%d, %s, %s)\n",i[4],t[1],a[1]);
     afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[2],t[1],a[1]);// Suppression livre du milieu
+    supprimer_ouvrage(b1,i[2],t[1],a[1]);// Suppression millieu
     printf("Apres suppression du livre central:(%d, %s, %s)\n",i[2],t[1],a[1]);
     afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[3],t[1],a[1]);// Suppression livre du debut
+    supprimer_ouvrage(b1,i[3],t[1],a[1]);// Suppression debut
     printf("Apres suppression du 1er livre:(%d, %s, %s)\n",i[3],t[1],a[1]);
     afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[1],t[1],a[1]);// Suppression livre du debut
+    supprimer_ouvrage(b1,i[1],t[1],a[1]);// Suppression debut
     printf("Apres suppression du seul livre:(%d, %s, %s)\n",i[1],t[1],a[1]);
     afficher_biblio(b1);
     supprimer_ouvrage(b1,i[0],t[0],a[0]);// echec car rien de bon
@@ -97,8 +116,39 @@ int main(int argc, char *argv[]){
     afficher_biblio(b1);
 
     liberer_Biblio(b1);
+    
+    //test fusion(f1, f2)
+    
+    // creation aleatoire de livre pour la biblio f1
+    Biblio *f1 = creer_biblio();
+    for (int i=1;i<=4;i++){
+        char* titre=titre_alea(4*i);
+        char* auteur=nom_alea(2*i);
+        inserer_en_tete(f1, i,titre , auteur);
+        free(titre);
+        free(auteur);
+    }
+    // creation aleatoire de livre pour la biblio f2
+    Biblio *f2=creer_biblio();
+    for (int i=1;i<=2;i++){
+        char* titre=titre_alea(4*i);
+        char* auteur=nom_alea(2*i);
+        inserer_en_tete(f2, i,titre , auteur);
+        free(titre);
+        free(auteur);
+    }
 
-    liberer_Biblio(b);
-   
+    printf("AVANT:\n");
+    afficher_biblio(f1);
+    afficher_biblio(f2);
+
+    fusion(f1,f2);
+    printf("APRES FUSION:\n");
+    afficher_biblio(f1);
+    afficher_biblio(f2);
+
+    liberer_Biblio(f1);
+    liberer_Biblio(f2);
+
     return 0;
 }
