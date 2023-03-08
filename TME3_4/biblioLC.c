@@ -45,7 +45,7 @@ void afficher_biblio(Biblio* b){
     if (tmp==NULL){
         printf("La bibliotheque est vide\n");
     }else{
-        printf("Voici les livres des la bibliothque:\n");
+        printf("Voici les livres de la bibliothque:\n");
         while (tmp!=NULL){
             printf("\t- ");
             afficher_livre(tmp);
@@ -83,8 +83,22 @@ Livre* search_by_title(Biblio* b,char *title){
     char* t = (char *)malloc(sizeof(strlen(title)*sizeof(char)));
     strcpy(t, title);
     Livre* tmp = b->L;
-    while (tmp!=NULL && strcmp(tmp->titre,title)){
+    while (tmp!=NULL && strcmp(tmp->titre,title)!=0){
         tmp=tmp->suiv;
     }
     return tmp;
+}
+
+Biblio* same_autor(Biblio* b,char *autor){
+    Biblio* res=creer_biblio();
+    char* a = (char *)malloc(sizeof(strlen(autor)*sizeof(char)));
+    strcpy(a, autor);
+    Livre* tmp = b->L;
+    while (tmp!=NULL){
+        if(strcmp(tmp->auteur,a)==0){
+            inserer_en_tete(res,tmp->num,tmp->titre,tmp->auteur);
+        }
+        tmp=tmp->suiv;
+    }
+    return res;
 }
