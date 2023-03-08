@@ -3,7 +3,7 @@
 ## Exo1 : Gestion d'une bibliothèque avec une liste chaînée de struct
 
 ### Q1.1 : Creation header
-### Q1.2 : Creation fonctions
+### Q1.2 : Creation fonctions manipulation des structures
 - Apres avoir créer les fonctions demandées, on les tests via l'execution de ce fichier manipStruct.c :
     ```c
     #include <stdio.h>    // pr printf
@@ -47,3 +47,38 @@
     ==62930==   total heap usage: 4 allocs, 4 frees, 1,096 bytes allocated
     ...
     ```
+### Q1.3 : Creation fonctions manipulation de fichiers
+- Apres avoir créer les fonctions demandées, on les tests via l'execution de ce fichier manipES.c :
+    ```bash
+    ...
+    char * nomfichier=argv[1];
+    Biblio* b = charger_n_entrees(nomfichier, SIZEDICO);
+    afficher_biblio(b);
+    enregistrer_bilbio(b, "save.txt");
+    liberer_Biblio(b);
+    ...
+    ```
+- La cmd `gcc -Wall -o test manipES.c biblioLC.c entreeSortieLC.c && valgrind --leak-check=yes ./test GdeBiblio.txt` retourne alors:
+    ```bash
+    ...
+    Voici les livres des la bibliothque:
+    	- n°:9,"KMLNOZJKPQPXR" de *xkitzyxa*
+    	- n°:8,"WPQCA" de *ehchzvf*
+    	- n°:7,"SOFS" de *cnuvqhffbsaq*
+    	- n°:6,"LJPTNSNFWZQFJMA" de *adrr*
+    	- n°:5,"JIVSWMDKQT" de *xixmvtrr*
+    	- n°:4,"FWKHOPKMCOQHNWNKUE" de *hsqmgbbuqcl*
+    	- n°:3,"KEZXDU" de *xdrwv*
+    	- n°:2,"JYBLD" de *efsarcbynecd*
+    	- n°:1,"SCDXRJ" de *owfrx*
+    	- n°:0,"WLRBBMQBHCDARZOWK" de *yhidd*
+    ==78794== HEAP SUMMARY:
+    ==78794==     in use at exit: 0 bytes in 0 blocks
+    ==78794==   total heap usage: 36 allocs, 36 frees, 10,648 bytes allocated
+    ==78794==
+    ==78794== All heap blocks were freed -- no leaks are possible
+    ...
+
+    ```
+- On constate qu'a l'issue de l'execution un ficher `save.txt` à bien été créé et contient l'ensemble de la bibliotheque
+  au format demandé.

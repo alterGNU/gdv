@@ -15,15 +15,23 @@ Biblio* charger_n_entrees(char * nomfic, int n){
         int num;
         char titre[BUFF], auteur[BUFF];
         sscanf(str,"%d %s %s",&num,titre,auteur);
-        printf("Le livre n°:%d à pour titre '%s' et pour auteur: '%s'\n",num,titre,auteur);
         inserer_en_tete(b, num, titre, auteur);
-        afficher_biblio(b);
         cpt++;
     }
     fclose(entree);
     return b;
 }
 
-//void enregistrer_bilbio(Biblio* b, char *nomfic){
-//}
+void enregistrer_bilbio(Biblio* b, char *nomfic){
+    FILE * sortie = NULL;
+    sortie = fopen (nomfic, "w");
+    if(sortie == NULL) {printf("Error: fopen failed\n"); exit(3); }
+
+    Livre *l = b->L;
+    while (l!=NULL){
+        fprintf(sortie,"%d %s %s\n",l->num, l->titre, l->auteur);
+        l = l->suiv;
+    }
+    fclose(sortie);
+}
 

@@ -16,6 +16,7 @@ int main(int argc, char *argv[]){
     char * nomfichier=argv[1];
     Biblio* b = charger_n_entrees(nomfichier, SIZEDICO);
     afficher_biblio(b);
+    enregistrer_bilbio(b, "save.txt");
     liberer_Biblio(b);
    
     return 0;
