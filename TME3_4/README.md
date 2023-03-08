@@ -92,3 +92,5 @@
 - ` void afficher_livre(Livre *l);` :  ~O(1) Affiche le contenue d'une struct Livre
 - ` void afficher_biblio(Biblio* b);` : ~O(n) Parcour la liste chainée de taille n et affiche via la fonction afficher_livre chaque
   cellule (livre) qui la compose
+- ` Livre* search_by_num(Biblio* b, int num);` :  ~O(n) Recherche (par son attribut num) et retourne le Livre d'une Biblio, retourn NULL
+  si pas trouvé.

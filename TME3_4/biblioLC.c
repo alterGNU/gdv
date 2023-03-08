@@ -26,7 +26,11 @@ void liberer_livre(Livre* l){
 }
 
 void afficher_livre(Livre *l){
-    printf("n°:%d,\"%s\" de *%s*\n",l->num,l->titre,l->auteur);
+    if (l!=NULL){
+        printf("n°:%d,\"%s\" de *%s*\n",l->num,l->titre,l->auteur);
+    }else{
+        printf("Il n'y a pas de livre\n");
+    }
 }
 
 Biblio* creer_biblio(){
@@ -65,4 +69,22 @@ void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur){
     Livre *new = creer_livre(num, titre, auteur);
     (new->suiv) = (b->L);
     (b->L) = new;
+}
+
+Livre* search_by_num(Biblio* b,int num){
+    Livre* tmp = b->L;
+    while (tmp!=NULL && tmp->num!=num){
+        tmp=tmp->suiv;
+    }
+    return tmp;
+}
+
+Livre* search_by_title(Biblio* b,char *title){
+    char* t = (char *)malloc(sizeof(strlen(title)*sizeof(char)));
+    strcpy(t, title);
+    Livre* tmp = b->L;
+    while (tmp!=NULL && strcmp(tmp->titre,title)){
+        tmp=tmp->suiv;
+    }
+    return tmp;
 }
