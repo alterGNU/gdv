@@ -94,3 +94,5 @@
   cellule (livre) qui la compose
 - ` Livre* search_by_num(Biblio* b, int num);` :  ~O(n) Recherche (par son attribut num) et retourne le Livre d'une Biblio, retourn NULL
   si pas trouvé.
+- `void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur);` ~O(n) Supprime en parcourant la liste le
+  livre correspondant aux 3arguments de la fonction

@@ -9,7 +9,7 @@ Livre* creer_livre(int num, char *titre, char *auteur){
     char* title = (char *)malloc(sizeof(strlen(titre)*sizeof(char)));
     if(title == NULL) {printf("Error: Out of memory\n"); exit(-2); }
     char* autor = (char *)malloc(sizeof(strlen(auteur)*sizeof(char)));
-    if(title == NULL) {printf("Error: Out of memory\n"); exit(-2); }
+    if(autor == NULL) {printf("Error: Out of memory\n"); exit(-2); }
     res->num = num;
     strcpy(title, titre);
     strcpy(autor, auteur);
@@ -81,17 +81,20 @@ Livre* search_by_num(Biblio* b,int num){
 
 Livre* search_by_title(Biblio* b,char *title){
     char* t = (char *)malloc(sizeof(strlen(title)*sizeof(char)));
+    if(t == NULL) {printf("Error: Out of memory\n"); exit(-1); }
     strcpy(t, title);
     Livre* tmp = b->L;
-    while (tmp!=NULL && strcmp(tmp->titre,title)!=0){
+    while (tmp!=NULL && strcmp(tmp->titre,t)!=0){
         tmp=tmp->suiv;
     }
+    free(t);
     return tmp;
 }
 
 Biblio* same_autor(Biblio* b,char *autor){
     Biblio* res=creer_biblio();
     char* a = (char *)malloc(sizeof(strlen(autor)*sizeof(char)));
+    if(a == NULL) {printf("Error: Out of memory\n"); exit(-1); }
     strcpy(a, autor);
     Livre* tmp = b->L;
     while (tmp!=NULL){
@@ -100,5 +103,30 @@ Biblio* same_autor(Biblio* b,char *autor){
         }
         tmp=tmp->suiv;
     }
+    free(a);
     return res;
+}
+
+void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur){
+    char* t = (char *)malloc(sizeof(strlen(titre)*sizeof(char)));
+    if(t == NULL) {printf("Error: Out of memory\n"); exit(-2); }
+    strcpy(t, titre);
+    char* a = (char *)malloc(sizeof(strlen(auteur)*sizeof(char)));
+    if(a == NULL) {printf("Error: Out of memory\n"); exit(-2); }
+    strcpy(a, auteur);
+    Livre* tmp = b->L;
+    if(tmp!=NULL){                                                                // permet d'eviter le cas ou bibliotheque est vide
+        if(tmp->num==num && strcmp(tmp->titre,t)==0 && strcmp(tmp->auteur,a)==0){ // cas où 1er occurence = 1 livre de la liste chainée
+            b->L=tmp->suiv;
+        }else{                                                                    // autre cas
+            Livre* ante = tmp;
+            while ((tmp!=NULL)&&(tmp->num!=num || strcmp(tmp->titre,t)!=0 || strcmp(tmp->auteur,a)!=0)){
+                ante = tmp;
+                tmp=tmp->suiv;
+            }
+            ante->suiv = (tmp) ? tmp->suiv : tmp; // ternaire pr cas où tmp est NULL ou non
+        }
+    }
+    free(t);
+    free(a);
 }

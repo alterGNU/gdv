@@ -54,7 +54,6 @@ int main(int argc, char *argv[]){
     Biblio* b1 = same_autor(b,name1);
     printf("\nVoici la biblio de l'auteur '%s':\n",name1);
     afficher_biblio(b1);
-    liberer_Biblio(b1);
     // par str n'ayant qu'une occurence
     Biblio* b2 = same_autor(b,"yhidd");
     printf("\nVoici la biblio de l'auteur 'yhidd':\n");
@@ -65,6 +64,39 @@ int main(int argc, char *argv[]){
     printf("\nVoici la biblio de l'auteur 'jeanneDo':\n");
     afficher_biblio(b3);
     liberer_Biblio(b3);
+    
+    // test supprimer_ouvrage() --> utilisation de la biblio b1 de l'auteur xdrwv
+    int i[5]={-1,3,544,2261,4211};
+    char *t[2]={"ProgMath", "KEZXDU"};
+    char *a[2]={"M.Minoux", "xdrwv"};
+    printf("Avant:\n");
+    afficher_biblio(b1);
+    supprimer_ouvrage(b1,i[0],t[0],a[0]);// echec car rien de bon
+    printf("Apres tentative de suppression\n\t- Livre = %d, %s, %s\n",i[0],t[0],a[0]);
+    supprimer_ouvrage(b1,i[1],t[0],a[0]);// echec que num bon
+    printf("\t- Livre = %d, %s, %s\n",i[1],t[0],a[0]);
+    supprimer_ouvrage(b1,i[0],t[1],a[0]);// echec que titre bon
+    printf("\t- Livre = %d, %s, %s\n",i[0],t[1],a[0]);
+    supprimer_ouvrage(b1,i[0],t[0],a[1]);// echec que auteur bon
+    printf("\t- Livre = %d, %s, %s\n",i[0],t[0],a[1]);
+    afficher_biblio(b1);
+    supprimer_ouvrage(b1,i[4],t[1],a[1]);// Suppression livre du debut
+    printf("Apres suppression dernier livre:(%d, %s, %s)\n",i[4],t[1],a[1]);
+    afficher_biblio(b1);
+    supprimer_ouvrage(b1,i[2],t[1],a[1]);// Suppression livre du milieu
+    printf("Apres suppression du livre central:(%d, %s, %s)\n",i[2],t[1],a[1]);
+    afficher_biblio(b1);
+    supprimer_ouvrage(b1,i[3],t[1],a[1]);// Suppression livre du debut
+    printf("Apres suppression du 1er livre:(%d, %s, %s)\n",i[3],t[1],a[1]);
+    afficher_biblio(b1);
+    supprimer_ouvrage(b1,i[1],t[1],a[1]);// Suppression livre du debut
+    printf("Apres suppression du seul livre:(%d, %s, %s)\n",i[1],t[1],a[1]);
+    afficher_biblio(b1);
+    supprimer_ouvrage(b1,i[0],t[0],a[0]);// echec car rien de bon
+    printf("Apres tentative de suppression d'une biblioVide\n");
+    afficher_biblio(b1);
+
+    liberer_Biblio(b1);
 
     liberer_Biblio(b);
    
