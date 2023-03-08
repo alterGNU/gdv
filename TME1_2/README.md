@@ -41,7 +41,7 @@ gcc -ggdb -o tme1_exo1p1 tme1_exo1p1.c && gdb tme1_exo1p1
 - A la lecture du programme on suppose qu'il doit:
     - Utiliser la fonction `creer_adresse` qui :
         - alloue dynamiquement l'espace necessaire pour la structure adresse
-        - affectation des valeurs aux differents attributs de cette structure
+        - affectation des valeurs aux differents champs de cette structure
         - puis retourne le pointeur vers l'instance de la structure ainsi créée
     - Affiche les valeurs de l'instance d'adresse crée.
 - Compilation, execution et retour:
@@ -89,12 +89,12 @@ __strcpy_sse2_unaligned () at ../sysdeps/x86_64/multiarch/strcpy-sse2-unaligned.
     - Initialise une structure tableau contenant un tableau d'entier tableau->tab de taille 100 via la fonction
       `initTableau` qui:
         - alloue dynamiquement l'espace necessaire pour la structure tableau
-        - affectations des valeurs des differents attributs de cette structure
-        - alloue dynamiquement l'espace necessaire pour l'attribut tableau->tab
+        - affectations des valeurs des differents champs de cette structure
+        - alloue dynamiquement l'espace necessaire pour le champ tableau->tab
         - puis retourne le pointeur vers l'instance de la structure ainsi créée
     - Ajout de 5 éléments via la fonction `ajouterElement` qui:
         - ajoute a la derniére position du tableau l'element a passé en argument
-        - incrémente l'attribut tableau->position (correspond au dernier indice du tableau->tab)
+        - incrémente le champ tableau->position (correspond au dernier indice du tableau->tab)
     - Affiche le tableau ainsi crée et modifié via la commande `affichageTableau`
 - Compilation, execution et retour:
     ```bash
@@ -137,7 +137,7 @@ valgrind --leak-check=yes ./tme1 exo1p3
 ==12996== For counts of detected and suppressed errors, rerun with: -v
 ==12996== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
 ```
-- On constate que des fuites mémoires sont détéctées, les 400bytes correspondent à l'espace alloué pour lL'attribut
+- On constate que des fuites mémoires sont détéctées, les 400bytes correspondent à l'espace alloué pour lle champ
   tableau->tab correspondant à un tableau de 5 entiers
 
 #### Q1.9

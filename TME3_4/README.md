@@ -89,3 +89,6 @@
     - `make` : compile le main de la question 1.4.
     - `make clean` : supprime le binaire du main ainsi que le fichier `save.txt` qu'il génére.
 ### Q1.6 : Ajout de fonctions utiles
+- ` void afficher_livre(Livre *l);` :  ~O(1) Affiche le contenue d'une struct Livre
+- ` void afficher_biblio(Biblio* b);` : ~O(n) Parcour la liste chainée de taille n et affiche via la fonction afficher_livre chaque
+  cellule (livre) qui la compose
