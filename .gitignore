@@ -4,6 +4,10 @@
 !*.*
 
 # Swapfiles
+!Makefile
+
+
+# Swapfiles
 *.swp
 
 # Prerequisites
