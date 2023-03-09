@@ -98,3 +98,6 @@
   livre correspondant aux 3arguments de la fonction
 - `Biblio *fusion(Biblio* b1, Biblio* b2);` soit b1 de taille n et b2 de taille m => ~O(n) Ajoute b2 à la suite de b1
   puis supprime b1(b1->NULL, le free de la structure doit se faire dans le main via liberer_Biblio()).
+- `void add_if_new(Biblio* b,int num, char *titre, char *auteur);` ~O(n) crée puis ajoute en queue un livre uniquement
+  s'il n'est pas deja présent dans la bibliothèque.
+- `Livre* recherche_livres_meme_titre_auteur(Biblio* b, int n)` : ~O(n^2) 

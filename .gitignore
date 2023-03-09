@@ -9,6 +9,7 @@
 
 # Swapfiles
 *.swp
+*.swo
 
 # Prerequisites
 *.d

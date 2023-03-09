@@ -1,20 +1,16 @@
 #include <stdio.h>    // pr printf
 #include <stdlib.h>   // pr free, exit
-#include <string.h>    // pr strlen
+#include <string.h>   // pr strlen
+#include <stdbool.h>  // pr type bool
 #include "biblioLC.h" // pour struct Livre et Biblio
 
 Livre* creer_livre(int num, char *titre, char *auteur){
     Livre* res = malloc(sizeof(Livre));
     if(res == NULL) {printf("Error: Out of memory\n"); exit(-1); }
-    char* title = (char *)malloc(sizeof(strlen(titre)*sizeof(char)));
-    if(title == NULL) {printf("Error: Out of memory\n"); exit(-2); }
-    char* autor = (char *)malloc(sizeof(strlen(auteur)*sizeof(char)));
-    if(autor == NULL) {printf("Error: Out of memory\n"); exit(-2); }
+
     res->num = num;
-    strcpy(title, titre);
-    strcpy(autor, auteur);
-    res->titre=title;
-    res->auteur=autor;
+    res->titre = strdup(titre); // alloue et copie la chaîne de caractères titre
+    res->auteur = strdup(auteur); // alloue et copie la chaîne de caractères auteur
     res->suiv = NULL;
     return res;
 }
@@ -73,6 +69,7 @@ void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur){
     (b->L) = new;
 }
 
+
 Livre* search_by_num(Biblio* b,int num){
     Livre* tmp = b->L;
     while (tmp!=NULL && tmp->num!=num){
@@ -82,9 +79,7 @@ Livre* search_by_num(Biblio* b,int num){
 }
 
 Livre* search_by_title(Biblio* b,char *title){
-    char* t = (char *)malloc(sizeof(strlen(title)*sizeof(char)));
-    if(t == NULL) {printf("Error: Out of memory\n"); exit(-1); }
-    strcpy(t, title);
+    char * t = strdup(title); // alloue et copie la chaîne de caractères titre
     Livre* tmp = b->L;
     while (tmp!=NULL && strcmp(tmp->titre,t)!=0){
         tmp=tmp->suiv;
@@ -95,9 +90,7 @@ Livre* search_by_title(Biblio* b,char *title){
 
 Biblio* same_autor(Biblio* b,char *autor){
     Biblio* res=creer_biblio();
-    char* a = (char *)malloc(sizeof(strlen(autor)*sizeof(char)));
-    if(a == NULL) {printf("Error: Out of memory\n"); exit(-1); }
-    strcpy(a, autor);
+    char* a = strdup(autor);
     Livre* tmp = b->L;
     while (tmp!=NULL){
         if(strcmp(tmp->auteur,a)==0){
@@ -110,15 +103,11 @@ Biblio* same_autor(Biblio* b,char *autor){
 }
 
 void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur){
-    char* t = (char *)malloc(sizeof(strlen(titre)*sizeof(char)));
-    if(t == NULL) {printf("Error: Out of memory\n"); exit(-2); }
-    strcpy(t, titre);
-    char* a = (char *)malloc(sizeof(strlen(auteur)*sizeof(char)));
-    if(a == NULL) {printf("Error: Out of memory\n"); exit(-2); }
-    strcpy(a, auteur);
+    char* t = strdup(titre);
+    char* a = strdup(auteur);
     Livre* tmp = b->L;
     if(tmp!=NULL){                                                                // permet d'eviter le cas ou bibliotheque est vide
-        if(tmp->num==num && strcmp(tmp->titre,t)==0 && strcmp(tmp->auteur,a)==0){ // cas où 1er occurence = 1 livre de la liste chainée
+        if(tmp->num==num && strcmp(tmp->titre,t)==0 && strcmp(tmp->auteur,a)==0){ // cas où 1er octmpence = 1 livre de la liste chainée
             b->L=tmp->suiv;
         }else{                                                                    // autre cas
             Livre* ante = tmp;
@@ -142,5 +131,38 @@ void fusion(Biblio* b1, Biblio* b2){
     }
     tmp1->suiv = b2->L;                               // joint fin b1 avec debur b2
     b2->L = NULL;                                     // supprime l'entéte de b2
+}
+
+void add_if_new(Biblio* b,int num, char *titre, char *auteur){
+    Livre * p = b->L;
+    if(!p){inserer_en_tete(b,num,titre,auteur);return;}// si biblio vide ajoute au debut
+    int cpt=0;
+    Livre * last;
+    while(p){
+        if(p->num == num && strcmp(p->titre,titre)==0 && strcmp(p->auteur,auteur)==0){
+            printf("Ajout impossible car le livre se trouve deja à la position %d de la biblio\n",cpt);
+            return;
+        }
+        cpt++;
+        last = p;
+        p = p->suiv;
+    }
+    last->suiv = creer_livre(num, titre, auteur);
+}
+
+Biblio* recherche_livres_meme_titre_auteur(Biblio* b){
+    Biblio* res =  creer_biblio();
+    Livre* tmp1 = b->L;
+    while(tmp1){
+        Livre * tmp2=tmp1->suiv;
+        while(tmp2){
+            if(strcmp(tmp1->titre,tmp2->titre)==0 && strcmp(tmp1->auteur,tmp2->auteur)==0){
+                inserer_en_tete(res, tmp2->num, tmp2->titre, tmp2->auteur);
+            }
+            tmp2 = tmp2->suiv;
+        }
+        tmp1 = tmp1->suiv;
+    }
+    return res;
 }
 

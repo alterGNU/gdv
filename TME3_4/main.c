@@ -82,7 +82,6 @@ int main(int argc, char *argv[]){
     printf("\nVoici la biblio de l'auteur 'jeanneDo':\n");
     afficher_biblio(b3);
     liberer_Biblio(b3);
-    liberer_Biblio(b);
     
     // test supprimer_ouvrage() --> utilisation de la biblio b1 de l'auteur xdrwv
     int i[5]={-1,3,544,2261,4211};
@@ -149,6 +148,20 @@ int main(int argc, char *argv[]){
 
     liberer_Biblio(f1);
     liberer_Biblio(f2);
+
+    // Test de add_if_new
+    char *  tLivre[6] = { "Le_Petit_Prince", "Les_Misérables", "Voyage_au_centre_de_la_Terre", "1984", "Le_Comte_de_Monte-Cristo", "Les_Fourmis"};
+    char *  aLivre[6] = { "Antoine_de_Saint-Exupéry", "Victor_Hugo", "Jules_Verne", "George_Orwell", "Alexandre_Dumas", "Bernard_Werber"};
+
+    Biblio* testAdd = creer_biblio();
+    for (int i=0;i<12;i++){
+        int indice = i%6;
+        add_if_new(testAdd, indice, tLivre[indice], aLivre[indice]);
+        afficher_biblio(testAdd);
+    }
+    liberer_Biblio(testAdd);
+    
+    liberer_Biblio(b);
 
     return 0;
 }
