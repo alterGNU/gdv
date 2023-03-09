@@ -102,3 +102,6 @@
   s'il n'est pas deja présent dans la bibliothèque.
 - `Biblio* recherche_doublons(Biblio* b)` : ~O(n^2) parcours la bibliothèque à la recherche des doublons(meme auteur et
   meme titre), puis les regroupents dans une bibliotheque qu'elle retourne.
+### Q1.{7,8} : main interactif
+- ` void menu();` :  Affiche l'ensemble des actions possibles la bibliotheque
+

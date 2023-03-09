@@ -136,14 +136,9 @@ void fusion(Biblio* b1, Biblio* b2){
 void add_if_new(Biblio* b,int num, char *titre, char *auteur){
     Livre * p = b->L;
     if(!p){inserer_en_tete(b,num,titre,auteur);return;}// si biblio vide ajoute au debut
-    int cpt=0;
     Livre * last;
     while(p){
-        if(p->num == num && strcmp(p->titre,titre)==0 && strcmp(p->auteur,auteur)==0){
-            printf("Ajout impossible car le livre se trouve deja à la position %d de la biblio\n",cpt);
-            return;
-        }
-        cpt++;
+        if(p->num == num && strcmp(p->titre,titre)==0 && strcmp(p->auteur,auteur)==0){ return; }
         last = p;
         p = p->suiv;
     }

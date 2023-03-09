@@ -2,7 +2,7 @@
 #include <stdlib.h>         // pour atoi
 #include <time.h>           // pour time...
 #include "biblioLC.h"       // pour struct Livre et Biblio
-#include "entreeSortieLC.h" // pour struct Livre et Biblio
+#include "entreeSortieLC.h" // pour fct charger et enregistrer
 
 char* nom_alea(int t){
     char * res = (char *) malloc(t*sizeof(char));
