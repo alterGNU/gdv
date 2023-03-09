@@ -161,6 +161,12 @@ int main(int argc, char *argv[]){
     }
     liberer_Biblio(testAdd);
     
+    // Retourne la liste des doublons (mm titre and auteur)
+    Biblio* multi = recherche_doublons(b);
+    afficher_biblio(multi);
+    printf("\nEnregistrement de la Biblio créée dans le ficher doublons.txt\n");
+    enregistrer_bilbio(multi, "doublons.txt");
+    liberer_Biblio(multi);
     liberer_Biblio(b);
 
     return 0;

@@ -100,4 +100,5 @@
   puis supprime b1(b1->NULL, le free de la structure doit se faire dans le main via liberer_Biblio()).
 - `void add_if_new(Biblio* b,int num, char *titre, char *auteur);` ~O(n) crée puis ajoute en queue un livre uniquement
   s'il n'est pas deja présent dans la bibliothèque.
-- `Livre* recherche_livres_meme_titre_auteur(Biblio* b, int n)` : ~O(n^2) 
+- `Biblio* recherche_doublons(Biblio* b)` : ~O(n^2) parcours la bibliothèque à la recherche des doublons(meme auteur et
+  meme titre), puis les regroupents dans une bibliotheque qu'elle retourne.

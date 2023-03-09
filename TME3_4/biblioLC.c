@@ -150,14 +150,15 @@ void add_if_new(Biblio* b,int num, char *titre, char *auteur){
     last->suiv = creer_livre(num, titre, auteur);
 }
 
-Biblio* recherche_livres_meme_titre_auteur(Biblio* b){
+Biblio* recherche_doublons(Biblio* b){
     Biblio* res =  creer_biblio();
     Livre* tmp1 = b->L;
     while(tmp1){
         Livre * tmp2=tmp1->suiv;
         while(tmp2){
             if(strcmp(tmp1->titre,tmp2->titre)==0 && strcmp(tmp1->auteur,tmp2->auteur)==0){
-                inserer_en_tete(res, tmp2->num, tmp2->titre, tmp2->auteur);
+                add_if_new(res, tmp1->num, tmp1->titre, tmp1->auteur);
+                add_if_new(res, tmp2->num, tmp2->titre, tmp2->auteur);
             }
             tmp2 = tmp2->suiv;
         }
