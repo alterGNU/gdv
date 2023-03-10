@@ -1,6 +1,7 @@
 #include <stdio.h>    // pr printf
 #include <stdlib.h>   // pr free, exit
 #include <string.h>   // pr strdup
+#include <math.h>     // pour sqrt
 #include "biblioH.h"  // pour struct Livre et Biblio
 
 int fonctionClef(char *auteur){
@@ -71,7 +72,7 @@ void afficher_biblio(BiblioH* b){
         }
         printf("Null\n");
     }
-    printf("'-----'");
+    printf("'-----'\n");
 }
 
 void liberer_biblio(BiblioH* b){
@@ -88,7 +89,13 @@ void liberer_biblio(BiblioH* b){
     free(b->T);
     free(b);
 }
-//
+
+int fonctionHachage(int cle, int m){
+    double a = ((sqrt(5)-1)/2);
+    double kA = (double) cle * a;
+    return (int) (m*(kA - ((int)kA)));
+}
+
 //void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur){
 //    Livre *new = creer_livre(num, titre, auteur);
 //    (new->suiv) = (b->L);

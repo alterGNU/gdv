@@ -133,3 +133,5 @@
 - `void afficher_biblio(BiblioH* b)` : 
 - `void liberer_biblio(BiblioH* b)` : 
 
+### Q2.4 : Creation de la fonction:
+- `int fonctionHachage(int cle, int m)`:

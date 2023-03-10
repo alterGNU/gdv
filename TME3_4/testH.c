@@ -2,6 +2,7 @@
 #include <stdlib.h>        // pour atoi
 #include <time.h>          // pour time...
 #include <assert.h>        // pour assert
+#include <math.h>          // pour sqrt
 #include "biblioH.h"       // pour struct Livre et Biblio
 //#include "entreeSortieH.h" // pour fct charger et enregistrer
 
@@ -72,16 +73,24 @@ int main(int argc, char *argv[]){
     free(titre0);
     free(auteur1);
     free(titre1);
-    
-    //if (argc<3){
-    //    printf("Manque des arguments:\nUsage : %s <nom_fichier> <nbr_ligne>\n",argv[0]);
-    //    return 1;
-    //};
-    //if (argc>3){
-    //    printf("Trop d'argument passé:\nUsage : %s <nom_fichier> <nbr_ligne>\n",argv[0]);
-    //    return 2;
-    //};
 
+    // test fonctionHachage
+    int n, m;
+    if (argc!=3){
+        n=10;
+        m=10;
+    }else{
+        n=atoi(argv[1]);
+        m=atoi(argv[2]);
+    }
+    for (int i=0;i<n;i++){
+        char * auteur = nom_alea(nb_alea(3,9));
+        int clef = fonctionClef(auteur);
+        int indice = fonctionHachage(clef,m);
+        printf("%s->%d->%d\n",auteur,clef,indice);
+        free(auteur);
+    }
+    
     //int n = atoi(argv[2]);   // Conversion deuxieme arg en entier
 
     //// Q1.{1,4} 

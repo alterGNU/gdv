@@ -22,11 +22,11 @@ int fonctionClef(char *auteur);
 LivreH* creer_livre(int num, char *titre, char *auteur);
 void afficher_livre(LivreH *l);
 void liberer_livre(LivreH *l);
-
 BiblioH* creer_biblio(int m);
 void afficher_biblio(BiblioH* b);
 void liberer_biblio(BiblioH* b);
-
+//Q2.4
+int fonctionHachage(int cle, int m);
 //void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur);
 //
 ////Q1.6
