@@ -1,10 +1,14 @@
-all: make
+testLC: testLC.c biblioLC.c entreeSortieLC.c
+	gcc -Wall -o testLC testLC.c biblioLC.c entreeSortieLC.c && valgrind --leak-check=yes ./testLC GdeBiblio.txt 5000
 
-test: test.c biblioLC.c entreeSortieLC.c
-	gcc -Wall -o test test.c biblioLC.c entreeSortieLC.c && valgrind --leak-check=yes ./test GdeBiblio.txt 5000
+testH: testH.c biblioH.c
+	gcc -Wall -o testH testH.c biblioH.c && valgrind --leak-check=yes ./testH
 
-make: main.c biblioLC.c entreeSortieLC.c
-	gcc -Wall -o main main.c biblioLC.c entreeSortieLC.c
+LC: mainLC.c biblioLC.c entreeSortieLC.c
+	gcc -Wall -o mainLC mainLC.c biblioLC.c entreeSortieLC.c
+
+H: mainH.c biblioH.c entreeSortieH.c
+	gcc -Wall -o mainH mainH.c biblioH.c entreeSortieH.c
 
 clean:
-	rm -f main save.txt doublons.txt test
+	rm -f {main,test}{H,LC} save.txt doublons.txt

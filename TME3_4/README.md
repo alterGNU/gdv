@@ -84,10 +84,12 @@
   au format demandé.
 
 ### Q1.4 : Creation du main
+
 ### Q1.5 : Creation du Makefile
 - Ajout des commandes:
     - `make` : compile le main de la question 1.4.
     - `make clean` : supprime le binaire du main ainsi que le fichier `save.txt` qu'il génére.
+
 ### Q1.6 : Ajout de fonctions utiles
 - ` void afficher_livre(Livre *l);` :  ~O(1) Affiche le contenue d'une struct Livre
 - ` void afficher_biblio(Biblio* b);` : ~O(n) Parcour la liste chainée de taille n et affiche via la fonction afficher_livre chaque
@@ -102,6 +104,20 @@
   s'il n'est pas deja présent dans la bibliothèque.
 - `Biblio* recherche_doublons(Biblio* b)` : ~O(n^2) parcours la bibliothèque à la recherche des doublons(meme auteur et
   meme titre), puis les regroupents dans une bibliotheque qu'elle retourne.
-### Q1.{7,8} : main interactif
-- ` void menu();` :  Affiche l'ensemble des actions possibles la bibliotheque
 
+### Q1.{7,8} : main interactif
+- ` void menu();` :  Affiche l'ensemble des actions possibles la bibliotheque:
+    - 0 : Quitter le programme
+    - 1 : Afficher la bibliothèque
+    - 2 : Créer puis inserer en tete un livre
+    - 3 : Chercher un livre via son numer
+    - 4 : Chercher un livre via son titre
+    - 5 : Créer une bibliotheque contenant tous les ouvrages d'un auteur
+    - 6 : Supprimer un ouvrage
+    - 7 : constituer une bibliotheque des doublons puis la sauvegarde dans un fichier
+
+## Exo2 : Gestion d'une bibliothèque avec une table de hachage
+
+### Q2.1 : Creation des fichiers:
+- `biblioH.c` : contient les fonctions permettant de gérer la table de hachage.
+- `biblioH.h` : header contenant signatures des fonctions et structures propre à la table de hachage.

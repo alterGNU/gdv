@@ -5,29 +5,6 @@
 #define BUFF 256
 #define BUFFMAX 1024
 
-    /*
-    afficher la bibliothèque
-    créer puis inserer en tete un livre
-    chercher un livre via son numero 
-    chercher un livre via son titre 
-    chercher l'ensemble des livres d'un auteur 
-    supprimer un ouvrage
-    créer puis inserer en queue un livre uniquement s'il n'est pas deja present
-    constituer une bibliotheque des doublons
-    enregistrer une bibliothèque dans un fichier
-
-    void afficher_biblio(Biblio* b);
-    void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur);
-    void afficher_biblio(Biblio* b);
-    Livre* search_by_num(Biblio* b,int num);
-    Livre* search_by_title(Biblio* b,char *title);
-    Biblio* same_autor(Biblio* b,char *autor);
-    void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur);
-    void add_if_new(Biblio* b,int num, char *titre, char *auteur);
-    Biblio* recherche_doublons(Biblio* b);
-    void enregistrer_bilbio(Biblio* b, char *nomfic);
-    */
-
 void menu(){
     printf("\n\nVoici vos choix:\n");
     printf("\t- 0 : Quitter le programme\n");
