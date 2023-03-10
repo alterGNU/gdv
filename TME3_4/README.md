@@ -121,3 +121,15 @@
 ### Q2.1 : Creation des fichiers:
 - `biblioH.c` : contient les fonctions permettant de gérer la table de hachage.
 - `biblioH.h` : header contenant signatures des fonctions et structures propre à la table de hachage.
+
+### Q2.2 : Creation de la fonction:
+- `int fonctionClef(char *auteur)` : 
+
+### Q2.3 : Creation des fonctions:
+- `LivreH* creer_livre(int num, char *titre, char *auteur)` : 
+- `void afficher_livre(LivreH *l)` : 
+- `void liberer_livre(LivreH *l)` : 
+- `BiblioH* creer_biblio(int m)` : 
+- `void afficher_biblio(BiblioH* b)` : 
+- `void liberer_biblio(BiblioH* b)` : 
+

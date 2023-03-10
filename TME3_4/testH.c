@@ -62,6 +62,11 @@ int main(int argc, char *argv[]){
     liberer_livre(l0);
     liberer_livre(l1);
 
+    // creation, affichage et liberation d'une bilbioH
+    BiblioH * b = creer_biblio(4);
+    afficher_biblio(b);
+    liberer_biblio(b);
+
     // free les malloc du main
     free(auteur0);
     free(titre0);

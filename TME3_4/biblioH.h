@@ -23,9 +23,9 @@ LivreH* creer_livre(int num, char *titre, char *auteur);
 void afficher_livre(LivreH *l);
 void liberer_livre(LivreH *l);
 
-//Biblio* creer_biblio();
-//void afficher_biblio(Biblio* b);
-//void liberer_Biblio(Biblio* b);
+BiblioH* creer_biblio(int m);
+void afficher_biblio(BiblioH* b);
+void liberer_biblio(BiblioH* b);
 
 //void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur);
 //

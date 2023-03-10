@@ -42,37 +42,52 @@ void liberer_livre(LivreH* l){
 }
 
 
-//Biblio* creer_biblio(){
-//    Biblio* res = (Biblio*) malloc(sizeof(Biblio));
-//    if(res == NULL) {printf("Error: Out of memory\n"); exit(-1); }
-//    res->L = NULL;
-//    return res;
-//}
-//
-//void afficher_biblio(Biblio* b){
-//    Livre *tmp = b->L;
-//    printf("Voici les livres de la bibliothque:\n");
-//    int cpt=0;
-//    while (tmp!=NULL){
-//        printf("\t- ");
-//        afficher_livre(tmp);
-//        tmp = tmp->suiv;
-//        cpt++;
-//    }
-//    printf("La bibliotheque contient %d livre%s\n",cpt,(cpt!=0)?"s.":".");
-//}
-//
-//void liberer_Biblio(Biblio* b){
-//    Livre *l = b->L;
-//    Livre *n;
-//    while (l!=NULL){
-//        n = l->suiv;
-//        liberer_livre(l);
-//        l = n;
-//    }
-//    b->L = NULL;
-//    free(b);
-//}
+BiblioH* creer_biblio(int m){
+    if(m<1){printf("Taille tableau doit etre strictement positive\n");return NULL;}
+    BiblioH* res = (BiblioH*) malloc(sizeof(BiblioH));
+    if(res == NULL) {printf("Error1: Out of memory\n"); exit(-1); }
+    res->nE = 0;
+    res->m = m;
+    res->T = (LivreH**) malloc(m*sizeof(LivreH*));
+    if(res->T == NULL) {printf("Error2: Out of memory\n"); exit(-2); }
+    for (int i=0;i<m;i++){
+        res->T[i]=NULL;
+    }
+    return res;
+}
+
+void afficher_biblio(BiblioH* b){
+    if(b==NULL){printf("Il n'y a pas de tableau\n");return;}
+    printf("La biblio contient %d livre",b->nE);
+    printf((b->nE>0)?"s":"");
+    printf(" pour un talbeau de %d cases:\n",b->m);
+    printf(" _____ \n|  T  |\n|-----|\n");
+    for (int i=0;i<b->m;i++){
+        printf("| %3d | --> ",i);
+        LivreH *l = b->T[i];
+        while (l!=NULL){
+            printf("(%d,%s,%s)->",l->num,l->titre,l->auteur);
+            l = l->suiv;
+        }
+        printf("Null\n");
+    }
+    printf("'-----'");
+}
+
+void liberer_biblio(BiblioH* b){
+    if(b==NULL){return;}
+    for (int i=0;i<b->m;i++){
+        LivreH *l = b->T[i],*n;
+        while (l!=NULL){
+            n = l->suiv;
+            liberer_livre(l);
+            l = n;
+        }
+        free(b->T[i]);
+    }
+    free(b->T);
+    free(b);
+}
 //
 //void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur){
 //    Livre *new = creer_livre(num, titre, auteur);
