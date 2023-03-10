@@ -41,8 +41,8 @@ int main(int argc, char *argv[]){
     afficher_biblio(b);
 
     // test enregistrer_biblio()
-    printf("\nEnregistrement de la Biblio créée dans le ficher save.txt\n");
-    enregistrer_bilbio(b, "save.txt");
+    printf("\nEnregistrement de la Biblio créée dans le ficher saveLC.txt\n");
+    enregistrer_bilbio(b, "saveLC.txt");
 
     // Q1.6
     // test search_by_num()

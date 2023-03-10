@@ -4,7 +4,7 @@
 #include <assert.h>        // pour assert
 #include <math.h>          // pour sqrt
 #include "biblioH.h"       // pour struct Livre et Biblio
-//#include "entreeSortieH.h" // pour fct charger et enregistrer
+#include "entreeSortieH.h" // pour fct charger et enregistrer
 
 int nb_alea(int borninf,int bornsup){ 
     // tire un entier compris entre [borninf, bornsup]
@@ -91,20 +91,30 @@ int main(int argc, char *argv[]){
     //    free(auteur);
     //}
 
-    // test fonction d'insertion
-    BiblioH * b1 = creer_biblio(m);
-    afficher_biblio(b1);
+    //// test fonction d'insertion
+    //BiblioH * b1 = creer_biblio(m);
+    //afficher_biblio(b1);
 
-    for (int i=0;i<n;i++){
-        int num = nb_alea(0,10);
-        char * auteur = nom_alea(nb_alea(3,9));
-        char * titre = titre_alea(nb_alea(5,15));
-        inserer(b1, num, titre, auteur);
-        afficher_biblio(b1);
-        free(titre);
-        free(auteur);
-    }
-    liberer_biblio(b1);
+    //for (int i=0;i<n;i++){
+    //    int num = nb_alea(0,10);
+    //    char * auteur = nom_alea(nb_alea(3,9));
+    //    char * titre = titre_alea(nb_alea(5,15));
+    //    inserer(b1, num, titre, auteur);
+    //    afficher_biblio(b1);
+    //    free(titre);
+    //    free(auteur);
+    //}
+    //liberer_biblio(b1);
+
+    // test charger_n_entrees()
+    char *nomFichier = "GdeBiblio.txt";
+    printf("\nCreation d'une Biblio en lisant les %d premières lignes de %s\n",n,nomFichier);
+    BiblioH* b2 = charger_n_entrees(nomFichier, n, m);
+    afficher_biblio(b2);
+    enregistrer_bilbio(b2,"saveH.txt");
+    liberer_biblio(b2);
+
+    // test enregistrer_bilbio()
 
     return 0;
 }

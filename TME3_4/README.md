@@ -59,27 +59,27 @@
     ...
     ```
 - La cmd `gcc -Wall -o test manipES.c biblioLC.c entreeSortieLC.c && valgrind --leak-check=yes ./test GdeBiblio.txt` retourne alors:
-    ```bash
-    ...
-    Voici les livres des la bibliothque:
-    	- n°:9,"KMLNOZJKPQPXR" de *xkitzyxa*
-    	- n°:8,"WPQCA" de *ehchzvf*
-    	- n°:7,"SOFS" de *cnuvqhffbsaq*
-    	- n°:6,"LJPTNSNFWZQFJMA" de *adrr*
-    	- n°:5,"JIVSWMDKQT" de *xixmvtrr*
-    	- n°:4,"FWKHOPKMCOQHNWNKUE" de *hsqmgbbuqcl*
-    	- n°:3,"KEZXDU" de *xdrwv*
-    	- n°:2,"JYBLD" de *efsarcbynecd*
-    	- n°:1,"SCDXRJ" de *owfrx*
-    	- n°:0,"WLRBBMQBHCDARZOWK" de *yhidd*
-    ==78794== HEAP SUMMARY:
-    ==78794==     in use at exit: 0 bytes in 0 blocks
-    ==78794==   total heap usage: 36 allocs, 36 frees, 10,648 bytes allocated
-    ==78794==
-    ==78794== All heap blocks were freed -- no leaks are possible
-    ...
+```bash
+...
+Voici les livres des la bibliothque:
+	- n°:9,"KMLNOZJKPQPXR" de *xkitzyxa*
+	- n°:8,"WPQCA" de *ehchzvf*
+	- n°:7,"SOFS" de *cnuvqhffbsaq*
+	- n°:6,"LJPTNSNFWZQFJMA" de *adrr*
+	- n°:5,"JIVSWMDKQT" de *xixmvtrr*
+	- n°:4,"FWKHOPKMCOQHNWNKUE" de *hsqmgbbuqcl*
+	- n°:3,"KEZXDU" de *xdrwv*
+	- n°:2,"JYBLD" de *efsarcbynecd*
+	- n°:1,"SCDXRJ" de *owfrx*
+	- n°:0,"WLRBBMQBHCDARZOWK" de *yhidd*
+==78794== HEAP SUMMARY:
+==78794==     in use at exit: 0 bytes in 0 blocks
+==78794==   total heap usage: 36 allocs, 36 frees, 10,648 bytes allocated
+==78794==
+==78794== All heap blocks were freed -- no leaks are possible
+...
+```
 
-    ```
 - On constate qu'a l'issue de l'execution un ficher `save.txt` à bien été créé et contient l'ensemble de la bibliotheque
   au format demandé.
 
@@ -138,3 +138,51 @@
     
 ### Q2.5 : Creation de la fonction:
 - ` void inserer(BiblioH* b, int num, char *titre, char *auteur)`:
+
+### Q2.6 : Creation des fonctions:
+- `BiblioH* charger_n_entrees(char * nom_fichier, int nb_ligne, int taille_table)` :
+- `void enregistrer_bilbio(BiblioH* b, char *nom_fichier)`:
+- Le test de ces deux fonctions:
+    ```c
+    ...
+    BiblioH* b2 = charger_n_entrees("GdeBiblio.txt", 10, 10);
+    afficher_biblio(b2);
+    enregistrer_bilbio(b2,"saveH.txt");
+    liberer_biblio(b2);
+    ```
+- retourne :
+```bash
+     ...
+     _____
+    |  T  |
+    |-----|
+    |   0 | --> (7,SOFS,cnuvqhffbsaq)->Null
+    |   1 | --> (9,KMLNOZJKPQPXR,xkitzyxa)->(5,JIVSWMDKQT,xixmvtrr)->Null
+    |   2 | --> Null
+    |   3 | --> Null
+    |   4 | --> (4,FWKHOPKMCOQHNWNKUE,hsqmgbbuqcl)->Null
+    |   5 | --> (8,WPQCA,ehchzvf)->(0,WLRBBMQBHCDARZOWK,yhidd)->Null
+    |   6 | --> (6,LJPTNSNFWZQFJMA,adrr)->Null
+    |   7 | --> Null
+    |   8 | --> (3,KEZXDU,xdrwv)->(2,JYBLD,efsarcbynecd)->(1,SCDXRJ,owfrx)->Null
+    |   9 | --> Null
+    '-----'
+    ==8119==
+    ==8119== HEAP SUMMARY:
+    ==8119==     in use at exit: 0 bytes in 0 blocks
+    ==8119==   total heap usage: 37 allocs, 37 frees, 10,772 bytes allocated
+    ...
+```
+- et créé le fichier `saveH.txt` suivant :
+```txt
+7 SOFS cnuvqhffbsaq
+9 KMLNOZJKPQPXR xkitzyxa
+5 JIVSWMDKQT xixmvtrr
+4 FWKHOPKMCOQHNWNKUE hsqmgbbuqcl
+8 WPQCA ehchzvf
+0 WLRBBMQBHCDARZOWK yhidd
+6 LJPTNSNFWZQFJMA adrr
+3 KEZXDU xdrwv
+2 JYBLD efsarcbynecd
+1 SCDXRJ owfrx
+```
