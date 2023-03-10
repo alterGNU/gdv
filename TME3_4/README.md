@@ -135,3 +135,6 @@
 
 ### Q2.4 : Creation de la fonction:
 - `int fonctionHachage(int cle, int m)`:
+    
+### Q2.5 : Creation de la fonction:
+- ` void inserer(BiblioH* b, int num, char *titre, char *auteur)`:

@@ -27,8 +27,9 @@ void afficher_biblio(BiblioH* b);
 void liberer_biblio(BiblioH* b);
 //Q2.4
 int fonctionHachage(int cle, int m);
-//void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur);
-//
+//Q2.3
+void inserer(BiblioH* b, int num, char *titre, char *auteur);
+
 ////Q1.6
 //void afficher_biblio(Biblio* b);
 //Livre* search_by_num(Biblio* b,int num);

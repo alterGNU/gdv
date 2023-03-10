@@ -11,4 +11,4 @@ H: mainH.c biblioH.c entreeSortieH.c
 	gcc -Wall -o mainH mainH.c biblioH.c entreeSortieH.c -lm
 
 clean:
-	rm -f {main,test}{H,LC} save.txt doublons.txt
+	rm -f mainH mainLC testH testLC save.txt doublons.txt

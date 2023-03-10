@@ -1,6 +1,6 @@
 #include <stdio.h>    // pr printf
 #include <stdlib.h>   // pr free, exit
-#include <string.h>    // pr strdup
+#include <string.h>   // pr strdup
 #include "biblioLC.h" // pour struct Livre et Biblio
 
 Livre* creer_livre(int num, char *titre, char *auteur){

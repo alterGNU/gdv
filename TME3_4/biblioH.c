@@ -1,5 +1,5 @@
 #include <stdio.h>    // pr printf
-#include <stdlib.h>   // pr free, exit
+#include <stdlib.h>   // pr free, exit #include <string.h> 
 #include <string.h>   // pr strdup
 #include <math.h>     // pour sqrt
 #include "biblioH.h"  // pour struct Livre et Biblio
@@ -84,7 +84,6 @@ void liberer_biblio(BiblioH* b){
             liberer_livre(l);
             l = n;
         }
-        free(b->T[i]);
     }
     free(b->T);
     free(b);
@@ -94,6 +93,23 @@ int fonctionHachage(int cle, int m){
     double a = ((sqrt(5)-1)/2);
     double kA = (double) cle * a;
     return (int) (m*(kA - ((int)kA)));
+}
+
+void inserer(BiblioH* b, int num, char *titre, char *auteur){
+    //etape1: Creation du nouveau livre à ajouter
+    LivreH * l = creer_livre(num,titre,auteur);
+    //etape2: Calcul de l'indice de la case de la table de hachage
+    int indice = fonctionHachage(l->clef,b->m);
+    //etape3: Insertion en tête de la liste chainée à cette case
+    LivreH * tete = b->T[indice] ;
+    if (tete){
+        l->suiv = tete;
+        b->T[indice] = l;
+    }else{
+        b->T[indice] = l;
+    }
+    //etape4: Màj du champ contenant le nombre d'élément du tableau
+    b->nE++;
 }
 
 //void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur){
