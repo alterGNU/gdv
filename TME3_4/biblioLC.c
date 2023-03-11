@@ -89,6 +89,14 @@ Livre* search_by_title(Biblio* b,char *title){
     return tmp;
 }
 
+Livre* search_by_autor(Biblio* b,char *auteur){
+    Livre* tmp = b->L;
+    while (tmp!=NULL && strcmp(tmp->auteur,auteur)!=0){
+        tmp=tmp->suiv;
+    }
+    return tmp;
+}
+
 Biblio* same_autor(Biblio* b,char *autor){
     Biblio* res=creer_biblio();
     Livre* tmp = b->L;

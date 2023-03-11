@@ -125,13 +125,13 @@ LivreH* search_by_num(BiblioH* b,int num){
     return tmp;
 }
 
-//LivreH* search_by_autor(BiblioH* b,char * auteur){
-//    int clef = fonctionClef(auteur);
-//    int indice = fonctionHachage(clef, b->m);
-//    LivreH* tmp = b->T[indice];
-//    while (tmp!=NULL && tmp->auteur!=auteur){ tmp=tmp->suiv; }
-//    return tmp;
-//}
+LivreH* search_by_autor(BiblioH* b,char * auteur){
+    int clef = fonctionClef(auteur);
+    int indice = fonctionHachage(clef, b->m);
+    LivreH* tmp = b->T[indice];
+    while (tmp!=NULL && tmp->auteur!=auteur){ tmp=tmp->suiv; }
+    return tmp;
+}
 
 LivreH* search_by_title(BiblioH* b,char *title){
     for(int i=0;i<b->m;i++){

@@ -16,12 +16,10 @@ typedef struct{
 //Q1.2
 Livre* creer_livre(int num, char *titre, char *auteur);
 void liberer_livre(Livre *l);
-
 Biblio* creer_biblio();
 void afficher_biblio(Biblio* b);
 void liberer_Biblio(Biblio* b);
 void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur);
-
 //Q1.6
 void afficher_livre(Livre *l);
 void afficher_biblio(Biblio* b);
@@ -32,5 +30,7 @@ void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur);
 void fusion(Biblio* b1, Biblio* b2);
 void add_if_new(Biblio* b,int num, char *titre, char *auteur);
 Biblio* recherche_doublons(Biblio* b);
+//Q3.1
+Livre* search_by_autor(Biblio* b,char *auteur);
 
 #endif
