@@ -143,12 +143,13 @@ int main(int argc, char *argv[]){
     afficher_biblio(f2);
 
     fusion(f1,f2);
+
     printf("APRES FUSION:\n");
     afficher_biblio(f1);
+    printf("\n\nici\n\n");
     afficher_biblio(f2);
 
     liberer_Biblio(f1);
-    liberer_Biblio(f2);
 
     // Test de add_if_new
     char tLivre[6][BUFF] = { "Le_Petit_Prince", "Les_Misérables", "Voyage_au_centre_de_la_Terre", "1984", "Le_Comte_de_Monte-Cristo", "Les_Fourmis"};
