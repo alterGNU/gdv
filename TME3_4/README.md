@@ -196,9 +196,9 @@ Voici les livres des la bibliothque:
 - ` add_if_new(BiblioH* b, int num, char *titre, char *auteur)` : créer puis ajoute en queue de la liste chainée (dans
   tab) le livre s'il n'est pas deja dans la biblio.
 - `BiblioH* recherche_doublons(BiblioH* b)` : comme deux ouvrages sont identiques s'ils ont le meme titre et auteur,
-  alors dans une bilbioH ils se trouverons forcement dans la meme liste chainée (car mm clef => mm indice du tableau).
-  on cherche donc uniquement dans les listes chainées). La bilbioH retournée elle ne contiendra qu'une case dans son
-  tableau car on demande une liste chainée en retour.
+  alors dans une bilbioH ils se trouveront forcement dans la meme liste chainée (car mm clef => mm indice du tableau).
+  on cherche donc uniquement dans chaque listes chainées du tableau. La bilbioH retournée elle ne contiendrat qu'une
+  case dans son tableau car on ne demande qu'une liste chainée en retour.
 
 
 

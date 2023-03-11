@@ -29,7 +29,6 @@ char* titre_alea(int t){
 }
 
 int main(int argc, char *argv[]){
-    /*
     srand(time(NULL)); // change la seed pour faire varier la génération de nombre aléatoire.
     int n, m;
     if (argc!=3){
@@ -186,10 +185,7 @@ int main(int argc, char *argv[]){
     }
     liberer_biblio(testAdd);
     
-    */
     // test doublons
-    BiblioH* b2 = charger_n_entrees("GdeBiblio.txt", 5000, 500);
-    afficher_biblio(b2);
     BiblioH* multi = recherche_doublons(b2);
     afficher_biblio(multi);
     printf("\nEnregistrement de la Biblio créée dans le ficher doublons.txt\n");
