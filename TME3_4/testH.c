@@ -160,13 +160,30 @@ int main(int argc, char *argv[]){
     }
     printf("Voici trunks AVANT LA FUSION\n:");
     afficher_biblio(trunks);
+    printf("Voici goten AVANT LA FUSION\n:");
+    afficher_biblio(goten);
+    fusion(trunks, goten);
+
+    printf("Voici trunks APRES LA FUSION (aka GOTENKS)\n:");
+    afficher_biblio(trunks);
     printf("\nVoici goten APRES LA FUSIO\n:");
     afficher_biblio(goten);
-    printf("Voici trunks APRES LA FUSION (aka GOTENKS)\n:");
-    fusion(trunks, goten);
-    afficher_biblio(trunks);
 
     liberer_biblio(trunks);
+    
+    // test add_if_new()
+    char tab_titres[5][50] = { "1984", "LeParrain", "Fondation", "Dune", "LeSeigneurDesAnneaux" };
+    char tab_auteurs[5][50] = { "George_Orwell", "Mario_Puzo", "Isaac_Asimov", "Frank_Herbert", "J.R.R._Tolkien" };
+
+    BiblioH* testAdd = creer_biblio(10);
+    for (int i=0;i<10;i++){
+        int indice = i%5;
+        printf((i<5)?"ADD NOUVEL OUVRAGE:":"ADD OUVRAGE DEJA CONNU:");
+        printf("(%d,%s,%s)\n",indice,tab_titres[indice],tab_auteurs[indice]);
+        add_if_new(testAdd, indice, tab_titres[indice], tab_auteurs[indice]);
+        afficher_biblio(testAdd);
+    }
+    liberer_biblio(testAdd);
 
     return 0;
 }

@@ -58,7 +58,7 @@ BiblioH* creer_biblio(int m){
 }
 
 void afficher_biblio(BiblioH* b){
-    if(b==NULL){printf("Il n'y a pas de tableau\n");return;}
+    if(b->T==NULL){printf("Il n'y a pas de tableau\n");return;}
     printf("La biblio contient %d livre",b->nE);
     printf((b->nE>0)?"s":"");
     printf(" pour un talbeau de %d cases:\n",b->m);
@@ -78,14 +78,15 @@ void afficher_biblio(BiblioH* b){
 void liberer_biblio(BiblioH* b){
     if(b==NULL){return;}
     for (int i=0;i<b->m;i++){
-        LivreH *l = b->T[i],*n;
+        LivreH *l = b->T[i];
         while (l!=NULL){
-            n = l->suiv;
+            LivreH *next = l->suiv;
             liberer_livre(l);
-            l = n;
+            l = next;
         }
     }
     free(b->T);
+    b->T=NULL;
     free(b);
 }
 
@@ -158,14 +159,13 @@ BiblioH* same_autor(BiblioH* b,char *auteur){
 }
 
 void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur){
-    // ne pas oublier de décrémenter le b->nE
-    if (b==NULL){exit(-1);}                                                                 // evite le cas où biblioH est vide/NULL
+    if (b==NULL){exit(-1);}                                                               // evite le cas où biblioH est vide/NULL
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
-    LivreH* tmp = b->T[0];
+    LivreH* tmp = b->T[indice];
     LivreH* ante;
-    while(tmp!=NULL){                                                                          // permet d'eviter le cas ou bibliotheque est vide
-        if(tmp->num==num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){  // cas où 1er octmpence = 1 LivreH de la liste chainée
+    while(tmp!=NULL){                                                                     // permet d'eviter le cas ou bibliotheque est vide
+        if(tmp->num==num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){// cas où 1er octmpence = 1 LivreH de la liste chainée
             if (ante){            // cas match au premier element de la liste
                 ante->suiv = (tmp) ? tmp->suiv : tmp; // ternaire pr cas où tmp est NULL ou non
             }else{                      // autre cas!milieu ou fin de liste
@@ -184,7 +184,6 @@ void fusion(BiblioH* b1, BiblioH* b2){
     for(int i=0;i<b2->m;i++){
         LivreH *l = b2->T[i];
         while(l){
-            LivreH *ante=l;
             inserer(b1, l->num, l->titre, l->auteur);
             l = l->suiv;
         }
@@ -192,18 +191,23 @@ void fusion(BiblioH* b1, BiblioH* b2){
     liberer_biblio(b2);
 }
 
-//void add_if_new(Biblio* b,int num, char *titre, char *auteur){
-//    Livre * p = b->L;
-//    if(!p){inserer_en_tete(b,num,titre,auteur);return;}// si biblio vide ajoute au debut
-//    Livre * last;
-//    while(p){
-//        if(p->num == num && strcmp(p->titre,titre)==0 && strcmp(p->auteur,auteur)==0){ return; }
-//        last = p;
-//        p = p->suiv;
-//    }
-//    last->suiv = creer_livre(num, titre, auteur);
-//}
-//
+void add_if_new(BiblioH* b,int num, char *titre, char *auteur){
+    int clef = fonctionClef(auteur);
+    int indice = fonctionHachage(clef, b->m);
+    LivreH* tmp = b->T[indice];
+    if(tmp==NULL){ b->T[indice] = creer_livre(num,titre,auteur);b->nE++; } // Cas où liste vide => insertion
+    int isIn = 1;                                                 // Parcours liste a la recherche du livre
+    while (tmp && isIn!=0){
+        if(tmp->num==num && strcmp(tmp->titre,titre) && strcmp(tmp->auteur,auteur)){ isIn=0;}
+        tmp=tmp->suiv;
+    }
+    if(isIn==0){                                                     // Ajout en queue uniquement si pas trouvé précédemment
+        tmp->suiv = creer_livre(num,titre,auteur);
+        b->nE++;
+    }
+
+}
+
 //Biblio* recherche_doublons(Biblio* b){
 //    Biblio* res =  creer_biblio();
 //    Livre* tmp1 = b->L;

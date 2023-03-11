@@ -3,6 +3,7 @@
 #include <time.h>           // pour time...
 #include "biblioLC.h"       // pour struct Livre et Biblio
 #include "entreeSortieLC.h" // pour fct charger et enregistrer
+#define BUFF 256
 
 char* nom_alea(int t){
     char * res = (char *) malloc(t*sizeof(char));
@@ -150,8 +151,8 @@ int main(int argc, char *argv[]){
     liberer_Biblio(f2);
 
     // Test de add_if_new
-    char *  tLivre[6] = { "Le_Petit_Prince", "Les_Misérables", "Voyage_au_centre_de_la_Terre", "1984", "Le_Comte_de_Monte-Cristo", "Les_Fourmis"};
-    char *  aLivre[6] = { "Antoine_de_Saint-Exupéry", "Victor_Hugo", "Jules_Verne", "George_Orwell", "Alexandre_Dumas", "Bernard_Werber"};
+    char tLivre[6][BUFF] = { "Le_Petit_Prince", "Les_Misérables", "Voyage_au_centre_de_la_Terre", "1984", "Le_Comte_de_Monte-Cristo", "Les_Fourmis"};
+    char aLivre[6][BUFF] = { "Antoine_de_Saint-Exupéry", "Victor_Hugo", "Jules_Verne", "George_Orwell", "Alexandre_Dumas", "Bernard_Werber"};
 
     Biblio* testAdd = creer_biblio();
     for (int i=0;i<12;i++){
