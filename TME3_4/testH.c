@@ -6,27 +6,7 @@
 #include <math.h>          // pour sqrt
 #include "biblioH.h"       // pour struct Livre et Biblio
 #include "entreeSortieH.h" // pour fct charger et enregistrer
-
-int nb_alea(int borninf,int bornsup){ 
-    // tire un entier compris entre [borninf, bornsup]
-    return (int) (((double)(bornsup-borninf+1)/RAND_MAX) * rand() + borninf);
-}
-
-char* nom_alea(int t){
-    char * res = (char *) malloc(t*sizeof(char));
-    for( int i = 0; i < t; ++i){
-        res[i] = 'A' + random()%26;
-    }
-    return res;
-}
-
-char* titre_alea(int t){
-    char * res = (char *) malloc(t*sizeof(char));
-    for( int i = 0; i < t; ++i){
-        res[i] = 'a' + rand()%26;
-    }
-    return res;
-}
+#include "utilalea.h"      // pour fcts nom_alea, titre_alea, nb_alea
 
 int main(int argc, char *argv[]){
     srand(time(NULL)); // change la seed pour faire varier la génération de nombre aléatoire.

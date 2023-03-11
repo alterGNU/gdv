@@ -102,19 +102,28 @@ Biblio* same_autor(Biblio* b,char *autor){
 }
 
 void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur){
-    Livre* tmp = b->L;
+    Livre* cour = b->L;
     Livre* ante = NULL;
-    if(tmp!=NULL){                                           // permet d'eviter le cas ou bibliotheque est vide
-        if(tmp->num==num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){
-            if (ante){                                       // cas match PAS au premier element de la listeC
-                ante->suiv = (tmp->suiv) ? tmp->suiv : NULL; // cas match dernier element (ternaire)
-            }else{                                           // cas match au premier element
-                b->L = tmp->suiv;
+    while(cour){
+        if(cour->num == num && strcmp(cour->titre,titre)==0 && strcmp(cour->auteur,auteur)==0){
+            // Parcour pour supprimer les éléments contigues s'ils existent, place cour sur le dernier d'entre eux.
+            Livre* tmp = cour;
+            while(tmp && tmp->num == num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){
+                tmp = tmp->suiv;
+                liberer_livre(cour);
+                cour = tmp;
             }
-            liberer_livre(tmp);
+            // CAS : Match n'est pas le premier élément de la listeC
+            if(ante){
+                ante->suiv = cour;
+            // CAS : Match au premier element de la listeC
+            }else{ 
+                b->L = cour;
+            }
+        }else{
+            ante = cour;
+            cour = cour->suiv;
         }
-        ante = tmp;
-        tmp = tmp->suiv;
     }
 }
 

@@ -159,28 +159,36 @@ BiblioH* same_autor(BiblioH* b,char *auteur){
 }
 
 void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur){
-    if (b->T==NULL){exit(-1);}                                                               // evite le cas où biblioH est vide/NULL
+    if (b->T==NULL){exit(-1);}                                                            // evite le cas où biblioH est vide/NULL
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
-    LivreH* tmp = b->T[indice];
+    LivreH* cour = b->T[indice];
     LivreH* ante = NULL;
-    while(tmp!=NULL){                                                                     // permet d'eviter le cas ou bibliotheque est vide
-        if(tmp->num==num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){// cas où 1er octmpence = 1 LivreH de la liste chainée
-            if (ante){                                       // cas match PAS au premier element de la listeC
-                ante->suiv = (tmp->suiv) ? tmp->suiv : NULL; // cas match dernier element (ternaire)
-            }else{                                           // cas match au premier element
-                b->T[indice] = tmp->suiv;
+    while(cour){
+        if(cour->num == num && strcmp(cour->titre,titre)==0 && strcmp(cour->auteur,auteur)==0){
+            // Parcour pour supprimer les éléments contigues s'ils existent, place cour sur le dernier d'entre eux.
+            LivreH* tmp = cour;
+            while(tmp && tmp->num == num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){
+                tmp = tmp->suiv;
+                liberer_livre(cour);
+                cour = tmp;
             }
-            liberer_livre(tmp);
-            b->nE--;
+            // CAS : Match n'est pas le premier élément de la listeC
+            if(ante){
+                ante->suiv = cour;
+            // CAS : Match au premier element de la listeC
+            }else{ 
+                b->T[indice] = cour;
+            }
+        }else{
+            ante = cour;
+            cour = cour->suiv;
         }
-        ante = tmp;
-        tmp=tmp->suiv;
     }
 }
 
 void fusion(BiblioH* b1, BiblioH* b2){
-    if (b2==NULL){return ;}                           // Cas trivial où b2 vide
+    if (b2==NULL){return ;}            // Cas trivial où b2 vide
     for(int i=0;i<b2->m;i++){
         LivreH *l = b2->T[i];
         while(l){

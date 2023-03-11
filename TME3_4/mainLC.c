@@ -2,20 +2,10 @@
 #include <stdlib.h>         // pour atoi
 #include "biblioLC.h"       // pour struct Livre et Biblio
 #include "entreeSortieLC.h" // pour fct charger et enregistrer
+#include "utilalea.h"       // pour fct menu
 #define BUFF 256
 #define BUFFMAX 1024
 
-void menu(){
-    printf("\n\nVoici vos choix:\n");
-    printf("\t- 0 : Quitter le programme\n");
-    printf("\t- 1 : Afficher la bibliothèque\n");
-    printf("\t- 2 : Créer puis inserer en tete un livre\n");
-    printf("\t- 3 : Chercher un livre via son numero \n");
-    printf("\t- 4 : Chercher un livre via son titre \n");
-    printf("\t- 5 : Créer une bibliotheque contenant tous les ouvrages d'un auteur\n");
-    printf("\t- 6 : Supprimer un ouvrage\n");
-    printf("\t- 7 : constituer une bibliotheque des doublons(sauvegarde possible)\n");
-}
 
 int main(int argc, char *argv[]){
     if (argc<3){

@@ -3,23 +3,8 @@
 #include <time.h>           // pour time...
 #include "biblioLC.h"       // pour struct Livre et Biblio
 #include "entreeSortieLC.h" // pour fct charger et enregistrer
+#include "utilalea.h"       // pour fct nom_alea et titre_alea
 #define BUFF 256
-
-char* nom_alea(int t){
-    char * res = (char *) malloc(t*sizeof(char));
-    for( int i = 0; i < t; ++i){
-        res[i] = 'A' + random()%26;
-    }
-    return res;
-}
-
-char* titre_alea(int t){
-    char * res = (char *) malloc(t*sizeof(char));
-    for( int i = 0; i < t; ++i){
-        res[i] = 'a' + rand()%26;
-    }
-    return res;
-}
 
 int main(int argc, char *argv[]){
     srand(time(NULL)); // change la seed pour faire varier la génération de nombre aléatoire.
