@@ -27,7 +27,7 @@
 ### Q1.5 : Creation du Makefile
 - Voici les commandes actuelles du makefile:
     - `make testLC`: compile puis test (y compris les fuites memoires avec `valgrind`) l'ensemble des fonctions de manipulation des Listes Chainées.
-    - `make testH`: compile puis test (y compris les fuites memoires avec `valgrind`) l'ensemble des fonctions de manipulation des tables de Hashages.
+    - `make testH`: compile puis test (y compris les fuites memoires avec `valgrind`) l'ensemble des fonctions de manipulation des tables de hachages.
     - `make LC`: compile le mainLC permettant de lancer le menu pour l'utilisateur : `make LC && ./mainLC GdeBiblio.txt
       5000` crée une instance de Biblio à partir des 5000 premiéres lignes du fichier GdeBiblio.txt puis affiche le menu
       des actions possibles pour l'utilisateur.
@@ -38,17 +38,23 @@
 
 ### Q1.6 : Ajout de fonctions utiles
 - ` void afficher_livre(Livre *l);` :  ~O(1) Affiche le contenue d'une struct Livre
-- ` void afficher_biblio(Biblio* b);` : ~O(n) Parcour la liste chainée de taille n et affiche via la fonction afficher_livre chaque
+- ` void afficher_biblio(Biblio* b);` : ~O(n) Parcoure la liste chainée de taille n et affiche via la fonction afficher_livre chaque
   cellule (livre) qui la compose
-- ` Livre* search_by_num(Biblio* b, int num);` :  ~O(n) Recherche (par son attribut num) et retourne le Livre d'une Biblio, retourn NULL
-  si pas trouvé.
-- `void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur);` ~O(n) Supprime en parcourant la liste le
-  livre correspondant aux 3arguments de la fonction
-- `Biblio *fusion(Biblio* b1, Biblio* b2);` soit b1 de taille n et b2 de taille m => ~O(n) Ajoute b2 à la suite de b1
-  puis supprime b1(b1->NULL, le free de la structure doit se faire dans le main via liberer_Biblio()).
+- ` Livre* search_by_num(Biblio* b, int num);` :  ~O(n) Recherche (par son attribut num) et retourne le Livre d'une
+  Biblio, retourn NULL si pas trouvé.
+- `Livre* search_by_title(Biblio* b,char *title)` : ~O(n) Recherche (par son attribut titre) et retourne le Livre d'une
+  Biblio, retourn NULL si pas trouvé.
+- `Livre* search_by_autor(Biblio* b,char *auteur)`: ~O(n) Recherche (par son attribut auteur) et retourne le Livre d'une
+  Biblio, retourn NULL si pas trouvé.
+- `Biblio* same_autor(Biblio* b,char *autor)` : ~O(n) Retourne la biblio contenant tous les ouvrages de l'auteur passé
+  en agument.
+- `void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur);` ~O(n) Supprime en parcourant la liste toutes
+  les occurences de Livre correspondant aux 3arguments de la fonction.(prend aussi en compte les éléments contigues)
+- `Biblio *fusion(Biblio* b1, Biblio* b2);` ~O(m) où m est ma taille de la liste chainée de b2 : Ajoute b2 à la suite de
+  b1 puis supprime b1.
 - `void add_if_new(Biblio* b,int num, char *titre, char *auteur);` ~O(n) crée puis ajoute en queue un livre uniquement
   s'il n'est pas deja présent dans la bibliothèque.
-- `Biblio* recherche_doublons(Biblio* b)` : ~O(n^2) parcours la bibliothèque à la recherche des doublons(meme auteur et
+- `Biblio* recherche_doublons(Biblio* b)` : ~O(n²) parcoure la bibliothèque à la recherche des doublons(meme auteur et
   meme titre), puis les regroupents dans une bibliotheque qu'elle retourne.
 
 ### Q1.{7,8} : main interactif
@@ -75,25 +81,35 @@ Voici vos choix:
 - `biblioH.h` : header contenant signatures des fonctions et structures propre à la table de hachage.
 
 ### Q2.2 : Creation de la fonction:
-- `int fonctionClef(char *auteur)` : 
+- `int fonctionClef(char *auteur)` : ~O(1) : retourne la somme des valeurs ASCII de chaque lettre du nom de l'auteur.
 
 ### Q2.3 : Creation des fonctions:
-- `LivreH* creer_livre(int num, char *titre, char *auteur)` : 
-- `void afficher_livre(LivreH *l)` : 
-- `void liberer_livre(LivreH *l)` : 
-- `BiblioH* creer_biblio(int m)` : 
-- `void afficher_biblio(BiblioH* b)` : 
-- `void liberer_biblio(BiblioH* b)` : 
+- `LivreH* creer_livre(int num, char *titre, char *auteur)` :  ~O(1) : copie les arguments, alloue l'espace necessaire
+  puis crée l'instance de LivreH correspondant puis retourne le pointeur vers cette instance de LivreH.
+- `void afficher_livre(LivreH *l);` :  ~O(1) Affiche le contenue d'une struct LivreH
+- `void liberer_livre(LivreH *l)` : ~O(1) : libére les champs de l'instance de LivreH passée en argument.
+- `BiblioH* creer_biblio(int m)` : ~O(m) : alloue l'espace necessaire puis crée l'instance de BiblioH ayant un tableau
+  de Livre de taille m.
+- `void afficher_biblio(BiblioH* b)` : ~O(n) Parcoure les listes chainées de la table de hash et affiche via la fonction
+  afficher_livre chaque element(voir Q2.6 pour rendu)
+- `void liberer_biblio(BiblioH* b)` : ~O(n) parcoure l'ensemble des listes chainée de la table de hash afin de libérer
+  tous ses éléments.
 
 ### Q2.4 : Creation de la fonction:
-- `int fonctionHachage(int cle, int m)`:
+- `int fonctionHachage(int cle, int m)`: ~0(1) applique la fonction de hachage à la cléf pour une table de hachage de
+  taille m.
     
 ### Q2.5 : Creation de la fonction:
-- ` void inserer(BiblioH* b, int num, char *titre, char *auteur)`:
+- ` void inserer(BiblioH* b, int num, char *titre, char *auteur)`: ~O(1) insére en téte de liste chainée l'ouvrage créer
+  à partir des arguments.(incrémente le champ b->nE pour garder le compte de livre à jour)
 
 ### Q2.6 : Creation des fonctions:
-- `BiblioH* charger_n_entrees(char * nom_fichier, int nb_ligne, int taille_table)` :
-- `void enregistrer_bilbio(BiblioH* b, char *nom_fichier)`:
+
+#### PARTIE entreeSortiesH.c
+- `BiblioH* charger_n_entrees(char * nom_fichier, int nb_ligne, int taille_table)` : ~O(1) à partir des *<nb_ligne>* 1er
+  lignes du fichier *<nom_fichier>*, créer une instance de BilbioH ayant une table de hash de taille *<taille_table>*
+- `void enregistrer_bilbio(BiblioH* b, char *nom_fichier)`: ~O(1) enregistre dans le fichier *<nom_fichier>* la biblioH.
+
 - Le test de ces deux fonctions:
     ```c
     ...
@@ -138,17 +154,30 @@ Voici vos choix:
 2 JYBLD efsarcbynecd
 1 SCDXRJ owfrx
 ```
-- ` LivreH* search_by_num(BiblioH* b,int num)` : cherche et retourne le livre si son numero correspond, sinon NULL.
-- ` LivreH* search_by_title(BiblioH* b,char * titre)` : cherche et retourne le livre si son titre correspond, sinon NULL.
-- ` LivreH* search_by_autor(BiblioH* b,char * auteur)` : cherche et retourne le livre si son auteur correspond, sinon NULL.
-- ` BiblioH* same_autor(BiblioH* b,char *autor)` : retourne la biblioH ayant un tableau de taille 1 contenant tous les
-  ouvrages d'un meme auteur.
-- ` supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur)` : supprime toutes les occurences d'un ouvrage
-  dans une BilbioH
-- ` fusion(BiblioH* b1, BiblioH* b2)` : fusionne b2 avec b1 puis supprime b2
-- ` add_if_new(BiblioH* b, int num, char *titre, char *auteur)` : créer puis ajoute en queue de la liste chainée (dans
-  tab) le livre s'il n'est pas deja dans la biblio.
-- `BiblioH* recherche_doublons(BiblioH* b)` : comme deux ouvrages sont identiques s'ils ont le meme titre et auteur,
-  alors dans une bilbioH ils se trouveront forcement dans la meme liste chainée (car mm clef => mm indice du tableau).
-  on cherche donc uniquement dans chaque listes chainées du tableau. La bilbioH retournée elle ne contiendrat qu'une
-  case dans son tableau car on ne demande qu'une liste chainée en retour.
+
+#### PARTIE biblioH.c
+- ` LivreH* search_by_num(BiblioH* b,int num)` : ~O(n) parcour l'ensemble de la table de hash à la recherche d'un livre
+  en fonction de son num.
+- ` LivreH* search_by_title(BiblioH* b,char * titre)` : ~O(n) parcour l'ensemble de la table de hash à la recherche d'un
+  livre en fonction de son num.
+- ` LivreH* search_by_autor(BiblioH* b,char * auteur)` : ~O(m) où m est la taille de la liste chainée des éléments ayant
+  le meme indexe dans la table de hachage. Parcoure la liste chainée se trouvant à l'indexe, puis retourne le livre s'il
+  est présent, sinon retourne NULL
+- ` BiblioH* same_autor(BiblioH* b,char *autor)` : ~O(m), comme precedemment, on ne s'interesse qu'a une seul liste
+  chainée, celle se trouvant à l'indexe correspondant a l'auteur passé en argument (en effet, tout auteur ayant le meme
+  nom aura la meme cle, et donc pour une table de meme taille le meme indexe).A chaque ouvrage de l'auteur rencontrée,
+  on crée une copie qui est ajoutée à l'instance de BilbioH qui sera ensuite retournée (cette instance contient une
+  table de hachage de taille 1)
+- ` supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur)` : _~O(i*m)_ ou i est le nombre d'occurence du
+  livre à supprimer et m la taille de la liste chainée de tous les ouvrages ayant le meme indexe que celui à supprimer.
+  (comme precedemment, prend en compte les occurences mutliples et contigues)
+- ` fusion(BiblioH* b1, BiblioH* b2)` : ~O(2 x (b2->nE + b2->m)) on parcoure l'ensemble des éléments de b2 que l'on insére
+  dans b1 (car les tailles de leurs tables de hash, et donc leurs indexes peuvent etre differents), puis on libére la
+  memoire de b2
+- ` add_if_new(BiblioH* b, int num, char *titre, char *auteur)` : ~O(m) ou m et la taille de la liste chainée de tous
+  les ouvrages ayant le meme indexe que le livre à ajouter : parcoure l'ensemble de cette liste, puis s'il n'y est pas
+  deja, créer puis insére en queue le livre correspondant aux arguments de la fonction.
+- `BiblioH* recherche_doublons(BiblioH* b)` : ~O(n²) deux ouvrages identiques se trouvant forcement dans la meme liste
+  chainée de la table de hash (car mm clef => mm indice du tableau).  on cherche donc uniquement dans chaque listes
+  chainées du tableau. La bilbioH retournée elle ne contiendrat qu'une case dans son tableau car on ne demande qu'une
+  liste chainée en retour.
