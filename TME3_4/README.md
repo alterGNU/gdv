@@ -190,3 +190,5 @@ Voici les livres des la bibliothque:
 - ` LivreH* search_by_title(BiblioH* b,char * titre)` : cherche et retourne le livre si son titre correspond, sinon NULL.
 - ` BiblioH* same_autor(BiblioH* b,char *autor)` : retourne la biblioH ayant un tableau de taille 1 contenant tous les
   ouvrages d'un meme auteur.
+- ` supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur)` : supprime toutes les occurences d'un ouvrage
+  dans une BilbioH

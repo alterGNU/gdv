@@ -157,27 +157,28 @@ BiblioH* same_autor(BiblioH* b,char *auteur){
     return res;
 }
 
-//void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur){
-//    char* t = strdup(titre);
-//    char* a = strdup(auteur);
-//    Livre* tmp = b->L;
-//    if(tmp!=NULL){                                                                // permet d'eviter le cas ou bibliotheque est vide
-//        if(tmp->num==num && strcmp(tmp->titre,t)==0 && strcmp(tmp->auteur,a)==0){ // cas où 1er octmpence = 1 livre de la liste chainée
-//            b->L=tmp->suiv;
-//        }else{                                                                    // autre cas
-//            Livre* ante = tmp;
-//            while ((tmp!=NULL)&&(tmp->num!=num || strcmp(tmp->titre,t)!=0 || strcmp(tmp->auteur,a)!=0)){
-//                ante = tmp;
-//                tmp=tmp->suiv;
-//            }
-//            ante->suiv = (tmp) ? tmp->suiv : tmp; // ternaire pr cas où tmp est NULL ou non
-//        }
-//        liberer_livre(tmp); // Possible car liberer_livre verifie si Livre != NULL
-//    }
-//    free(t);
-//    free(a);
-//}
-//
+void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur){
+    // ne pas oublier de décrémenter le b->nE
+    if (b==NULL){exit(-1);}                                                                 // evite le cas où biblioH est vide/NULL
+    int clef = fonctionClef(auteur);
+    int indice = fonctionHachage(clef, b->m);
+    LivreH* tmp = b->T[0];
+    LivreH* ante;
+    while(tmp!=NULL){                                                                          // permet d'eviter le cas ou bibliotheque est vide
+        if(tmp->num==num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){  // cas où 1er octmpence = 1 LivreH de la liste chainée
+            if (ante){            // cas match au premier element de la liste
+                ante->suiv = (tmp) ? tmp->suiv : tmp; // ternaire pr cas où tmp est NULL ou non
+            }else{                      // autre cas!milieu ou fin de liste
+                b->T[0] = tmp->suiv;
+            }
+            liberer_livre(tmp);
+            b->nE--;
+        }
+        ante = tmp;
+        tmp=tmp->suiv;
+    }
+}
+
 //void fusion(Biblio* b1, Biblio* b2){
 //    if (b2==NULL){return ;}                           // Cas trivial où b2 vide
 //    Livre *tmp1 = b1->L;

@@ -130,9 +130,23 @@ int main(int argc, char *argv[]){
     afficher_livre(ltitreinconnu);
     // test same_autor()
     BiblioH* b_de_xdrwv  = same_autor(b2,"xdrwv");
+    inserer(b_de_xdrwv, 4211,"KEZXDU","xdrwv"); 
+    printf("ADD (4211, KEZXDU, xdhwv)\n");
+    inserer(b_de_xdrwv, 544,"KEZXDU","xdrwv"); 
+    printf("ADD (544, KEZXDU, xdrwv)\n");
     afficher_biblio(b_de_xdrwv);
-    liberer_biblio(b_de_xdrwv);
+    
+    // test supprimer_ouvrage()
+    supprimer_ouvrage(b_de_xdrwv, 4211, "KEZXDU", "xdrwv");
+    printf("DEL (4211, KEZXDU, xdhwv)--> 2éme et dernier élément de la liste:\n");
+    afficher_biblio(b_de_xdrwv);
+    
+    supprimer_ouvrage(b_de_xdrwv, 544, "KEZXDU", "xdrwv");
+    printf("DEL (544, KEZXDU, xdhwv)--> 1er et 3eme element de la liste:\n");
+    afficher_biblio(b_de_xdrwv);
 
+
+    liberer_biblio(b_de_xdrwv);
     liberer_biblio(b2);
     return 0;
 }
