@@ -166,7 +166,7 @@ int main(int argc, char *argv[]){
     Biblio* multi = recherche_doublons(b);
     afficher_biblio(multi);
     printf("\nEnregistrement de la Biblio créée dans le ficher doublons.txt\n");
-    enregistrer_bilbio(multi, "doublons.txt");
+    enregistrer_bilbio(multi, "doublonsLC.txt");
     liberer_Biblio(multi);
     liberer_Biblio(b);
 

@@ -195,33 +195,34 @@ void add_if_new(BiblioH* b,int num, char *titre, char *auteur){
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
     LivreH* tmp = b->T[indice];
-    if(tmp==NULL){ b->T[indice] = creer_livre(num,titre,auteur);b->nE++; } // Cas où liste vide => insertion
-    int isIn = 1;                                                 // Parcours liste a la recherche du livre
-    while (tmp && isIn!=0){
-        if(tmp->num==num && strcmp(tmp->titre,titre) && strcmp(tmp->auteur,auteur)){ isIn=0;}
+    LivreH* ante;
+    if(!tmp){ b->T[indice] = creer_livre(num,titre,auteur);b->nE++;return;} // Cas où liste vide => insertion
+    while (tmp){
+        if(tmp->num==num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){ return;}
+        ante = tmp;
         tmp=tmp->suiv;
     }
-    if(isIn==0){                                                     // Ajout en queue uniquement si pas trouvé précédemment
-        tmp->suiv = creer_livre(num,titre,auteur);
-        b->nE++;
-    }
-
+    LivreH *new = creer_livre(num,titre,auteur);
+    ante->suiv = new ;
+    b->nE++;
 }
 
-//Biblio* recherche_doublons(Biblio* b){
-//    Biblio* res =  creer_biblio();
-//    Livre* tmp1 = b->L;
-//    while(tmp1){
-//        Livre * tmp2=tmp1->suiv;
-//        while(tmp2){
-//            if(strcmp(tmp1->titre,tmp2->titre)==0 && strcmp(tmp1->auteur,tmp2->auteur)==0){
-//                add_if_new(res, tmp1->num, tmp1->titre, tmp1->auteur);
-//                add_if_new(res, tmp2->num, tmp2->titre, tmp2->auteur);
-//            }
-//            tmp2 = tmp2->suiv;
-//        }
-//        tmp1 = tmp1->suiv;
-//    }
-//    return res;
-//}
-//
+BiblioH* recherche_doublons(BiblioH* b){
+    BiblioH* res =  creer_biblio(1);
+    for(int i=0;i<b->m;i++){
+        LivreH* l1 = b->T[i];
+        while(l1){
+            LivreH * l2 = l1->suiv;
+            while(l2){
+                if(strcmp(l1->titre,l2->titre)==0 && strcmp(l1->auteur,l2->auteur)==0){
+                    add_if_new(res, l1->num, l1->titre, l1->auteur);
+                    add_if_new(res, l2->num, l2->titre, l2->auteur);
+                }
+                l2 = l2->suiv;
+            }
+            l1 = l1->suiv;
+        }
+    }
+    return res;
+}
+

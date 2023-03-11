@@ -29,6 +29,7 @@ char* titre_alea(int t){
 }
 
 int main(int argc, char *argv[]){
+    /*
     srand(time(NULL)); // change la seed pour faire varier la génération de nombre aléatoire.
     int n, m;
     if (argc!=3){
@@ -39,6 +40,7 @@ int main(int argc, char *argv[]){
         m=atoi(argv[2]);
     }
     
+
     // test fct fonctionClef(char *auteur);
     assert(0==fonctionClef(""));
     assert(97==fonctionClef("a"));
@@ -145,7 +147,6 @@ int main(int argc, char *argv[]){
     printf("DEL (544, KEZXDU, xdhwv)--> 1er et 3eme element de la liste:\n");
     afficher_biblio(b_de_xdrwv);
     liberer_biblio(b_de_xdrwv);
-    liberer_biblio(b2);
 
     // test fusion_biblio()
     BiblioH * trunks = creer_biblio(8);
@@ -184,6 +185,17 @@ int main(int argc, char *argv[]){
         afficher_biblio(testAdd);
     }
     liberer_biblio(testAdd);
+    
+    */
+    // test doublons
+    BiblioH* b2 = charger_n_entrees("GdeBiblio.txt", 5000, 500);
+    afficher_biblio(b2);
+    BiblioH* multi = recherche_doublons(b2);
+    afficher_biblio(multi);
+    printf("\nEnregistrement de la Biblio créée dans le ficher doublons.txt\n");
+    enregistrer_bilbio(multi, "doublonsH.txt");
+    liberer_biblio(multi);
+    liberer_biblio(b2);
 
     return 0;
 }

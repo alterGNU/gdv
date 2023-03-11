@@ -37,6 +37,6 @@ BiblioH* same_autor(BiblioH* b,char *autor);
 void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur);
 void fusion(BiblioH* b1, BiblioH* b2);
 void add_if_new(BiblioH* b,int num, char *titre, char *auteur);
-//Biblio* recherche_doublons(Biblio* b);
+BiblioH* recherche_doublons(BiblioH* b);
 
 #endif

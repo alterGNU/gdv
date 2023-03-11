@@ -193,3 +193,12 @@ Voici les livres des la bibliothque:
 - ` supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur)` : supprime toutes les occurences d'un ouvrage
   dans une BilbioH
 - ` fusion(BiblioH* b1, BiblioH* b2)` : fusionne b2 avec b1 puis supprime b2
+- ` add_if_new(BiblioH* b, int num, char *titre, char *auteur)` : créer puis ajoute en queue de la liste chainée (dans
+  tab) le livre s'il n'est pas deja dans la biblio.
+- `BiblioH* recherche_doublons(BiblioH* b)` : comme deux ouvrages sont identiques s'ils ont le meme titre et auteur,
+  alors dans une bilbioH ils se trouverons forcement dans la meme liste chainée (car mm clef => mm indice du tableau).
+  on cherche donc uniquement dans les listes chainées). La bilbioH retournée elle ne contiendra qu'une case dans son
+  tableau car on demande une liste chainée en retour.
+
+
+
