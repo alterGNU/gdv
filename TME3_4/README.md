@@ -2,93 +2,39 @@
 
 ## Exo1 : Gestion d'une bibliothèque avec une liste chaînée de struct
 
-### Q1.1 : Creation header
+### Q1.1 : Creation des fichiers
+- `biblioLC.c` : contient les fonctions permettant de gérer les listes chainées.
+- `biblioLC.h` : header contenant signatures des fonctions et structures propre à la table de hachage.
 ### Q1.2 : Creation fonctions manipulation des structures
-- Apres avoir créer les fonctions demandées, on les tests via l'execution de ce fichier manipStruct.c :
-    ```c
-    #include <stdio.h>    // pr printf
-    #include <stdlib.h>   // pr free, exit
-    #include "biblioLC.h" // pour struct Livre et Biblio
-    #define BUFF 100      // taille max str
-    
-    int main(int argc, char *argv[]){
-        printf("Créons une bibliothèque:\n");
-    
-        char *t2="jeanBLOGUIN";
-        char *a2="humourNoir";
-    
-        char *t3="jean-michelFAURE";
-        char *a3="gin&co_obs&trick";
-    
-        Biblio* b1 = creer_biblio();
-    
-        inserer_en_tete(b1, 1, t2, a2);
-        afficher_biblio(b1);
-    
-        inserer_en_tete(b1, 2, t3, a3);
-        afficher_biblio(b1);
-    
-        liberer_Biblio(b1);
-        
-        return 0;
-    ```
-- La cmd `gcc -Wall -o manipStruct manipStruct.c biblioLC.c && valgrind --leak-check=yes ./manipStruct` retourne alors:
-    ```bash
-    ...
-    Créons une bibliothèque:
-    Voici les livres des la bibliothque:
-    	- n°:1,"jeanBLOGUIN" de *humourNoir*
-    Voici les livres des la bibliothque:
-    	- n°:2,"jean-michelFAURE" de *gin&co_obs&trick*
-    	- n°:1,"jeanBLOGUIN" de *humourNoir*
-    ==62930== 
-    ==62930== HEAP SUMMARY:
-    ==62930==     in use at exit: 0 bytes in 0 blocks
-    ==62930==   total heap usage: 4 allocs, 4 frees, 1,096 bytes allocated
-    ...
-    ```
+- `Livre* creer_livre(int num, char *titre, char *auteur)` :  ~O(1) : copie les arguments, alloue l'espace necessaire
+  puis crée l'instance de Livre correspondant et retourne le pointeur vers cette instance de Livre.
+- `void liberer_livre(Livre *l)` : ~O(1) : libére les champs de l'instance de Livre passée en argument.
+- `Biblio* creer_biblio()` :   ~O(1) : alloue l'espace necessaire puis crée l'instance de Biblio vide (champ b->L=NULL)
+  puis retourne le pointeur vers cette intance.
+- `void liberer_Biblio(Biblio* b)` : ~O(n) où n est la taille de la liste chainée : parcoure l'ensemble de la liste
+  chainée afin de libérer tous ses éléments, puis libére le pointeur vers b avant de mettre la valeur du pointeur vers
+  l'entéte de la liste Chainée a NULL(utilisé par la fonction affichage pour determiner si bilbio vide ou non existante)
+- `void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur)` : ~0(1) : insére un Livre en téte de la liste
+  chainée.
 ### Q1.3 : Creation fonctions manipulation de fichiers
-- Apres avoir créer les fonctions demandées, on les tests via l'execution de ce fichier manipES.c :
-    ```bash
-    ...
-    char * nomfichier=argv[1];
-    Biblio* b = charger_n_entrees(nomfichier, SIZEDICO);
-    afficher_biblio(b);
-    enregistrer_bilbio(b, "save.txt");
-    liberer_Biblio(b);
-    ...
-    ```
-- La cmd `gcc -Wall -o test manipES.c biblioLC.c entreeSortieLC.c && valgrind --leak-check=yes ./test GdeBiblio.txt` retourne alors:
-```bash
-...
-Voici les livres des la bibliothque:
-	- n°:9,"KMLNOZJKPQPXR" de *xkitzyxa*
-	- n°:8,"WPQCA" de *ehchzvf*
-	- n°:7,"SOFS" de *cnuvqhffbsaq*
-	- n°:6,"LJPTNSNFWZQFJMA" de *adrr*
-	- n°:5,"JIVSWMDKQT" de *xixmvtrr*
-	- n°:4,"FWKHOPKMCOQHNWNKUE" de *hsqmgbbuqcl*
-	- n°:3,"KEZXDU" de *xdrwv*
-	- n°:2,"JYBLD" de *efsarcbynecd*
-	- n°:1,"SCDXRJ" de *owfrx*
-	- n°:0,"WLRBBMQBHCDARZOWK" de *yhidd*
-==78794== HEAP SUMMARY:
-==78794==     in use at exit: 0 bytes in 0 blocks
-==78794==   total heap usage: 36 allocs, 36 frees, 10,648 bytes allocated
-==78794==
-==78794== All heap blocks were freed -- no leaks are possible
-...
-```
-
-- On constate qu'a l'issue de l'execution un ficher `save.txt` à bien été créé et contient l'ensemble de la bibliotheque
-  au format demandé.
-
-### Q1.4 : Creation du main
-
+- `Biblio* charger_n_entrees(char * nom_fichier, int nb_ligne )` : créer un instance de Biblio en lisant les
+  *<nb_ligne>* premières lignes du fichier *<nom_fichier>*
+- `void enregistrer_bilbio(Biblio* b, char *nom_fichier)` : Enregistre la bilbio *<b>* dans le fichier *<nom_fichier>*
+### Q1.4 : Creation du mainLC.c
+- La commande `make LC` permet la compilation de `mainLC.c` et produit le binaire `mainLC`.
+- Ainsi la commande `./mainLC GdeBiblio.txt 5000` commence par créer une biblio à partir des 5000 premiéres lignes du
+  fichier GdeBiblio.txt puis affiche le panel des commandes disponible à l'utilisateur:
 ### Q1.5 : Creation du Makefile
-- Ajout des commandes:
-    - `make` : compile le main de la question 1.4.
-    - `make clean` : supprime le binaire du main ainsi que le fichier `save.txt` qu'il génére.
+- Voici les commandes actuelles du makefile:
+    - `make testLC`: compile puis test (y compris les fuites memoires avec `valgrind`) l'ensemble des fonctions de manipulation des Listes Chainées.
+    - `make testH`: compile puis test (y compris les fuites memoires avec `valgrind`) l'ensemble des fonctions de manipulation des tables de Hashages.
+    - `make LC`: compile le mainLC permettant de lancer le menu pour l'utilisateur : `make LC && ./mainLC GdeBiblio.txt
+      5000` crée une instance de Biblio à partir des 5000 premiéres lignes du fichier GdeBiblio.txt puis affiche le menu
+      des actions possibles pour l'utilisateur.
+    - `make H`: compile le mainH permettant de lancer le menu pour l'utilisateur : `make H && ./mainH GdeBiblio.txt
+      5000` crée une instance de Biblio à partir des 5000 premiéres lignes du fichier GdeBiblio.txt puis affiche le menu
+      des actions possibles pour l'utilisateur.
+    - `make clean`: permet de supprimer les binaires produits par les commandes ci-dessus
 
 ### Q1.6 : Ajout de fonctions utiles
 - ` void afficher_livre(Livre *l);` :  ~O(1) Affiche le contenue d'une struct Livre
@@ -106,15 +52,21 @@ Voici les livres des la bibliothque:
   meme titre), puis les regroupents dans une bibliotheque qu'elle retourne.
 
 ### Q1.{7,8} : main interactif
-- ` void menu();` :  Affiche l'ensemble des actions possibles la bibliotheque:
-    - 0 : Quitter le programme
-    - 1 : Afficher la bibliothèque
-    - 2 : Créer puis inserer en tete un livre
-    - 3 : Chercher un livre via son numer
-    - 4 : Chercher un livre via son titre
-    - 5 : Créer une bibliotheque contenant tous les ouvrages d'un auteur
-    - 6 : Supprimer un ouvrage
-    - 7 : constituer une bibliotheque des doublons puis la sauvegarde dans un fichier
+- La commande `make H && ./mainH GdeBiblio.txt 5000` crée une instance de Biblio à partir des 5000 premiéres lignes du
+  fichier GdeBiblio.txt puis affiche le menu suivant:
+
+```bash
+...
+Voici vos choix:
+- 0 : Quitter le programme
+- 1 : Afficher la bibliothèque
+- 2 : Créer puis inserer en tete un livre
+- 3 : Chercher un livre via son numero
+- 4 : Chercher un livre via son titre
+- 5 : Créer une bibliotheque contenant tous les ouvrages d'un auteur
+- 6 : Supprimer un ouvrage
+- 7 : constituer une bibliotheque des doublons(sauvegarde possible)
+```
 
 ## Exo2 : Gestion d'une bibliothèque avec une table de hachage
 
@@ -188,6 +140,7 @@ Voici les livres des la bibliothque:
 ```
 - ` LivreH* search_by_num(BiblioH* b,int num)` : cherche et retourne le livre si son numero correspond, sinon NULL.
 - ` LivreH* search_by_title(BiblioH* b,char * titre)` : cherche et retourne le livre si son titre correspond, sinon NULL.
+- ` LivreH* search_by_autor(BiblioH* b,char * auteur)` : cherche et retourne le livre si son auteur correspond, sinon NULL.
 - ` BiblioH* same_autor(BiblioH* b,char *autor)` : retourne la biblioH ayant un tableau de taille 1 contenant tous les
   ouvrages d'un meme auteur.
 - ` supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur)` : supprime toutes les occurences d'un ouvrage
@@ -199,6 +152,3 @@ Voici les livres des la bibliothque:
   alors dans une bilbioH ils se trouveront forcement dans la meme liste chainée (car mm clef => mm indice du tableau).
   on cherche donc uniquement dans chaque listes chainées du tableau. La bilbioH retournée elle ne contiendrat qu'une
   case dans son tableau car on ne demande qu'une liste chainée en retour.
-
-
-
