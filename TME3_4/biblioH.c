@@ -159,17 +159,17 @@ BiblioH* same_autor(BiblioH* b,char *auteur){
 }
 
 void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur){
-    if (b==NULL){exit(-1);}                                                               // evite le cas où biblioH est vide/NULL
+    if (b->T==NULL){exit(-1);}                                                               // evite le cas où biblioH est vide/NULL
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
     LivreH* tmp = b->T[indice];
-    LivreH* ante;
+    LivreH* ante = NULL;
     while(tmp!=NULL){                                                                     // permet d'eviter le cas ou bibliotheque est vide
         if(tmp->num==num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){// cas où 1er octmpence = 1 LivreH de la liste chainée
-            if (ante){            // cas match au premier element de la liste
-                ante->suiv = (tmp) ? tmp->suiv : tmp; // ternaire pr cas où tmp est NULL ou non
-            }else{                      // autre cas!milieu ou fin de liste
-                b->T[0] = tmp->suiv;
+            if (ante){                                       // cas match PAS au premier element de la listeC
+                ante->suiv = (tmp->suiv) ? tmp->suiv : NULL; // cas match dernier element (ternaire)
+            }else{                                           // cas match au premier element
+                b->T[indice] = tmp->suiv;
             }
             liberer_livre(tmp);
             b->nE--;
