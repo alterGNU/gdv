@@ -192,3 +192,4 @@ Voici les livres des la bibliothque:
   ouvrages d'un meme auteur.
 - ` supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur)` : supprime toutes les occurences d'un ouvrage
   dans une BilbioH
+- ` fusion(BiblioH* b1, BiblioH* b2)` : fusionne b2 avec b1 puis supprime b2

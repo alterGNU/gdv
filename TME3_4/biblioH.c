@@ -179,16 +179,19 @@ void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur){
     }
 }
 
-//void fusion(Biblio* b1, Biblio* b2){
-//    if (b2==NULL){return ;}                           // Cas trivial où b2 vide
-//    Livre *tmp1 = b1->L;
-//    if (tmp1!=NULL){
-//        while (tmp1->suiv!=NULL){ tmp1 = tmp1->suiv;} // parcour b1 jusqu'au bout
-//    }
-//    tmp1->suiv = b2->L;                               // joint fin b1 avec debur b2
-//    b2->L = NULL;                                     // supprime l'entéte de b2
-//}
-//
+void fusion(BiblioH* b1, BiblioH* b2){
+    if (b2==NULL){return ;}                           // Cas trivial où b2 vide
+    for(int i=0;i<b2->m;i++){
+        LivreH *l = b2->T[i];
+        while(l){
+            LivreH *ante=l;
+            inserer(b1, l->num, l->titre, l->auteur);
+            l = l->suiv;
+        }
+    }
+    liberer_biblio(b2);
+}
+
 //void add_if_new(Biblio* b,int num, char *titre, char *auteur){
 //    Livre * p = b->L;
 //    if(!p){inserer_en_tete(b,num,titre,auteur);return;}// si biblio vide ajoute au debut

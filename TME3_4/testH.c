@@ -144,9 +144,29 @@ int main(int argc, char *argv[]){
     supprimer_ouvrage(b_de_xdrwv, 544, "KEZXDU", "xdrwv");
     printf("DEL (544, KEZXDU, xdhwv)--> 1er et 3eme element de la liste:\n");
     afficher_biblio(b_de_xdrwv);
-
-
     liberer_biblio(b_de_xdrwv);
     liberer_biblio(b2);
+
+    // test fusion_biblio()
+    BiblioH * trunks = creer_biblio(8);
+    BiblioH * goten = creer_biblio(8);
+
+    for (int i=0;i<10;i++){
+        char * auteur = nom_alea(nb_alea(3,9));
+        char * titre = titre_alea(nb_alea(5,15));
+        inserer(((i%2)?trunks:goten), i, titre, auteur);
+        free(titre);
+        free(auteur);
+    }
+    printf("Voici trunks AVANT LA FUSION\n:");
+    afficher_biblio(trunks);
+    printf("\nVoici goten APRES LA FUSIO\n:");
+    afficher_biblio(goten);
+    printf("Voici trunks APRES LA FUSION (aka GOTENKS)\n:");
+    fusion(trunks, goten);
+    afficher_biblio(trunks);
+
+    liberer_biblio(trunks);
+
     return 0;
 }
