@@ -3,7 +3,7 @@
 #include "biblioLC.h"       // pour struct Livre et Biblio
 #define BUFF 1000           // taille max str
 
-Biblio* charger_n_entrees(char * nomfic, int n){
+Biblio* charger_n_entreesLC(char * nomfic, int n){
     Biblio* b = creer_biblio();
     FILE * entree = NULL;
     entree = fopen (nomfic, "r");
@@ -22,7 +22,7 @@ Biblio* charger_n_entrees(char * nomfic, int n){
     return b;
 }
 
-void enregistrer_bilbio(Biblio* b, char *nomfic){
+void enregistrer_bilbioLC(Biblio* b, char *nomfic){
     FILE * sortie = NULL;
     sortie = fopen (nomfic, "w");
     if(sortie == NULL) {printf("Error: fopen failed\n"); exit(3); }

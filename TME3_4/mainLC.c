@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
 
     printf("\nCreation d'une Biblio en lisant les %d première lignes de %s\n",n,argv[1]);
     char * nomfichier=argv[1];
-    Biblio* b = charger_n_entrees(nomfichier, n);
+    Biblio* b = charger_n_entreesLC(nomfichier, n);
     int rep;
     char input[BUFFMAX];
     do{
@@ -123,14 +123,14 @@ int main(int argc, char *argv[]){
                 if (sscanf(input,"%s %d %s",nomfichier,&lignes, save)==3){
                     printf("Saisie correcte\n");
                     printf("Tache:construction de la bibliotheque...");
-                    Biblio* b1 = charger_n_entrees(nomfichier, lignes);
+                    Biblio* b1 = charger_n_entreesLC(nomfichier, lignes);
                     printf("FIN!\n");
                     printf("Tache:construction de la bibliotheque des doublons...");
                     Biblio* b2 =  recherche_doublons(b1);
                     printf("FIN!\n");
                     printf("Tache:sauvegarde dans `%s` de la bibliotheque suivante:\n",save);
                     afficher_biblio(b2);
-                    enregistrer_bilbio(b2, save);
+                    enregistrer_bilbioLC(b2, save);
                     printf("SAUVEGARDE TERMINÉE LE FICHIER './%s' A ÉTÉ CRÉÉ!\n",save);
                     liberer_Biblio(b1);
                     liberer_Biblio(b2);

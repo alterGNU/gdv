@@ -2,7 +2,7 @@
 #define ENTREESORTIELC_H
 #include "biblioLC.h"
 
-Biblio* charger_n_entrees(char * nomfic, int n);
-void enregistrer_bilbio(Biblio* b, char *nomfic);
+Biblio* charger_n_entreesLC(char * nomfic, int n);
+void enregistrer_bilbioLC(Biblio* b, char *nomfic);
 
 #endif

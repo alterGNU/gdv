@@ -17,9 +17,9 @@
 - `void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur)` : ~0(1) : insére un Livre en téte de la liste
   chainée.
 ### Q1.3 : Creation fonctions manipulation de fichiers
-- `Biblio* charger_n_entrees(char * nom_fichier, int nb_ligne )` : créer un instance de Biblio en lisant les
+- `Biblio* charger_n_entreesLC(char * nom_fichier, int nb_ligne )` : créer un instance de Biblio en lisant les
   *<nb_ligne>* premières lignes du fichier *<nom_fichier>*
-- `void enregistrer_bilbio(Biblio* b, char *nom_fichier)` : Enregistre la bilbio *<b>* dans le fichier *<nom_fichier>*
+- `void enregistrer_bilbioLC(Biblio* b, char *nom_fichier)` : Enregistre la bilbio *<b>* dans le fichier *<nom_fichier>*
 ### Q1.4 : Creation du mainLC.c
 - La commande `make LC` permet la compilation de `mainLC.c` et produit le binaire `mainLC`.
 - Ainsi la commande `./mainLC GdeBiblio.txt 5000` commence par créer une biblio à partir des 5000 premiéres lignes du
@@ -106,16 +106,16 @@ Voici vos choix:
 ### Q2.6 : Creation des fonctions:
 
 #### PARTIE entreeSortiesH.c
-- `BiblioH* charger_n_entrees(char * nom_fichier, int nb_ligne, int taille_table)` : ~O(1) à partir des *<nb_ligne>* 1er
+- `BiblioH* charger_n_entreesH(char * nom_fichier, int nb_ligne, int taille_table)` : ~O(1) à partir des *<nb_ligne>* 1er
   lignes du fichier *<nom_fichier>*, créer une instance de BilbioH ayant une table de hash de taille *<taille_table>*
-- `void enregistrer_bilbio(BiblioH* b, char *nom_fichier)`: ~O(1) enregistre dans le fichier *<nom_fichier>* la biblioH.
+- `void enregistrer_bilbioH(BiblioH* b, char *nom_fichier)`: ~O(1) enregistre dans le fichier *<nom_fichier>* la biblioH.
 
 - Le test de ces deux fonctions:
     ```c
     ...
-    BiblioH* b2 = charger_n_entrees("GdeBiblio.txt", 10, 10);
+    BiblioH* b2 = charger_n_entreesH("GdeBiblio.txt", 10, 10);
     afficher_biblio(b2);
-    enregistrer_bilbio(b2,"saveH.txt");
+    enregistrer_bilbioH(b2,"saveH.txt");
     liberer_biblio(b2);
     ```
 - retourne :

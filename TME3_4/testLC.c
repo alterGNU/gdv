@@ -23,12 +23,12 @@ int main(int argc, char *argv[]){
     // test charger_n_entrees();
     printf("\nCreation d'une Biblio en lisant les %d première lignes de %s\n",n,argv[1]);
     char * nomfichier=argv[1];
-    Biblio* b = charger_n_entrees(nomfichier, n);
+    Biblio* b = charger_n_entreesLC(nomfichier, n);
     afficher_biblio(b);
 
     // test enregistrer_biblio()
     printf("\nEnregistrement de la Biblio créée dans le ficher saveLC.txt\n");
-    enregistrer_bilbio(b, "saveLC.txt");
+    enregistrer_bilbioLC(b, "saveLC.txt");
 
     // Q1.6
     // test search_by_num()
@@ -152,7 +152,7 @@ int main(int argc, char *argv[]){
     Biblio* multi = recherche_doublons(b);
     afficher_biblio(multi);
     printf("\nEnregistrement de la Biblio créée dans le ficher doublons.txt\n");
-    enregistrer_bilbio(multi, "doublonsLC.txt");
+    enregistrer_bilbioLC(multi, "doublonsLC.txt");
     liberer_Biblio(multi);
     liberer_Biblio(b);
 

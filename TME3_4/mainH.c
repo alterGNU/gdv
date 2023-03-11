@@ -1,6 +1,6 @@
 #include <stdio.h>          // pour printf, FILE , fopen, fclose
 #include <stdlib.h>         // pour atoi
-#include "biblioH.h"        // pour struct Livre et Biblio
+#include "biblioH.h"        // pour struct LivreH et BiblioH
 #include "entreeSortieH.h"  // pour fct charger et enregistrer
 #include "utilalea.h"       // pour fct menu
 #define BUFF 256
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
         printf("Erreur format saisie\n");
     }
     char * nomfichier=argv[1];
-    BiblioH* b = charger_n_entrees(nomfichier, n, taille_tab);
+    BiblioH* b = charger_n_entreesH(nomfichier, n, taille_tab);
     int rep;
     do{
         menu();
@@ -129,14 +129,14 @@ int main(int argc, char *argv[]){
                 if (sscanf(input,"%d %s %d %s",&taille_tab, nomfichier,&lignes, save)==4){
                     printf("Saisie correcte\n");
                     printf("Tache:construction de la bibliotheque...");
-                    BiblioH* b1 = charger_n_entrees(nomfichier, lignes, taille_tab);
+                    BiblioH* b1 = charger_n_entreesH(nomfichier, lignes, taille_tab);
                     printf("FIN!\n");
                     printf("Tache:construction de la bibliotheque des doublons...");
                     BiblioH* b2 =  recherche_doublons(b1);
                     printf("FIN!\n");
                     printf("Tache:sauvegarde dans `%s` de la bibliotheque suivante:\n",save);
                     afficher_biblio(b2);
-                    enregistrer_bilbio(b2, save);
+                    enregistrer_bilbioH(b2, save);
                     printf("SAUVEGARDE TERMINÉE LE FICHIER './%s' A ÉTÉ CRÉÉ!\n",save);
                     liberer_biblio(b1);
                     liberer_biblio(b2);

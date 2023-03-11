@@ -4,7 +4,7 @@
 #include "entreeSortieH.h"  // pour struct LivreH et BiblioH
 #define BUFF 1000           // taille max str
 
-BiblioH* charger_n_entrees(char * nom_fichier, int nb_ligne, int taille_table){
+BiblioH* charger_n_entreesH(char * nom_fichier, int nb_ligne, int taille_table){
     BiblioH* b = creer_biblio(taille_table);
     FILE * entree = NULL;
     entree = fopen (nom_fichier, "r");
@@ -23,7 +23,7 @@ BiblioH* charger_n_entrees(char * nom_fichier, int nb_ligne, int taille_table){
     return b;
 }
 
-void enregistrer_bilbio(BiblioH* b, char *nom_fichier){
+void enregistrer_bilbioH(BiblioH* b, char *nom_fichier){
     FILE * sortie = NULL;
     sortie = fopen (nom_fichier, "w");
     if(sortie == NULL) {printf("Error: fopen failed\n"); exit(3); }

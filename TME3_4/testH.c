@@ -91,9 +91,9 @@ int main(int argc, char *argv[]){
     // test charger_n_entrees()
     char *nomFichier = "GdeBiblio.txt";
     printf("\nCreation d'une Biblio en lisant les %d premières lignes de %s\n",n,nomFichier);
-    BiblioH* b2 = charger_n_entrees(nomFichier, 5000, 500);
+    BiblioH* b2 = charger_n_entreesH(nomFichier, 5000, 500);
     afficher_biblio(b2);
-    enregistrer_bilbio(b2,"saveH.txt");
+    enregistrer_bilbioH(b2,"saveH.txt");
 
     // test search_by_num()
     LivreH* lnumero0 = search_by_num(b2,0);
@@ -169,7 +169,7 @@ int main(int argc, char *argv[]){
     BiblioH* multi = recherche_doublons(b2);
     afficher_biblio(multi);
     printf("\nEnregistrement de la Biblio créée dans le ficher doublons.txt\n");
-    enregistrer_bilbio(multi, "doublonsH.txt");
+    enregistrer_bilbioH(multi, "doublonsH.txt");
     liberer_biblio(multi);
     liberer_biblio(b2);
 
