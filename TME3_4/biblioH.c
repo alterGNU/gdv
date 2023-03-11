@@ -112,31 +112,37 @@ void inserer(BiblioH* b, int num, char *titre, char *auteur){
     b->nE++;
 }
 
-//void inserer_en_tete(Biblio* b, int num, char *titre, char *auteur){
-//    Livre *new = creer_livre(num, titre, auteur);
-//    (new->suiv) = (b->L);
-//    (b->L) = new;
-//}
-//
-//
-//Livre* search_by_num(Biblio* b,int num){
-//    Livre* tmp = b->L;
-//    while (tmp!=NULL && tmp->num!=num){
-//        tmp=tmp->suiv;
-//    }
+LivreH* search_by_num(BiblioH* b,int num){
+    LivreH* tmp ;
+    for(int i=0;i<b->m;i++){
+        tmp = b->T[i];
+        while (tmp!=NULL){
+            if (tmp->num==num){return tmp;}
+            tmp=tmp->suiv;
+        }
+    }
+    return tmp;
+}
+
+//LivreH* search_by_autor(BiblioH* b,char * auteur){
+//    int clef = fonctionClef(auteur);
+//    int indice = fonctionHachage(clef, b->m);
+//    LivreH* tmp = b->T[indice];
+//    while (tmp!=NULL && tmp->auteur!=auteur){ tmp=tmp->suiv; }
 //    return tmp;
 //}
-//
-//Livre* search_by_title(Biblio* b,char *title){
-//    char * t = strdup(title); // alloue et copie la chaîne de caractères titre
-//    Livre* tmp = b->L;
-//    while (tmp!=NULL && strcmp(tmp->titre,t)!=0){
-//        tmp=tmp->suiv;
-//    }
-//    free(t);
-//    return tmp;
-//}
-//
+
+LivreH* search_by_title(BiblioH* b,char *title){
+    for(int i=0;i<b->m;i++){
+        LivreH* tmp = b->T[i];
+        while (tmp!=NULL){
+            if (strcmp(tmp->titre,title)==0){return tmp;}
+            tmp=tmp->suiv;
+        }
+    }
+    return NULL;
+}
+
 //Biblio* same_autor(Biblio* b,char *autor){
 //    Biblio* res=creer_biblio();
 //    char* a = strdup(autor);

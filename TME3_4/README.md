@@ -186,3 +186,5 @@ Voici les livres des la bibliothque:
 2 JYBLD efsarcbynecd
 1 SCDXRJ owfrx
 ```
+- ` LivreH* search_by_num(BiblioH* b,int num)` : cherche et retourne le livre si son numero correspond, sinon NULL.
+- ` LivreH* search_by_title(BiblioH* b,char * titre)` : cherche et retourne le livre si son titre correspond, sinon NULL.

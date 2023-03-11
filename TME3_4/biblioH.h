@@ -29,11 +29,10 @@ void liberer_biblio(BiblioH* b);
 int fonctionHachage(int cle, int m);
 //Q2.3
 void inserer(BiblioH* b, int num, char *titre, char *auteur);
-
-////Q1.6
-//void afficher_biblio(Biblio* b);
-//Livre* search_by_num(Biblio* b,int num);
-//Livre* search_by_title(Biblio* b,char *title);
+//Q2.6
+LivreH* search_by_num(BiblioH* b,int num);
+//LivreH* search_by_autor(BiblioH* b,char * auteur){
+LivreH* search_by_title(BiblioH* b,char *title);
 //Biblio* same_autor(Biblio* b,char *autor);
 //void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur);
 //void fusion(Biblio* b1, Biblio* b2);

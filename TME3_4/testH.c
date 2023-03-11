@@ -2,6 +2,7 @@
 #include <stdlib.h>        // pour atoi
 #include <time.h>          // pour time...
 #include <assert.h>        // pour assert
+#include <string.h>        // pour strcmp
 #include <math.h>          // pour sqrt
 #include "biblioH.h"       // pour struct Livre et Biblio
 #include "entreeSortieH.h" // pour fct charger et enregistrer
@@ -38,73 +39,73 @@ int main(int argc, char *argv[]){
         m=atoi(argv[2]);
     }
     
-    //// test fct fonctionClef(char *auteur);
-    //assert(0==fonctionClef(""));
-    //assert(97==fonctionClef("a"));
-    //assert(97+98+99+100==fonctionClef("abcd"));
-    //assert(65==fonctionClef("A"));
-    //assert(65+66+67+68+69+70+71==fonctionClef("ABCDEFG"));
+    // test fct fonctionClef(char *auteur);
+    assert(0==fonctionClef(""));
+    assert(97==fonctionClef("a"));
+    assert(97+98+99+100==fonctionClef("abcd"));
+    assert(65==fonctionClef("A"));
+    assert(65+66+67+68+69+70+71==fonctionClef("ABCDEFG"));
 
-    ////Genére données livre0 aléatoirement
-    //int num0 = nb_alea(0,10);
-    //char * auteur0 = nom_alea(nb_alea(3,9));
-    //char * titre0 = titre_alea(nb_alea(5,15));
-    //printf("Données alea0:(%d,%s,%s)\n",num0,auteur0,titre0);
-    //int clef0 = fonctionClef(auteur0);
-    //printf("'%s' --> %d\n",auteur0,clef0);
+    //Genére données livre0 aléatoirement
+    int num0 = nb_alea(0,10);
+    char * auteur0 = nom_alea(nb_alea(3,9));
+    char * titre0 = titre_alea(nb_alea(5,15));
+    printf("Données alea0:(%d,%s,%s)\n",num0,auteur0,titre0);
+    int clef0 = fonctionClef(auteur0);
+    printf("'%s' --> %d\n",auteur0,clef0);
 
-    ////Genére données livre1 aléatoirement
-    //int num1 = nb_alea(0,10);
-    //char * auteur1 = nom_alea(nb_alea(3,9));
-    //char * titre1 = titre_alea(nb_alea(5,15));
-    //printf("Données alea0:(%d,%s,%s)\n",num1,auteur1,titre1);
-    //int clef1 = fonctionClef(auteur1);
-    //printf("'%s' --> %d\n",auteur1,clef1);
+    //Genére données livre1 aléatoirement
+    int num1 = nb_alea(0,10);
+    char * auteur1 = nom_alea(nb_alea(3,9));
+    char * titre1 = titre_alea(nb_alea(5,15));
+    printf("Données alea0:(%d,%s,%s)\n",num1,auteur1,titre1);
+    int clef1 = fonctionClef(auteur1);
+    printf("'%s' --> %d\n",auteur1,clef1);
 
-    //// creation, affichage et liberation de livreH
-    //LivreH* l0 = creer_livre(num0,titre0,auteur0);
-    //afficher_livre(l0);
+    // creation, affichage et liberation de livreH
+    LivreH* l0 = creer_livre(num0,titre0,auteur0);
+    afficher_livre(l0);
 
-    //LivreH* l1 = creer_livre(num1,titre1,auteur1);
-    //afficher_livre(l1);
+    LivreH* l1 = creer_livre(num1,titre1,auteur1);
+    afficher_livre(l1);
 
-    //liberer_livre(l0);
-    //liberer_livre(l1);
+    liberer_livre(l0);
+    liberer_livre(l1);
 
-    //// creation, affichage et liberation d'une bilbioH
-    //BiblioH * b = creer_biblio(4);
-    //afficher_biblio(b);
-    //liberer_biblio(b);
+    // creation, affichage et liberation d'une bilbioH
+    BiblioH * b = creer_biblio(4);
+    afficher_biblio(b);
+    liberer_biblio(b);
 
-    //// free les malloc du main
-    //free(auteur0);
-    //free(titre0);
-    //free(auteur1);
-    //free(titre1);
+    // free les malloc du main
+    free(auteur0);
+    free(titre0);
+    free(auteur1);
+    free(titre1);
 
-    //// test fonctionHachage
-    //for (int i=0;i<n;i++){
-    //    char * auteur = nom_alea(nb_alea(3,9));
-    //    int clef = fonctionClef(auteur);
-    //    int indice = fonctionHachage(clef,m);
-    //    printf("%s->%d->%d\n",auteur,clef,indice);
-    //    free(auteur);
-    //}
+    // test fonctionHachage
+    for (int i=0;i<n;i++){
+        char * auteur = nom_alea(nb_alea(3,9));
+        int clef = fonctionClef(auteur);
+        int indice = fonctionHachage(clef,m);
+        printf("%s->%d->%d\n",auteur,clef,indice);
+        free(auteur);
+    }
 
-    //// test fonction d'insertion
-    //BiblioH * b1 = creer_biblio(m);
-    //afficher_biblio(b1);
+    // test fonction d'insertion
+    BiblioH * b1 = creer_biblio(m);
+    afficher_biblio(b1);
 
-    //for (int i=0;i<n;i++){
-    //    int num = nb_alea(0,10);
-    //    char * auteur = nom_alea(nb_alea(3,9));
-    //    char * titre = titre_alea(nb_alea(5,15));
-    //    inserer(b1, num, titre, auteur);
-    //    afficher_biblio(b1);
-    //    free(titre);
-    //    free(auteur);
-    //}
-    //liberer_biblio(b1);
+    for (int i=0;i<n;i++){
+        int num = nb_alea(0,10);
+        char * auteur = nom_alea(nb_alea(3,9));
+        char * titre = titre_alea(nb_alea(5,15));
+        inserer(b1, num, titre, auteur);
+        afficher_biblio(b1);
+        free(titre);
+        free(auteur);
+    }
+    liberer_biblio(b1);
 
     // test charger_n_entrees()
     char *nomFichier = "GdeBiblio.txt";
@@ -112,9 +113,22 @@ int main(int argc, char *argv[]){
     BiblioH* b2 = charger_n_entrees(nomFichier, n, m);
     afficher_biblio(b2);
     enregistrer_bilbio(b2,"saveH.txt");
+
+    // test search_by_num()
+    LivreH* lnumero0 = search_by_num(b2,0);
+    afficher_livre(lnumero0);
+    assert(0==lnumero0->num);
+    LivreH* lpasla = search_by_num(b2,-1);
+    assert(NULL==lpasla);
+    afficher_livre(lpasla);
+    // test search_by_title()
+    LivreH* ltitreconnu = search_by_title(b2,"SOFS");
+    assert(strcmp("SOFS",ltitreconnu->titre)==0);
+    afficher_livre(ltitreconnu);
+    LivreH* ltitreinconnu = search_by_title(b2,"lePetitPoussait");
+    assert(NULL==ltitreinconnu);
+    afficher_livre(ltitreinconnu);
+
     liberer_biblio(b2);
-
-    // test enregistrer_bilbio()
-
     return 0;
 }
