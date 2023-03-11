@@ -188,3 +188,5 @@ Voici les livres des la bibliothque:
 ```
 - ` LivreH* search_by_num(BiblioH* b,int num)` : cherche et retourne le livre si son numero correspond, sinon NULL.
 - ` LivreH* search_by_title(BiblioH* b,char * titre)` : cherche et retourne le livre si son titre correspond, sinon NULL.
+- ` BiblioH* same_autor(BiblioH* b,char *autor)` : retourne la biblioH ayant un tableau de taille 1 contenant tous les
+  ouvrages d'un meme auteur.

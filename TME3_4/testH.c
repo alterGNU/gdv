@@ -110,7 +110,7 @@ int main(int argc, char *argv[]){
     // test charger_n_entrees()
     char *nomFichier = "GdeBiblio.txt";
     printf("\nCreation d'une Biblio en lisant les %d premières lignes de %s\n",n,nomFichier);
-    BiblioH* b2 = charger_n_entrees(nomFichier, n, m);
+    BiblioH* b2 = charger_n_entrees(nomFichier, 5000, 500);
     afficher_biblio(b2);
     enregistrer_bilbio(b2,"saveH.txt");
 
@@ -128,6 +128,10 @@ int main(int argc, char *argv[]){
     LivreH* ltitreinconnu = search_by_title(b2,"lePetitPoussait");
     assert(NULL==ltitreinconnu);
     afficher_livre(ltitreinconnu);
+    // test same_autor()
+    BiblioH* b_de_xdrwv  = same_autor(b2,"xdrwv");
+    afficher_biblio(b_de_xdrwv);
+    liberer_biblio(b_de_xdrwv);
 
     liberer_biblio(b2);
     return 0;

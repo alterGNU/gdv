@@ -33,7 +33,7 @@ void inserer(BiblioH* b, int num, char *titre, char *auteur);
 LivreH* search_by_num(BiblioH* b,int num);
 //LivreH* search_by_autor(BiblioH* b,char * auteur){
 LivreH* search_by_title(BiblioH* b,char *title);
-//Biblio* same_autor(Biblio* b,char *autor);
+BiblioH* same_autor(BiblioH* b,char *autor);
 //void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur);
 //void fusion(Biblio* b1, Biblio* b2);
 //void add_if_new(Biblio* b,int num, char *titre, char *auteur);

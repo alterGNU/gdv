@@ -143,20 +143,20 @@ LivreH* search_by_title(BiblioH* b,char *title){
     return NULL;
 }
 
-//Biblio* same_autor(Biblio* b,char *autor){
-//    Biblio* res=creer_biblio();
-//    char* a = strdup(autor);
-//    Livre* tmp = b->L;
-//    while (tmp!=NULL){
-//        if(strcmp(tmp->auteur,a)==0){
-//            inserer_en_tete(res,tmp->num,tmp->titre,tmp->auteur);
-//        }
-//        tmp=tmp->suiv;
-//    }
-//    free(a);
-//    return res;
-//}
-//
+BiblioH* same_autor(BiblioH* b,char *auteur){
+    BiblioH* res=creer_biblio(1);
+    int clef = fonctionClef(auteur);
+    int indice = fonctionHachage(clef, b->m);
+    LivreH* tmp = b->T[indice];
+    while (tmp!=NULL){
+        if(strcmp(tmp->auteur,auteur)==0){
+            inserer(res, tmp->num, tmp->titre, tmp->auteur);
+        }
+        tmp=tmp->suiv;
+    }
+    return res;
+}
+
 //void supprimer_ouvrage(Biblio* b, int num, char *titre, char *auteur){
 //    char* t = strdup(titre);
 //    char* a = strdup(auteur);
