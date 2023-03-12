@@ -193,5 +193,5 @@ Voici vos choix:
     - pour le pire des cas (livre absent), la table de hachage est toujours la plus lente.
     - lorsque le livre existe la table de hachage a des temps du meme ordre de grandeur que la liste chainée, mais passé
       un certains nombre de livre, elle devient moins interessante (au alentour de 5000 ouvrages)
-    - La Liste chainée est donc dans ce cas precis la structure la plus adaptée pour un grand nombre d'ouvrage (plus
-      simple à mettre en place)
+    - La Liste chainée est donc, dans le cas d'une recherche par numero, la structure la plus adaptée pour un grand nombre d'ouvrage (meilleur
+      temps et plus simple à mettre en place)

@@ -18,7 +18,7 @@ int main(int argc, char *argv[]){
         exit(1);
     }
 
-    char * entete="set title \"Comparaison des temps de recherche\"\n set xlabel \"Nbr livre\"\n set ylabel \"Temps de recherche (s)\"\n plot \"compareSearchByNum.txt\" using 1:2 title \"ListeChainée_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"red\" lw 1.2\n set term png\n set output \"searchByNum.png\"\n replot \"compareSearchByNum.txt\" using 1:3 title \"ListeChainée_(_a_b_s_e_n_t_)_\" with lines lc rgb \"orange\" lw 1.2 ,\"compareSearchByNum.txt\" using 1:4 title \"TableHash_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"blue\" lw 1.2 ,\"compareSearchByNum.txt\" using 1:5 title \"TableHash_(_a_b_s_e_n_t_)_\" with lines lc rgb \"green\" lw 1.2\n";
+    char * entete="set title \"Comparaison des temps de recherche par NUMERO\"\n set xlabel \"Nbr livre\"\n set ylabel \"Temps de recherche (s)\"\n plot \"compareSearchByNum.txt\" using 1:2 title \"ListeChainée_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"red\" lw 1.2\n set term png\n set output \"searchByNum.png\"\n replot \"compareSearchByNum.txt\" using 1:3 title \"ListeChainée_(_a_b_s_e_n_t_)_\" with lines lc rgb \"orange\" lw 1.2 ,\"compareSearchByNum.txt\" using 1:4 title \"TableHash_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"blue\" lw 1.2 ,\"compareSearchByNum.txt\" using 1:5 title \"TableHash_(_a_b_s_e_n_t_)_\" with lines lc rgb \"green\" lw 1.2\n";
     fprintf(sortie,"%s",entete);
 
     for(int nbL = 10;nbL<=10000;nbL+=100){
