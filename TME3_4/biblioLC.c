@@ -68,8 +68,8 @@ void liberer_BiblioLC(Biblio* b){
 
 void inserer_en_teteLC(Biblio* b, int num, char *titre, char *auteur){
     Livre *new = creer_livreLC(num, titre, auteur);
-    (new->suiv) = (b->L);
-    (b->L) = new;
+    new->suiv = b->L;
+    b->L = new;
 }
 
 
