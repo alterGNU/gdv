@@ -73,32 +73,28 @@ void inserer_en_teteLC(Biblio* b, int num, char *titre, char *auteur){
 }
 
 
-Livre* search_by_numLC(Biblio* b,int num){
+Livre* search_by_numLC(Biblio* b, int num, char *titre, char *auteur){
     Livre* tmp = b->L;
     while (tmp!=NULL){
-        if (tmp->num==num){ return tmp; }
+        if (tmp->num == num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){ return tmp; }
         tmp=tmp->suiv;
     }
     return tmp;
 }
 
-Livre* search_by_titleLC(Biblio* b,char *title){
+Livre* search_by_titleLC(Biblio* b, int num, char *titre, char *auteur){
     Livre* tmp = b->L;
     while (tmp!=NULL){
-        if(strcmp(tmp->titre,title)!=0){
-            return tmp;
-        }
+        if (tmp->num == num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){ return tmp; }
         tmp=tmp->suiv;
     }
     return tmp;
 }
 
-Livre* search_by_autorLC(Biblio* b,char *auteur){
+Livre* search_by_autorLC(Biblio* b, int num, char *titre, char *auteur){
     Livre* tmp = b->L;
     while (tmp!=NULL){
-        if(strcmp(tmp->auteur,auteur)!=0){
-            return tmp;
-        }
+        if (tmp->num == num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){ return tmp; }
         tmp=tmp->suiv;
     }
     return tmp;

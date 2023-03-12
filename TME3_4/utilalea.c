@@ -33,6 +33,7 @@ int sameBook(Livre* lLC, LivreH* lH){ // compare deux livres : Livre et LivreH, 
     if (!lLC && !lH){return 0;}                                                                                      // cas où les deux livres sont NULL, considéré comme identique ici.
     return ((lLC->num == lH->num) && strcmp(lLC->titre, lH->titre)==0 && strcmp(lLC->auteur, lH->auteur)==0)? 0 : 1; // autres cas
 }
+
 // ===[ ALÉATOIRE ]======================================================================
 char* nom_alea(int t){
     // Genere un nom (Composé uniquement de majuscule) de longueur t

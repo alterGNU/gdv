@@ -200,3 +200,9 @@ Voici vos choix:
 - ![image](./searchByTitle.png)
 - OBSERVATIONS:
     - ce sont les memes que pour la recherche pas numero, la liste chainée semble etre la structure la plus adaptée.
+#### Recherche par auteur 
+- ![image](./searchByAutor.png)
+- OBSERVATIONS:
+    - Ici,comme la clef de la table se fait en fonction du nom de l'auteur, la recherche utilisant le nom a des temps de
+      chercher d'une ordre de grandeur bien inférieur aux temps de la structure de liste chainée.
+    - Dans le cas d'une recherche d'ouvrage par nom d'auteur, la table de hachage est bien plus adaptée.

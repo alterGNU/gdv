@@ -30,13 +30,13 @@ int fonctionHachage(int cle, int m);
 //Q2.5
 void inserer(BiblioH* b, int num, char *titre, char *auteur);
 //Q2.6
-LivreH* search_by_numH(BiblioH* b,int num);
-LivreH* search_by_titleH(BiblioH* b,char *title);
+LivreH* search_by_numH(BiblioH* b, int num, char *titre, char *auteur);
+LivreH* search_by_autorH(BiblioH* b, int num, char *titre, char *auteur);
 BiblioH* same_autorH(BiblioH* b,char *autor);
 void supprimer_ouvrageH(BiblioH* b, int num, char *titre, char *auteur);
 void fusionH(BiblioH* b1, BiblioH* b2);
 void add_if_newH(BiblioH* b,int num, char *titre, char *auteur);
 BiblioH* recherche_doublonsH(BiblioH* b);
 //Q3.1
-LivreH* search_by_autorH(BiblioH* b,char * auteur);
+LivreH* search_by_titleH(BiblioH* b, int num, char *titre, char *auteur);
 #endif

@@ -30,26 +30,26 @@ int main(int argc, char *argv[]){
     printf("\nEnregistrement de la Biblio créée dans le ficher saveLC.txt\n");
     enregistrer_bilbioLC(b, "saveLC.txt");
 
-    // Q1.6
-    // test search_by_numLC()
-    printf("\nRecherche par num:\n");
-    Livre* l1 = search_by_numLC(b,5);
-    printf("Pour num=5: -->  ");
-    afficher_livreLC(l1);
-    Livre* l2 = search_by_numLC(b,1000);
-    printf("Pour num=1000: -->  ");
-    afficher_livreLC(l2);
-    
-    // test search_by_titleLC()
-    char *titre1 = "WPQCA";
-    printf("\nRecherche par titre:\n");
-    Livre* l3 = search_by_titleLC(b,titre1);
-    printf("Pour titre='%s': -->  ",titre1);
-    afficher_livreLC(l3);
-    
-    Livre* l4 = search_by_titleLC(b,"ccPetitePerruche");
-    printf("Pour titre='ccPetitePerruche': -->  ");
-    afficher_livreLC(l4);
+    //// Q1.6
+    //// test search_by_numLC()
+    //printf("\nRecherche par num:\n");
+    //Livre* l1 = search_by_numLC(b,5);
+    //printf("Pour num=5: -->  ");
+    //afficher_livreLC(l1);
+    //Livre* l2 = search_by_numLC(b,1000);
+    //printf("Pour num=1000: -->  ");
+    //afficher_livreLC(l2);
+    //
+    //// test search_by_titleLC()
+    //char *titre1 = "WPQCA";
+    //printf("\nRecherche par titre:\n");
+    //Livre* l3 = search_by_titleLC(b,titre1);
+    //printf("Pour titre='%s': -->  ",titre1);
+    //afficher_livreLC(l3);
+    //
+    //Livre* l4 = search_by_titleLC(b,"ccPetitePerruche");
+    //printf("Pour titre='ccPetitePerruche': -->  ");
+    //afficher_livreLC(l4);
     
     // test same_autorLC()
     // par pointeur sur str

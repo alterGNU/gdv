@@ -113,35 +113,35 @@ void inserer(BiblioH* b, int num, char *titre, char *auteur){
     b->nE++;
 }
 
-LivreH* search_by_numH(BiblioH* b,int num){
+LivreH* search_by_numH(BiblioH* b, int num, char *titre, char *auteur){
     LivreH* tmp ;
     for(int i=0;i<b->m;i++){
         tmp = b->T[i];
         while (tmp!=NULL){
-            if (tmp->num==num){return tmp;}
+            if (tmp->num == num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){return tmp;}
             tmp=tmp->suiv;
         }
     }
     return tmp;
 }
 
-LivreH* search_by_autorH(BiblioH* b,char * auteur){
+LivreH* search_by_autorH(BiblioH* b, int num, char *titre, char *auteur){
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
     LivreH* tmp = b->T[indice];
     //while (tmp!=NULL && tmp->auteur!=auteur){ tmp=tmp->suiv; }
     while (tmp!=NULL){
-        if(tmp->auteur==auteur){ return tmp;}
+        if(tmp->num == num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){ return tmp;}
         tmp=tmp->suiv; 
     }
     return tmp;
 }
 
-LivreH* search_by_titleH(BiblioH* b,char *title){
+LivreH* search_by_titleH(BiblioH* b, int num, char *titre, char *auteur){
     for(int i=0;i<b->m;i++){
         LivreH* tmp = b->T[i];
         while (tmp!=NULL){
-            if (strcmp(tmp->titre,title)==0){return tmp;}
+            if (tmp->num == num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){return tmp;}
             tmp=tmp->suiv;
         }
     }

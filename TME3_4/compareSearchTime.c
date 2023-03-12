@@ -46,8 +46,8 @@ int main(int argc, char *argv[]){
         Biblio* livrePresent = charger_n_entreesLC("GdeBiblio.txt", NBMESURE);
         // Livre non present
         int numAbs = nbL + 2; // Comme dans GdeBiblio les num = ligne + 1, un numero abs est nbl+2
-        Livre* lLC_abs = creer_livreLC(-1 , "Data_Structures_Using_C", "REEMA_THAREJA");
-        LivreH* lH_abs = creer_livreH(-1 , "Data_Structures_Using_C", "REEMA_THAREJA");
+        Livre* lLC_abs = creer_livreLC(numAbs, "Data_Structures_Using_C", "REEMA_THAREJA");
+        LivreH* lH_abs = creer_livreH(numAbs, "Data_Structures_Using_C", "REEMA_THAREJA");
 
         double moy_num_tpLC[NBMESURE], moy_num_tpH[NBMESURE], moy_num_taLC[NBMESURE], moy_num_taH[NBMESURE];
         double moy_title_tpLC[NBMESURE], moy_title_tpH[NBMESURE], moy_title_taLC[NBMESURE], moy_title_taH[NBMESURE];
@@ -62,72 +62,64 @@ int main(int argc, char *argv[]){
             }
             // NUM
             t1 = clock();
-            Livre* resLC_num =  search_by_numLC(bLC,obj->num);
+            Livre* resLC_num =  search_by_numLC(bLC,obj->num,obj->titre,obj->auteur);
             t2 = clock();
             moy_num_tpLC[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             t1 = clock();
-            Livre* resLCabs_num =  search_by_numLC(bLC,numAbs);
+            Livre* resLCabs_num =  search_by_numLC(bLC,lLC_abs->num,lLC_abs->titre,lLC_abs->auteur);
             t2 = clock();
             moy_num_taLC[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             t1 = clock();
-            LivreH* resH_num =  search_by_numH(bH,obj->num);
+            LivreH* resH_num =  search_by_numH(bH,obj->num,obj->titre,obj->auteur);
             t2 = clock();
             moy_num_tpH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             t1 = clock();
-            LivreH* resHabs_num =  search_by_numH(bH,numAbs);
+            LivreH* resHabs_num =  search_by_numH(bH,lH_abs->num,lH_abs->titre,lH_abs->auteur);
             t2 = clock();
             moy_num_taH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             //// verification des résultats
-            //assert(sameBook(resLC_num,resH_num)==0);         // check si meme livres trouvés dans les deux structures.
-            //assert(resLCabs_num==NULL && resHabs_num==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
+            assert(sameBook(resLC_num,resH_num)==0);         // check si meme livres trouvés dans les deux structures.
+            assert(resLCabs_num==NULL && resHabs_num==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
             //// TITRE
             t1 = clock();
-            Livre* resLC_tit =  search_by_titleLC(bLC,obj->titre);
+            Livre* resLC_tit =  search_by_titleLC(bLC,obj->num,obj->titre,obj->auteur);
             t2 = clock();
             moy_title_tpLC[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             t1 = clock();
-            Livre* resLCabs_tit =  search_by_titleLC(bLC,lLC_abs->titre);
+            Livre* resLCabs_tit =  search_by_titleLC(bLC,lLC_abs->num,lLC_abs->titre,lLC_abs->auteur);
             t2 = clock();
             moy_title_taLC[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             t1 = clock();
-            LivreH* resH_tit =  search_by_titleH(bH,obj->titre);
+            LivreH* resH_tit =  search_by_titleH(bH,obj->num,obj->titre,obj->auteur);
             t2 = clock();
             moy_title_tpH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             t1 = clock();
-            LivreH* resHabs_tit =  search_by_titleH(bH,lH_abs->titre);
+            LivreH* resHabs_tit =  search_by_titleH(bH,lH_abs->num,lH_abs->titre,lH_abs->auteur);
             t2 = clock();
             moy_title_taH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
-            //// verification des résultats
-            //assert(sameBook(resLC_tit,resH_tit)==0);         // check si meme livres trouvés dans les deux structures.
-            //assert(resLCabs_tit==NULL && resHabs_tit==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
-            //// AUTEUR
+            // verification des résultats
+            assert(sameBook(resLC_tit,resH_tit)==0);         // check si meme livres trouvés dans les deux structures.
+            assert(resLCabs_tit==NULL && resHabs_tit==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
+            // AUTEUR
             t1 = clock();
-            Livre* resLC_aut =  search_by_autorLC(bLC,obj->auteur);
+            Livre* resLC_aut =  search_by_autorLC(bLC,obj->num,obj->titre,obj->auteur);
             t2 = clock();
             moy_autor_tpLC[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             t1 = clock();
-            Livre* resLCabs_aut =  search_by_autorLC(bLC,lLC_abs->auteur);
+            Livre* resLCabs_aut =  search_by_autorLC(bLC,lLC_abs->num,lLC_abs->titre,lLC_abs->auteur);
             t2 = clock();
             moy_autor_taLC[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             t1 = clock();
-            LivreH* resH_aut =  search_by_autorH(bH,obj->auteur);
+            LivreH* resH_aut =  search_by_autorH(bH,obj->num,obj->titre,obj->auteur);
             t2 = clock();
             moy_autor_tpH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             t1 = clock();
-            LivreH* resHabs_aut =  search_by_autorH(bH,lH_abs->auteur);
+            LivreH* resHabs_aut =  search_by_autorH(bH,lH_abs->num,lH_abs->titre,lH_abs->auteur);
             t2 = clock();
             moy_autor_taH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             // verification des résultats
-            //assert(sameBook(resLC_aut,resH_aut)==0);         // check si meme livres trouvés dans les deux structures.
-            //if (sameBook(resLC_aut,resH_aut)==0){
-            //    printf("Same\n");
-            //}
-            //}else{
-            //    printf("DIFF:\n");
-            //    afficher_livreLC(resLC_aut);
-            //    afficher_livreH(resH_aut);
-            //}
-            //assert(resLCabs_aut==NULL && resHabs_aut==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
+            assert(sameBook(resLC_aut,resH_aut)==0);         // check si meme livres trouvés dans les deux structures.
+            assert(resLCabs_aut==NULL && resHabs_aut==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
 
         }
         // NUM

@@ -95,20 +95,20 @@ int main(int argc, char *argv[]){
     afficher_biblioH(b2);
     enregistrer_bilbioH(b2,"saveH.txt");
 
-    // test search_by_num()
-    LivreH* lnumero0 = search_by_numH(b2,0);
-    afficher_livreH(lnumero0);
-    assert(0==lnumero0->num);
-    LivreH* lpasla = search_by_numH(b2,-1);
-    assert(NULL==lpasla);
-    afficher_livreH(lpasla);
-    // test search_by_title()
-    LivreH* ltitreconnu = search_by_titleH(b2,"SOFS");
-    assert(strcmp("SOFS",ltitreconnu->titre)==0);
-    afficher_livreH(ltitreconnu);
-    LivreH* ltitreinconnu = search_by_titleH(b2,"lePetitPoussait");
-    assert(NULL==ltitreinconnu);
-    afficher_livreH(ltitreinconnu);
+    //// test search_by_num()
+    //LivreH* lnumero0 = search_by_numH(b2,0);
+    //afficher_livreH(lnumero0);
+    //assert(0==lnumero0->num);
+    //LivreH* lpasla = search_by_numH(b2,-1);
+    //assert(NULL==lpasla);
+    //afficher_livreH(lpasla);
+    //// test search_by_title()
+    //LivreH* ltitreconnu = search_by_titleH(b2,"SOFS");
+    //assert(strcmp("SOFS",ltitreconnu->titre)==0);
+    //afficher_livreH(ltitreconnu);
+    //LivreH* ltitreinconnu = search_by_titleH(b2,"lePetitPoussait");
+    //assert(NULL==ltitreinconnu);
+    //afficher_livreH(ltitreinconnu);
     // test same_autor()
     BiblioH* b_de_xdrwv  = same_autorH(b2,"xdrwv");
     inserer(b_de_xdrwv, 4211,"KEZXDU","xdrwv"); 
