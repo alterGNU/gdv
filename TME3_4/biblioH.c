@@ -129,7 +129,11 @@ LivreH* search_by_autorH(BiblioH* b,char * auteur){
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
     LivreH* tmp = b->T[indice];
-    while (tmp!=NULL && tmp->auteur!=auteur){ tmp=tmp->suiv; }
+    //while (tmp!=NULL && tmp->auteur!=auteur){ tmp=tmp->suiv; }
+    while (tmp!=NULL){
+        if(tmp->auteur==auteur){ return tmp;}
+        tmp=tmp->suiv; 
+    }
     return tmp;
 }
 

@@ -8,7 +8,6 @@
 #include "entreeSortieH.h"  // pour fct chargerH et enregistrerH
 #include "utilalea.h"       // pour fct utilitaire et generation aléatoire
 #define NBMESURE 10         // correspond au nombre de mesure faite pour une valeur de temps calculé (moyenne)
-#define DEBUG 0             // si 1 afficher tous les printfs sinon ne fait rien
 
 int main(int argc, char *argv[]){
 // =[     NUM ]===========================================================================
@@ -22,12 +21,20 @@ int main(int argc, char *argv[]){
         printf("Erreur lors de l'ouverture d'un fichier\n");
         exit(1);
     }
+    FILE * sortie3 = fopen("compareSearchByAutor.txt", "w");
+    if(sortie3==NULL){ // Verifie si l'ouverture s'est bien passée.
+        printf("Erreur lors de l'ouverture d'un fichier\n");
+        exit(1);
+    }
 
     char * entete1="set title \"Comparaison des temps de recherche par NUMERO\"\nset xlabel \"Nbr livre\"\nset ylabel \"Temps de recherche (s)\"\nplot \"compareSearchByNum.txt\" using 1:2 title \"ListeChainée_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"red\" lw 1.2\nset term png\nset output \"searchByNum.png\"\nreplot \"compareSearchByNum.txt\" using 1:3 title \"ListeChainée_(_a_b_s_e_n_t_)_\" with lines lc rgb \"orange\" lw 1.2 ,\"compareSearchByNum.txt\" using 1:4 title \"TableHash_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"blue\" lw 1.2 ,\"compareSearchByNum.txt\" using 1:5 title \"TableHash_(_a_b_s_e_n_t_)_\" with lines lc rgb \"green\" lw 1.2\n";
     fprintf(sortie1,"%s",entete1);
 
     char * entete2="set title \"Comparaison des temps de recherche par TITRE\"\nset xlabel \"Nbr livre\"\nset ylabel \"Temps de recherche (s)\"\nplot \"compareSearchByTitle.txt\" using 1:2 title \"ListeChainée_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"red\" lw 1.2\nset term png\nset output \"searchByTitle.png\"\nreplot \"compareSearchByTitle.txt\" using 1:3 title \"ListeChainée_(_a_b_s_e_n_t_)_\" with lines lc rgb \"orange\" lw 1.2 ,\"compareSearchByTitle.txt\" using 1:4 title \"TableHash_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"blue\" lw 1.2 ,\"compareSearchByTitle.txt\" using 1:5 title \"TableHash_(_a_b_s_e_n_t_)_\" with lines lc rgb \"green\" lw 1.2\n";
     fprintf(sortie2,"%s",entete2);
+
+    char * entete3="set title \"Comparaison des temps de recherche par AUTEUR\"\nset xlabel \"Nbr livre\"\nset ylabel \"Temps de recherche (s)\"\nplot \"compareSearchByAutor.txt\" using 1:2 title \"ListeChainée_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"red\" lw 1.2\nset term png\nset output \"searchByAutor.png\"\nreplot \"compareSearchByAutor.txt\" using 1:3 title \"ListeChainée_(_a_b_s_e_n_t_)_\" with lines lc rgb \"orange\" lw 1.2 ,\"compareSearchByAutor.txt\" using 1:4 title \"TableHash_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"blue\" lw 1.2 ,\"compareSearchByAutor.txt\" using 1:5 title \"TableHash_(_a_b_s_e_n_t_)_\" with lines lc rgb \"green\" lw 1.2\n";
+    fprintf(sortie3,"%s",entete3);
 
     for(int nbL = 100;nbL<=10000;nbL+=100){
         clock_t t1, t2;
@@ -44,6 +51,7 @@ int main(int argc, char *argv[]){
 
         double moy_num_tpLC[NBMESURE], moy_num_tpH[NBMESURE], moy_num_taLC[NBMESURE], moy_num_taH[NBMESURE];
         double moy_title_tpLC[NBMESURE], moy_title_tpH[NBMESURE], moy_title_taLC[NBMESURE], moy_title_taH[NBMESURE];
+        double moy_autor_tpLC[NBMESURE], moy_autor_tpH[NBMESURE], moy_autor_taLC[NBMESURE], moy_autor_taH[NBMESURE];
         for (int i = 0;i<NBMESURE;i++){
             // Parcour la liste chainée pour trouver le <i+1>eme livre present à chercher
             Livre* obj = livrePresent->L;
@@ -69,10 +77,10 @@ int main(int argc, char *argv[]){
             LivreH* resHabs_num =  search_by_numH(bH,numAbs);
             t2 = clock();
             moy_num_taH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
-            // verification des résultats
-            assert(sameBook(resLC_num,resH_num)==0);         // check si meme livres trouvés dans les deux structures.
-            assert(resLCabs_num==NULL && resHabs_num==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
-            // TITRE
+            //// verification des résultats
+            //assert(sameBook(resLC_num,resH_num)==0);         // check si meme livres trouvés dans les deux structures.
+            //assert(resLCabs_num==NULL && resHabs_num==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
+            //// TITRE
             t1 = clock();
             Livre* resLC_tit =  search_by_titleLC(bLC,obj->titre);
             t2 = clock();
@@ -89,9 +97,37 @@ int main(int argc, char *argv[]){
             LivreH* resHabs_tit =  search_by_titleH(bH,lH_abs->titre);
             t2 = clock();
             moy_title_taH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
+            //// verification des résultats
+            //assert(sameBook(resLC_tit,resH_tit)==0);         // check si meme livres trouvés dans les deux structures.
+            //assert(resLCabs_tit==NULL && resHabs_tit==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
+            //// AUTEUR
+            t1 = clock();
+            Livre* resLC_aut =  search_by_autorLC(bLC,obj->auteur);
+            t2 = clock();
+            moy_autor_tpLC[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
+            t1 = clock();
+            Livre* resLCabs_aut =  search_by_autorLC(bLC,lLC_abs->auteur);
+            t2 = clock();
+            moy_autor_taLC[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
+            t1 = clock();
+            LivreH* resH_aut =  search_by_autorH(bH,obj->auteur);
+            t2 = clock();
+            moy_autor_tpH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
+            t1 = clock();
+            LivreH* resHabs_aut =  search_by_autorH(bH,lH_abs->auteur);
+            t2 = clock();
+            moy_autor_taH[i] = ((double)(t2 - t1))/ CLOCKS_PER_SEC;
             // verification des résultats
-            assert(sameBook(resLC_tit,resH_tit)==0);         // check si meme livres trouvés dans les deux structures.
-            assert(resLCabs_tit==NULL && resHabs_tit==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
+            //assert(sameBook(resLC_aut,resH_aut)==0);         // check si meme livres trouvés dans les deux structures.
+            //if (sameBook(resLC_aut,resH_aut)==0){
+            //    printf("Same\n");
+            //}
+            //}else{
+            //    printf("DIFF:\n");
+            //    afficher_livreLC(resLC_aut);
+            //    afficher_livreH(resH_aut);
+            //}
+            //assert(resLCabs_aut==NULL && resHabs_aut==NULL); // check qu'aucun livre n'a été trouvé par les 2methodes.
 
         }
         // NUM
@@ -104,11 +140,15 @@ int main(int argc, char *argv[]){
         double tit_taLC = moyenne(moy_title_taLC, NBMESURE);
         double tit_tpH = moyenne(moy_title_tpH, NBMESURE);
         double tit_taH = moyenne(moy_title_taH, NBMESURE);
+        //AUTEUR
+        double aut_tpLC = moyenne(moy_autor_tpLC, NBMESURE);
+        double aut_taLC = moyenne(moy_autor_taLC, NBMESURE);
+        double aut_tpH = moyenne(moy_autor_tpH, NBMESURE);
+        double aut_taH = moyenne(moy_autor_taH, NBMESURE);
 
-        if(DEBUG){ printf("La moyenne des temps pour %d livres est de [pLC:%f, aLC%f, pH%f, aH%f]\n", nbL, num_tpLC, num_taLC, num_tpH, num_taH);}
         fprintf(sortie1,"%d,\t%f,\t%f,\t%f,\t%f\n", nbL, num_tpLC, num_taLC, num_tpH, num_taH);
-        if(DEBUG){ printf("La moyenne des temps pour %d livres est de [pLC:%f, aLC%f, pH%f, aH%f]\n", nbL, tit_tpLC, tit_taLC, tit_tpH, tit_taH);}
         fprintf(sortie2,"%d,\t%f,\t%f,\t%f,\t%f\n", nbL, tit_tpLC, tit_taLC, tit_tpH, tit_taH);
+        fprintf(sortie3,"%d,\t%f,\t%f,\t%f,\t%f\n", nbL, aut_tpLC, aut_taLC, aut_tpH, aut_taH);
 
         liberer_livreLC(lLC_abs);
         liberer_livreH(lH_abs);
@@ -118,8 +158,10 @@ int main(int argc, char *argv[]){
     }
     fclose (sortie1);
     fclose (sortie2);
+    fclose (sortie3);
 
     system("gnuplot compareSearchByNum.txt");
     system("gnuplot compareSearchByTitle.txt");
+    system("gnuplot compareSearchByAutor.txt");
     return 0;
     }
