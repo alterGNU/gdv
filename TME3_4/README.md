@@ -187,6 +187,7 @@ Voici vos choix:
 ### Q 3.1 comparer les temps de recherche sur les deux structures (ListeChainée vs TableHash)
 - Creation du fichier `compareSearchTime.c` dont le main permet la creation des fichiers suivant:
     - `compareSearchByNum.txt` qui grace à gnuplot génére le graphique `searchByNum.png`
+    - `compareSearchByTitle.txt` qui grace à gnuplot génére le graphique `searchByTitle.png`
 #### Recherche par numero 
 - ![image](./searchByNum.png)
 - OBSERVATIONS:
@@ -195,3 +196,7 @@ Voici vos choix:
       un certains nombre de livre, elle devient moins interessante (au alentour de 5000 ouvrages)
     - La Liste chainée est donc, dans le cas d'une recherche par numero, la structure la plus adaptée pour un grand nombre d'ouvrage (meilleur
       temps et plus simple à mettre en place)
+#### Recherche par titre 
+- ![image](./searchByTitle.png)
+- OBSERVATIONS:
+    - ce sont les memes que pour la recherche pas numero, la liste chainée semble etre la structure la plus adaptée.
