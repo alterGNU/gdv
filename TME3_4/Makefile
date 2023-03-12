@@ -10,9 +10,9 @@ LC: mainLC.c biblioLC.c entreeSortieLC.c utilalea.c
 H: mainH.c biblioH.c entreeSortieH.c utilalea.c
 	gcc -Wall -o mainH mainH.c biblioH.c entreeSortieH.c utilalea.c -lm
 
-compTime: compareSearchTime.c entreeSortieLC.c entreeSortieH.c biblioLC.c biblioH.c
-	gcc -Wall -o compTime compareSearchTime.c entreeSortieLC.c entreeSortieH.c biblioLC.c biblioH.c
+compTime: compareSearchTime.c entreeSortieLC.c utilalea.c biblioLC.c biblioH.c entreeSortieH.c
+	gcc -Wall -o compTime compareSearchTime.c entreeSortieLC.c utilalea.c biblioLC.c biblioH.c entreeSortieH.c
 
 clean:
-	rm -f mainH mainLC testH testLC
+	rm -f mainH mainLC testH testLC compTime
 

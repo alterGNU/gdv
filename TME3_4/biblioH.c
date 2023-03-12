@@ -2,7 +2,7 @@
 #include <stdlib.h>   // pr free, exit #include <string.h> 
 #include <string.h>   // pr strdup
 #include <math.h>     // pour sqrt
-#include "biblioH.h"  // pour struct Livre et Biblio
+#include "biblioH.h"  // pour struct LivreH et BiblioH
 
 int fonctionClef(char *auteur){
     int som = 0;

@@ -181,3 +181,17 @@ Voici vos choix:
   chainée de la table de hash (car mm clef => mm indice du tableau).  on cherche donc uniquement dans chaque listes
   chainées du tableau. La bilbioH retournée elle ne contiendrat qu'une case dans son tableau car on ne demande qu'une
   liste chainée en retour.
+
+## Exo3 : Comparaison des deux structures
+
+### Q 3.1 comparer les temps de recherche sur les deux structures (ListeChainée vs TableHash)
+- Creation du fichier `compareSearchTime.c` dont le main permet la creation des fichiers suivant:
+    - `compareSearchByNum.txt` qui grace à gnuplot génére le graphique `searchByNum.png`
+#### Recherche par numero 
+- ![image](./searchByNum.png)
+- OBSERVATIONS:
+    - pour le pire des cas (livre absent), la table de hachage est toujours la plus lente.
+    - lorsque le livre existe la table de hachage a des temps du meme ordre de grandeur que la liste chainée, mais passé
+      un certains nombre de livre, elle devient moins interessante (au alentour de 5000 ouvrages)
+    - La Liste chainée est donc dans ce cas precis la structure la plus adaptée pour un grand nombre d'ouvrage (plus
+      simple à mettre en place)

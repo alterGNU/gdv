@@ -1,6 +1,6 @@
-#include <stdio.h>    // pr printf
-#include <stdlib.h>   // pr free, exit #include <string.h> 
-#include <string.h>   // pr strdup
+#include <stdio.h>    // pour printf
+#include <stdlib.h>   // pour free, exit #include <string.h> 
+#include <string.h>   // pour strdup, strcmp
 #include <math.h>     // pour sqrt
 #include "utilalea.h" // pour headers
 
@@ -19,6 +19,20 @@ void menu(){
     printf("\t- 7 : constituer une bibliotheque des doublons(sauvegarde possible)\n");
 }
 
+double moyenne(double *tab, int nbElement){
+    // Fait la moyenne de tous les éléments d'un tableau de n double
+    double res = 0;
+    for(int i=0;i<nbElement;i++){ res += tab[i]; }
+    return (double) res/nbElement;
+}
+
+int sameBook(Livre* lLC, LivreH* lH){ // compare deux livres : Livre et LivreH, placé ici et pas dans utilalea.c car import circulaire...
+    // retourne 0 si le Livre lLC à les meme champs que le LivreH lH.
+    // retourne 1 si un des champs (num,titre,auteur) différes.
+    if ((lLC && !lH)||(!lLC && lH)){return 1;}                                                                       // cas où un des deux livres est NULL et pas l'autre
+    if (!lLC && !lH){return 0;}                                                                                      // cas où les deux livres sont NULL, considéré comme identique ici.
+    return ((lLC->num == lH->num) && strcmp(lLC->titre, lH->titre)==0 && strcmp(lLC->auteur, lH->auteur)==0)? 0 : 1; // autres cas
+}
 // ===[ ALÉATOIRE ]======================================================================
 char* nom_alea(int t){
     // Genere un nom (Composé uniquement de majuscule) de longueur t
