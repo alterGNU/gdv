@@ -19,24 +19,24 @@ typedef struct table{
 //Q2.2
 int fonctionClef(char *auteur);
 //Q2.3
-LivreH* creer_livre(int num, char *titre, char *auteur);
-void afficher_livre(LivreH *l);
-void liberer_livre(LivreH *l);
-BiblioH* creer_biblio(int m);
-void afficher_biblio(BiblioH* b);
-void liberer_biblio(BiblioH* b);
+LivreH* creer_livreH(int num, char *titre, char *auteur);
+void afficher_livreH(LivreH *l);
+void liberer_livreH(LivreH *l);
+BiblioH* creer_biblioH(int m);
+void afficher_biblioH(BiblioH* b);
+void liberer_biblioH(BiblioH* b);
 //Q2.4
 int fonctionHachage(int cle, int m);
 //Q2.5
 void inserer(BiblioH* b, int num, char *titre, char *auteur);
 //Q2.6
-LivreH* search_by_num(BiblioH* b,int num);
-LivreH* search_by_title(BiblioH* b,char *title);
-BiblioH* same_autor(BiblioH* b,char *autor);
-void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur);
-void fusion(BiblioH* b1, BiblioH* b2);
-void add_if_new(BiblioH* b,int num, char *titre, char *auteur);
-BiblioH* recherche_doublons(BiblioH* b);
+LivreH* search_by_numH(BiblioH* b,int num);
+LivreH* search_by_titleH(BiblioH* b,char *title);
+BiblioH* same_autorH(BiblioH* b,char *autor);
+void supprimer_ouvrageH(BiblioH* b, int num, char *titre, char *auteur);
+void fusionH(BiblioH* b1, BiblioH* b2);
+void add_if_newH(BiblioH* b,int num, char *titre, char *auteur);
+BiblioH* recherche_doublonsH(BiblioH* b);
 //Q3.1
-LivreH* search_by_autor(BiblioH* b,char * auteur);
+LivreH* search_by_autorH(BiblioH* b,char * auteur);
 #endif

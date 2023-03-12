@@ -10,15 +10,15 @@ int main(int argc, char *argv[]){
     char t3[1000]="jean-michelFAURE";
     char a3[1000]="gin&co_obs&trick";
 
-    Biblio* b1 = creer_biblio();
+    Biblio* b1 = creer_biblioLC();
 
-    inserer_en_tete(b1, 1, t2, a2);
-    afficher_biblio(b1);
+    inserer_en_teteLC(b1, 1, t2, a2);
+    afficher_biblioLC(b1);
 
-    inserer_en_tete(b1, 2, t3, a3);
-    afficher_biblio(b1);
+    inserer_en_teteLC(b1, 2, t3, a3);
+    afficher_biblioLC(b1);
 
-    liberer_Biblio(b1);
+    liberer_BiblioLC(b1);
     
     return 0;
 }

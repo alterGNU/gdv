@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
         switch(rep){
             case 1 :
                 printf("Affichage :\n");
-                afficher_biblio(b);
+                afficher_biblioH(b);
                 break;
             case 2 :
                 {int num;
@@ -58,7 +58,7 @@ int main(int argc, char *argv[]){
                 fgets(input,BUFF,stdin);
                 if (sscanf(input,"%d",&num)==1){
                     printf("Saisie correcte\n");
-                    LivreH* l = search_by_num(b,num);
+                    LivreH* l = search_by_numH(b,num);
                     if (l){
                         printf("Voici le livre recherché:\n\t (%d,%s,%s)\n",l->num,l->titre,l->auteur);
                     }else{
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]){
                 fgets(input,BUFF,stdin);
                 if (sscanf(input,"%s",titre)==1){
                     printf("Saisie correcte\n");
-                    LivreH* l = search_by_title(b,titre);
+                    LivreH* l = search_by_titleH(b,titre);
                     if (l){
                         printf("Voici le livre recherché:\n\t (%d,%s,%s)\n",l->num,l->titre,l->auteur);
                     }else{
@@ -92,11 +92,11 @@ int main(int argc, char *argv[]){
                 fgets(input,BUFF,stdin);
                 if (sscanf(input,"%s",auteur)==1){
                     printf("Saisie correcte\n");
-                    BiblioH* b2 = same_autor(b,auteur);
+                    BiblioH* b2 = same_autorH(b,auteur);
                     if (b2->T[0]){
                         printf("Voici l'ensemble des ouvrages de `%s`:\n",auteur);
-                        afficher_biblio(b2);
-                        liberer_biblio(b2);
+                        afficher_biblioH(b2);
+                        liberer_biblioH(b2);
                     }else{
                         printf("Aucune oeuvre de `%s` n'est présente dans la bibliotheque\n",auteur);
                     }
@@ -113,7 +113,7 @@ int main(int argc, char *argv[]){
                 fgets(input,BUFF,stdin);
                 if (sscanf(input,"%d %s %s",&num,titre,auteur)==3){
                     printf("Saisie correcte\n");
-                    supprimer_ouvrage(b, num, titre, auteur);
+                    supprimer_ouvrageH(b, num, titre, auteur);
                 }else{
                     printf("Erreur format saisie\n");
                 }
@@ -132,14 +132,14 @@ int main(int argc, char *argv[]){
                     BiblioH* b1 = charger_n_entreesH(nomfichier, lignes, taille_tab);
                     printf("FIN!\n");
                     printf("Tache:construction de la bibliotheque des doublons...");
-                    BiblioH* b2 =  recherche_doublons(b1);
+                    BiblioH* b2 =  recherche_doublonsH(b1);
                     printf("FIN!\n");
                     printf("Tache:sauvegarde dans `%s` de la bibliotheque suivante:\n",save);
-                    afficher_biblio(b2);
+                    afficher_biblioH(b2);
                     enregistrer_bilbioH(b2, save);
                     printf("SAUVEGARDE TERMINÉE LE FICHIER './%s' A ÉTÉ CRÉÉ!\n",save);
-                    liberer_biblio(b1);
-                    liberer_biblio(b2);
+                    liberer_biblioH(b1);
+                    liberer_biblioH(b2);
                 }else{
                     printf("Erreur format saisie\n");
                 }
@@ -148,7 +148,7 @@ int main(int argc, char *argv[]){
         }
     }while(rep!=0);
 
-    liberer_biblio(b);
+    liberer_biblioH(b);
     printf("CIAO\n");
     return 0;
 }

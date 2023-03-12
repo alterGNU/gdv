@@ -4,7 +4,7 @@
 #define BUFF 1000           // taille max str
 
 Biblio* charger_n_entreesLC(char * nomfic, int n){
-    Biblio* b = creer_biblio();
+    Biblio* b = creer_biblioLC();
     FILE * entree = NULL;
     entree = fopen (nomfic, "r");
     if(entree == NULL) {printf("Error: fopen failed\n"); exit(2); }
@@ -15,7 +15,7 @@ Biblio* charger_n_entreesLC(char * nomfic, int n){
         int num;
         char titre[BUFF], auteur[BUFF];
         sscanf(str,"%d %s %s",&num,titre,auteur);
-        inserer_en_tete(b, num, titre, auteur);
+        inserer_en_teteLC(b, num, titre, auteur);
         cpt++;
     }
     fclose(entree);

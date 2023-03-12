@@ -20,141 +20,141 @@ int main(int argc, char *argv[]){
     int n = atoi(argv[2]);   // Conversion deuxieme arg en entier
 
     // Q1.{1,4} 
-    // test charger_n_entrees();
+    // test charger_n_entreesLC();
     printf("\nCreation d'une Biblio en lisant les %d première lignes de %s\n",n,argv[1]);
     char * nomfichier=argv[1];
     Biblio* b = charger_n_entreesLC(nomfichier, n);
-    afficher_biblio(b);
+    afficher_biblioLC(b);
 
-    // test enregistrer_biblio()
+    // test enregistrer_biblioLC()
     printf("\nEnregistrement de la Biblio créée dans le ficher saveLC.txt\n");
     enregistrer_bilbioLC(b, "saveLC.txt");
 
     // Q1.6
-    // test search_by_num()
+    // test search_by_numLC()
     printf("\nRecherche par num:\n");
-    Livre* l1 = search_by_num(b,5);
+    Livre* l1 = search_by_numLC(b,5);
     printf("Pour num=5: -->  ");
-    afficher_livre(l1);
-    Livre* l2 = search_by_num(b,1000);
+    afficher_livreLC(l1);
+    Livre* l2 = search_by_numLC(b,1000);
     printf("Pour num=1000: -->  ");
-    afficher_livre(l2);
+    afficher_livreLC(l2);
     
-    // test search_by_title()
+    // test search_by_titleLC()
     char *titre1 = "WPQCA";
     printf("\nRecherche par titre:\n");
-    Livre* l3 = search_by_title(b,titre1);
+    Livre* l3 = search_by_titleLC(b,titre1);
     printf("Pour titre='%s': -->  ",titre1);
-    afficher_livre(l3);
+    afficher_livreLC(l3);
     
-    Livre* l4 = search_by_title(b,"ccPetitePerruche");
+    Livre* l4 = search_by_titleLC(b,"ccPetitePerruche");
     printf("Pour titre='ccPetitePerruche': -->  ");
-    afficher_livre(l4);
+    afficher_livreLC(l4);
     
-    // test same_autor()
+    // test same_autorLC()
     // par pointeur sur str
     char *name1 = "xdrwv";
     printf("\nConstruction de Biblio par auteur:\n");
-    Biblio* b1 = same_autor(b,name1);
+    Biblio* b1 = same_autorLC(b,name1);
     printf("\nVoici la biblio de l'auteur '%s':\n",name1);
-    afficher_biblio(b1);
+    afficher_biblioLC(b1);
     // par str n'ayant qu'une occurence
-    Biblio* b2 = same_autor(b,"yhidd");
+    Biblio* b2 = same_autorLC(b,"yhidd");
     printf("\nVoici la biblio de l'auteur 'yhidd':\n");
-    afficher_biblio(b2);
-    liberer_Biblio(b2);
+    afficher_biblioLC(b2);
+    liberer_BiblioLC(b2);
     // par str n'ayant aucune occurence
-    Biblio* b3 = same_autor(b,"jeanneDo");
+    Biblio* b3 = same_autorLC(b,"jeanneDo");
     printf("\nVoici la biblio de l'auteur 'jeanneDo':\n");
-    afficher_biblio(b3);
-    liberer_Biblio(b3);
+    afficher_biblioLC(b3);
+    liberer_BiblioLC(b3);
     
     // test supprimer_ouvrage() --> utilisation de la biblio b1 de l'auteur xdrwv
     int i[5]={-1,3,544,2261,4211};
     char *t[2]={"ProgMath", "KEZXDU"};
     char *a[2]={"M.Minoux", "xdrwv"};
     printf("Avant:\n");
-    afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[0],t[0],a[0]);// echec car rien de bon
+    afficher_biblioLC(b1);
+    supprimer_ouvrageLC(b1,i[0],t[0],a[0]);// echec car rien de bon
     printf("Apres tentative de suppression\n\t- Livre = %d, %s, %s\n",i[0],t[0],a[0]);
-    supprimer_ouvrage(b1,i[1],t[0],a[0]);// echec que num bon
+    supprimer_ouvrageLC(b1,i[1],t[0],a[0]);// echec que num bon
     printf("\t- Livre = %d, %s, %s\n",i[1],t[0],a[0]);
-    supprimer_ouvrage(b1,i[0],t[1],a[0]);// echec que titre bon
+    supprimer_ouvrageLC(b1,i[0],t[1],a[0]);// echec que titre bon
     printf("\t- Livre = %d, %s, %s\n",i[0],t[1],a[0]);
-    supprimer_ouvrage(b1,i[0],t[0],a[1]);// echec que auteur bon
+    supprimer_ouvrageLC(b1,i[0],t[0],a[1]);// echec que auteur bon
     printf("\t- Livre = %d, %s, %s\n",i[0],t[0],a[1]);
-    afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[4],t[1],a[1]);// Suppression dernier
+    afficher_biblioLC(b1);
+    supprimer_ouvrageLC(b1,i[4],t[1],a[1]);// Suppression dernier
     printf("Apres suppression dernier livre:(%d, %s, %s)\n",i[4],t[1],a[1]);
-    afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[2],t[1],a[1]);// Suppression millieu
+    afficher_biblioLC(b1);
+    supprimer_ouvrageLC(b1,i[2],t[1],a[1]);// Suppression millieu
     printf("Apres suppression du livre central:(%d, %s, %s)\n",i[2],t[1],a[1]);
-    afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[3],t[1],a[1]);// Suppression debut
+    afficher_biblioLC(b1);
+    supprimer_ouvrageLC(b1,i[3],t[1],a[1]);// Suppression debut
     printf("Apres suppression du 1er livre:(%d, %s, %s)\n",i[3],t[1],a[1]);
-    afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[1],t[1],a[1]);// Suppression debut
+    afficher_biblioLC(b1);
+    supprimer_ouvrageLC(b1,i[1],t[1],a[1]);// Suppression debut
     printf("Apres suppression du seul livre:(%d, %s, %s)\n",i[1],t[1],a[1]);
-    afficher_biblio(b1);
-    supprimer_ouvrage(b1,i[0],t[0],a[0]);// echec car rien de bon
+    afficher_biblioLC(b1);
+    supprimer_ouvrageLC(b1,i[0],t[0],a[0]);// echec car rien de bon
     printf("Apres tentative de suppression d'une biblioVide\n");
-    afficher_biblio(b1);
+    afficher_biblioLC(b1);
 
-    liberer_Biblio(b1);
+    liberer_BiblioLC(b1);
     
-    //test fusion(f1, f2)
+    //test fusionLC(f1, f2)
     
     // creation aleatoire de livre pour la biblio f1
-    Biblio *f1 = creer_biblio();
+    Biblio *f1 = creer_biblioLC();
     for (int i=1;i<=4;i++){
         char* titre=titre_alea(4*i);
         char* auteur=nom_alea(2*i);
-        inserer_en_tete(f1, i,titre , auteur);
+        inserer_en_teteLC(f1, i,titre , auteur);
         free(titre);
         free(auteur);
     }
     // creation aleatoire de livre pour la biblio f2
-    Biblio *f2=creer_biblio();
+    Biblio *f2=creer_biblioLC();
     for (int i=1;i<=2;i++){
         char* titre=titre_alea(4*i);
         char* auteur=nom_alea(2*i);
-        inserer_en_tete(f2, i,titre , auteur);
+        inserer_en_teteLC(f2, i,titre , auteur);
         free(titre);
         free(auteur);
     }
 
     printf("AVANT:\n");
-    afficher_biblio(f1);
-    afficher_biblio(f2);
+    afficher_biblioLC(f1);
+    afficher_biblioLC(f2);
 
-    fusion(f1,f2);
+    fusionLC(f1,f2);
 
     printf("APRES FUSION:\n");
-    afficher_biblio(f1);
+    afficher_biblioLC(f1);
     printf("\n\nici\n\n");
-    afficher_biblio(f2);
+    afficher_biblioLC(f2);
 
-    liberer_Biblio(f1);
+    liberer_BiblioLC(f1);
 
     // Test de add_if_new
     char tLivre[6][BUFF] = { "Le_Petit_Prince", "Les_Misérables", "Voyage_au_centre_de_la_Terre", "1984", "Le_Comte_de_Monte-Cristo", "Les_Fourmis"};
     char aLivre[6][BUFF] = { "Antoine_de_Saint-Exupéry", "Victor_Hugo", "Jules_Verne", "George_Orwell", "Alexandre_Dumas", "Bernard_Werber"};
 
-    Biblio* testAdd = creer_biblio();
+    Biblio* testAdd = creer_biblioLC();
     for (int i=0;i<12;i++){
         int indice = i%6;
-        add_if_new(testAdd, indice, tLivre[indice], aLivre[indice]);
-        afficher_biblio(testAdd);
+        add_if_newLC(testAdd, indice, tLivre[indice], aLivre[indice]);
+        afficher_biblioLC(testAdd);
     }
-    liberer_Biblio(testAdd);
+    liberer_BiblioLC(testAdd);
     
     // Retourne la liste des doublons (mm titre and auteur)
-    Biblio* multi = recherche_doublons(b);
-    afficher_biblio(multi);
+    Biblio* multi = recherche_doublonsLC(b);
+    afficher_biblioLC(multi);
     printf("\nEnregistrement de la Biblio créée dans le ficher doublons.txt\n");
     enregistrer_bilbioLC(multi, "doublonsLC.txt");
-    liberer_Biblio(multi);
-    liberer_Biblio(b);
+    liberer_BiblioLC(multi);
+    liberer_BiblioLC(b);
 
     return 0;
 }

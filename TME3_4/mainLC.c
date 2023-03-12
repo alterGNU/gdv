@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
         switch(rep){
             case 1 :
                 printf("Affichage :\n");
-                afficher_biblio(b);
+                afficher_biblioLC(b);
                 break;
             case 2 :
                 {int num;
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]){
                 printf("Veuillez ecrire le numero, le titre et l'auteur de l'ouvrage a insérer au debut de la bibliotheque:\n");
                 fgets(input,BUFF,stdin);
                 if (sscanf(input,"%d %s %s",&num,titre,auteur)==3){
-                    inserer_en_tete(b,num,titre,auteur);
+                    inserer_en_teteLC(b,num,titre,auteur);
                     printf("Ajout fait\n");
                 }else{
                     printf("Erreur format saisie\n");
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]){
                 fgets(input,BUFF,stdin);
                 if (sscanf(input,"%d",&num)==1){
                     printf("Saisie correcte\n");
-                    Livre* l = search_by_num(b,num);
+                    Livre* l = search_by_numLC(b,num);
                     if (l){
                         printf("Voici le livre recherché:\n\t (%d,%s,%s)\n",l->num,l->titre,l->auteur);
                     }else{
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]){
                 fgets(input,BUFF,stdin);
                 if (sscanf(input,"%s",titre)==1){
                     printf("Saisie correcte\n");
-                    Livre* l = search_by_title(b,titre);
+                    Livre* l = search_by_titleLC(b,titre);
                     if (l){
                         printf("Voici le livre recherché:\n\t (%d,%s,%s)\n",l->num,l->titre,l->auteur);
                     }else{
@@ -87,11 +87,11 @@ int main(int argc, char *argv[]){
                 fgets(input,BUFF,stdin);
                 if (sscanf(input,"%s",auteur)==1){
                     printf("Saisie correcte\n");
-                    Biblio* b2 = same_autor(b,auteur);
+                    Biblio* b2 = same_autorLC(b,auteur);
                     if (b2->L){
                         printf("Voici l'ensemble des ouvrages de `%s`:\n",auteur);
-                        afficher_biblio(b2);
-                        liberer_Biblio(b2);
+                        afficher_biblioLC(b2);
+                        liberer_BiblioLC(b2);
                     }else{
                         printf("Aucune oeuvre de `%s` n'est présente dans la bibliotheque\n",auteur);
                     }
@@ -108,7 +108,7 @@ int main(int argc, char *argv[]){
                 fgets(input,BUFF,stdin);
                 if (sscanf(input,"%d %s %s",&num,titre,auteur)==3){
                     printf("Saisie correcte\n");
-                    supprimer_ouvrage(b, num,titre,auteur);
+                    supprimer_ouvrageLC(b, num,titre,auteur);
                 }else{
                     printf("Erreur format saisie\n");
                 }
@@ -126,14 +126,14 @@ int main(int argc, char *argv[]){
                     Biblio* b1 = charger_n_entreesLC(nomfichier, lignes);
                     printf("FIN!\n");
                     printf("Tache:construction de la bibliotheque des doublons...");
-                    Biblio* b2 =  recherche_doublons(b1);
+                    Biblio* b2 =  recherche_doublonsLC(b1);
                     printf("FIN!\n");
                     printf("Tache:sauvegarde dans `%s` de la bibliotheque suivante:\n",save);
-                    afficher_biblio(b2);
+                    afficher_biblioLC(b2);
                     enregistrer_bilbioLC(b2, save);
                     printf("SAUVEGARDE TERMINÉE LE FICHIER './%s' A ÉTÉ CRÉÉ!\n",save);
-                    liberer_Biblio(b1);
-                    liberer_Biblio(b2);
+                    liberer_BiblioLC(b1);
+                    liberer_BiblioLC(b2);
                 }else{
                     printf("Erreur format saisie\n");
                 }
@@ -142,7 +142,7 @@ int main(int argc, char *argv[]){
         }
     }while(rep!=0);
 
-    liberer_Biblio(b);
+    liberer_BiblioLC(b);
     printf("CIAO\n");
     return 0;
 }

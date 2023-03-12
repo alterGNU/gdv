@@ -5,7 +5,7 @@
 #define BUFF 1000           // taille max str
 
 BiblioH* charger_n_entreesH(char * nom_fichier, int nb_ligne, int taille_table){
-    BiblioH* b = creer_biblio(taille_table);
+    BiblioH* b = creer_biblioH(taille_table);
     FILE * entree = NULL;
     entree = fopen (nom_fichier, "r");
     if(entree == NULL) {printf("Error: fopen failed\n"); exit(2); }

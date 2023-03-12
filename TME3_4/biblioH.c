@@ -15,7 +15,7 @@ int fonctionClef(char *auteur){
     return som;
 }
 
-LivreH* creer_livre(int num, char *titre, char *auteur){
+LivreH* creer_livreH(int num, char *titre, char *auteur){
     LivreH* res = malloc(sizeof(LivreH));
     if(res == NULL) {printf("Error: Out of memory\n"); exit(-1); }
     res->clef = fonctionClef(auteur);;
@@ -26,7 +26,7 @@ LivreH* creer_livre(int num, char *titre, char *auteur){
     return res;
 }
 
-void afficher_livre(LivreH *l){
+void afficher_livreH(LivreH *l){
     if (l!=NULL){
         printf("clef:%d->(n°:%d,\"%s\" de *%s*)\n",l->clef,l->num,l->titre,l->auteur);
     }else{
@@ -34,7 +34,7 @@ void afficher_livre(LivreH *l){
     }
 }
 
-void liberer_livre(LivreH* l){
+void liberer_livreH(LivreH* l){
     if (l){              // Libére le livre passé en argument s'il n'est pas NULL
         free(l->titre);
         free(l->auteur);
@@ -43,7 +43,7 @@ void liberer_livre(LivreH* l){
 }
 
 
-BiblioH* creer_biblio(int m){
+BiblioH* creer_biblioH(int m){
     if(m<1){printf("Taille tableau doit etre strictement positive\n");return NULL;}
     BiblioH* res = (BiblioH*) malloc(sizeof(BiblioH));
     if(res == NULL) {printf("Error1: Out of memory\n"); exit(-1); }
@@ -57,7 +57,7 @@ BiblioH* creer_biblio(int m){
     return res;
 }
 
-void afficher_biblio(BiblioH* b){
+void afficher_biblioH(BiblioH* b){
     if(b->T==NULL){printf("Il n'y a pas de tableau\n");return;}
     printf("La biblio contient %d livre",b->nE);
     printf((b->nE>0)?"s":"");
@@ -75,13 +75,13 @@ void afficher_biblio(BiblioH* b){
     printf("'-----'\n");
 }
 
-void liberer_biblio(BiblioH* b){
+void liberer_biblioH(BiblioH* b){
     if(b==NULL){return;}
     for (int i=0;i<b->m;i++){
         LivreH *l = b->T[i];
         while (l!=NULL){
             LivreH *next = l->suiv;
-            liberer_livre(l);
+            liberer_livreH(l);
             l = next;
         }
     }
@@ -98,7 +98,7 @@ int fonctionHachage(int cle, int m){
 
 void inserer(BiblioH* b, int num, char *titre, char *auteur){
     //etape1: Creation du nouveau livre à ajouter
-    LivreH * l = creer_livre(num,titre,auteur);
+    LivreH * l = creer_livreH(num,titre,auteur);
     //etape2: Calcul de l'indice de la case de la table de hachage
     int indice = fonctionHachage(l->clef,b->m);
     //etape3: Insertion en tête de la liste chainée à cette case
@@ -113,7 +113,7 @@ void inserer(BiblioH* b, int num, char *titre, char *auteur){
     b->nE++;
 }
 
-LivreH* search_by_num(BiblioH* b,int num){
+LivreH* search_by_numH(BiblioH* b,int num){
     LivreH* tmp ;
     for(int i=0;i<b->m;i++){
         tmp = b->T[i];
@@ -125,7 +125,7 @@ LivreH* search_by_num(BiblioH* b,int num){
     return tmp;
 }
 
-LivreH* search_by_autor(BiblioH* b,char * auteur){
+LivreH* search_by_autorH(BiblioH* b,char * auteur){
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
     LivreH* tmp = b->T[indice];
@@ -133,7 +133,7 @@ LivreH* search_by_autor(BiblioH* b,char * auteur){
     return tmp;
 }
 
-LivreH* search_by_title(BiblioH* b,char *title){
+LivreH* search_by_titleH(BiblioH* b,char *title){
     for(int i=0;i<b->m;i++){
         LivreH* tmp = b->T[i];
         while (tmp!=NULL){
@@ -144,8 +144,8 @@ LivreH* search_by_title(BiblioH* b,char *title){
     return NULL;
 }
 
-BiblioH* same_autor(BiblioH* b,char *auteur){
-    BiblioH* res=creer_biblio(1);
+BiblioH* same_autorH(BiblioH* b,char *auteur){
+    BiblioH* res=creer_biblioH(1);
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
     LivreH* tmp = b->T[indice];
@@ -158,7 +158,7 @@ BiblioH* same_autor(BiblioH* b,char *auteur){
     return res;
 }
 
-void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur){
+void supprimer_ouvrageH(BiblioH* b, int num, char *titre, char *auteur){
     if (b->T==NULL){exit(-1);}                                                            // evite le cas où biblioH est vide/NULL
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
@@ -170,7 +170,7 @@ void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur){
             LivreH* tmp = cour;
             while(tmp && tmp->num == num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){
                 tmp = tmp->suiv;
-                liberer_livre(cour);
+                liberer_livreH(cour);
                 cour = tmp;
             }
             // CAS : Match n'est pas le premier élément de la listeC
@@ -187,7 +187,7 @@ void supprimer_ouvrage(BiblioH* b, int num, char *titre, char *auteur){
     }
 }
 
-void fusion(BiblioH* b1, BiblioH* b2){
+void fusionH(BiblioH* b1, BiblioH* b2){
     if (b2==NULL){return ;}            // Cas trivial où b2 vide
     for(int i=0;i<b2->m;i++){
         LivreH *l = b2->T[i];
@@ -196,35 +196,35 @@ void fusion(BiblioH* b1, BiblioH* b2){
             l = l->suiv;
         }
     }
-    liberer_biblio(b2);
+    liberer_biblioH(b2);
 }
 
-void add_if_new(BiblioH* b,int num, char *titre, char *auteur){
+void add_if_newH(BiblioH* b,int num, char *titre, char *auteur){
     int clef = fonctionClef(auteur);
     int indice = fonctionHachage(clef, b->m);
     LivreH* tmp = b->T[indice];
     LivreH* ante;
-    if(!tmp){ b->T[indice] = creer_livre(num,titre,auteur);b->nE++;return;} // Cas où liste vide => insertion
+    if(!tmp){ b->T[indice] = creer_livreH(num,titre,auteur);b->nE++;return;} // Cas où liste vide => insertion
     while (tmp){
         if(tmp->num==num && strcmp(tmp->titre,titre)==0 && strcmp(tmp->auteur,auteur)==0){ return;}
         ante = tmp;
         tmp=tmp->suiv;
     }
-    LivreH *new = creer_livre(num,titre,auteur);
+    LivreH *new = creer_livreH(num,titre,auteur);
     ante->suiv = new ;
     b->nE++;
 }
 
-BiblioH* recherche_doublons(BiblioH* b){
-    BiblioH* res =  creer_biblio(1);
+BiblioH* recherche_doublonsH(BiblioH* b){
+    BiblioH* res =  creer_biblioH(1);
     for(int i=0;i<b->m;i++){
         LivreH* l1 = b->T[i];
         while(l1){
             LivreH * l2 = l1->suiv;
             while(l2){
                 if(strcmp(l1->titre,l2->titre)==0 && strcmp(l1->auteur,l2->auteur)==0){
-                    add_if_new(res, l1->num, l1->titre, l1->auteur);
-                    add_if_new(res, l2->num, l2->titre, l2->auteur);
+                    add_if_newH(res, l1->num, l1->titre, l1->auteur);
+                    add_if_newH(res, l2->num, l2->titre, l2->auteur);
                 }
                 l2 = l2->suiv;
             }

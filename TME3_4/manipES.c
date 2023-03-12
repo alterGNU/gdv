@@ -1,6 +1,6 @@
 #include <stdio.h>          // pr printf, FILE , fopen, fclose
 #include "biblioLC.h"       // pour struct Livre et Biblio
-#include "entreeSortieLC.h" // pour struct Livre et Biblio
+#include "entreeSortieLC.h" // pour chargerLC et enregistrerLC
 #define SIZEDICO 10         // nbr de livre de la biblio
 
 int main(int argc, char *argv[]){
@@ -15,9 +15,9 @@ int main(int argc, char *argv[]){
 
     char * nomfichier=argv[1];
     Biblio* b = charger_n_entreesLC(nomfichier, SIZEDICO);
-    afficher_biblio(b);
+    afficher_biblioLC(b);
     enregistrer_bilbioLC(b, "save.txt");
-    liberer_Biblio(b);
+    liberer_BiblioLC(b);
    
     return 0;
 }
