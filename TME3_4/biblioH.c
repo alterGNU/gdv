@@ -85,7 +85,6 @@ void liberer_biblioH(BiblioH* b){
             l = next;
         }
     }
-    b->T=NULL;
     free(b->T);
     free(b);
 }

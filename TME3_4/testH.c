@@ -35,6 +35,7 @@ int main(int argc, char *argv[]){
     int clef0 = fonctionClef(auteur0);
     printf("'%s' --> %d\n",auteur0,clef0);
 
+
     //Genére données livre1 aléatoirement
     int num1 = nb_alea(0,10);
     char * auteur1 = nom_alea(nb_alea(3,9));
@@ -95,20 +96,6 @@ int main(int argc, char *argv[]){
     afficher_biblioH(b2);
     enregistrer_bilbioH(b2,"saveH.txt");
 
-    //// test search_by_num()
-    //LivreH* lnumero0 = search_by_numH(b2,0);
-    //afficher_livreH(lnumero0);
-    //assert(0==lnumero0->num);
-    //LivreH* lpasla = search_by_numH(b2,-1);
-    //assert(NULL==lpasla);
-    //afficher_livreH(lpasla);
-    //// test search_by_title()
-    //LivreH* ltitreconnu = search_by_titleH(b2,"SOFS");
-    //assert(strcmp("SOFS",ltitreconnu->titre)==0);
-    //afficher_livreH(ltitreconnu);
-    //LivreH* ltitreinconnu = search_by_titleH(b2,"lePetitPoussait");
-    //assert(NULL==ltitreinconnu);
-    //afficher_livreH(ltitreinconnu);
     // test same_autor()
     BiblioH* b_de_xdrwv  = same_autorH(b2,"xdrwv");
     inserer(b_de_xdrwv, 4211,"KEZXDU","xdrwv"); 
@@ -146,8 +133,6 @@ int main(int argc, char *argv[]){
 
     printf("Voici trunks APRES LA FUSION (aka GOTENKS)\n:");
     afficher_biblioH(trunks);
-    printf("\nVoici goten APRES LA FUSIO\n:");
-    afficher_biblioH(goten);
 
     liberer_biblioH(trunks);
     

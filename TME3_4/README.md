@@ -46,11 +46,11 @@
 - ` void afficher_livre(Livre *l);` :  ~O(1) Affiche le contenue d'une struct Livre
 - ` void afficher_biblio(Biblio* b);` : ~O(n) Parcoure la liste chainée de taille n et affiche via la fonction afficher_livre chaque
   cellule (livre) qui la compose
-- ` Livre* search_by_num(Biblio* b, int num);` :  ~O(n) Recherche (par son attribut num) et retourne le Livre d'une
+- ` Livre* search_by_num(Biblio* b, int num, *char titre, *char auteur);` :  ~O(n) Recherche (par son attribut num) et retourne le Livre d'une
   Biblio, retourn NULL si pas trouvé.
-- `Livre* search_by_title(Biblio* b,char *title)` : ~O(n) Recherche (par son attribut titre) et retourne le Livre d'une
+- `Livre* search_by_title(Biblio* b, int num, *char titre, *char auteur)` : ~O(n) Recherche (par son attribut titre) et retourne le Livre d'une
   Biblio, retourn NULL si pas trouvé.
-- `Livre* search_by_autor(Biblio* b,char *auteur)`: ~O(n) Recherche (par son attribut auteur) et retourne le Livre d'une
+- `Livre* search_by_autor(Biblio* b, int num, *char titre, *char auteur)`: ~O(n) Recherche (par son attribut auteur) et retourne le Livre d'une
   Biblio, retourn NULL si pas trouvé.
 - `Biblio* same_autor(Biblio* b,char *autor)` : ~O(n) Retourne la biblio contenant tous les ouvrages de l'auteur passé
   en agument.
@@ -162,13 +162,13 @@ Voici vos choix:
 ```
 
 #### PARTIE biblioH.c
-- ` LivreH* search_by_num(BiblioH* b,int num)` : ~O(n) parcour l'ensemble de la table de hash à la recherche d'un livre
+- ` LivreH* search_by_num(Biblio* b, int num, *char titre, *char auteur)` : ~O(n) parcour l'ensemble de la table de hash à la recherche d'un livre
   en fonction de son num.
-- ` LivreH* search_by_title(BiblioH* b,char * titre)` : ~O(n) parcour l'ensemble de la table de hash à la recherche d'un
+- ` LivreH* search_by_title(Biblio* b, int num, *char titre, *char auteur)` : ~O(n) parcour l'ensemble de la table de hash à la recherche d'un
   livre en fonction de son num.
-- ` LivreH* search_by_autor(BiblioH* b,char * auteur)` : ~O(m) où m est la taille de la liste chainée des éléments ayant
-  le meme indexe dans la table de hachage. Parcoure la liste chainée se trouvant à l'indexe, puis retourne le livre s'il
-  est présent, sinon retourne NULL
+- ` LivreH* search_by_autor(Biblio* b, int num, *char titre, *char auteur)` : ~O(1) si la fonction de hachage evite les
+  collisions au maximum. Parcoure la liste chainée se trouvant à l'indexe, puis retourne le livre s'il est présent,
+  sinon retourne NULL
 - ` BiblioH* same_autor(BiblioH* b,char *autor)` : ~O(m), comme precedemment, on ne s'interesse qu'a une seul liste
   chainée, celle se trouvant à l'indexe correspondant a l'auteur passé en argument (en effet, tout auteur ayant le meme
   nom aura la meme cle, et donc pour une table de meme taille le meme indexe).A chaque ouvrage de l'auteur rencontrée,
@@ -183,10 +183,10 @@ Voici vos choix:
 - ` add_if_new(BiblioH* b, int num, char *titre, char *auteur)` : ~O(m) ou m et la taille de la liste chainée de tous
   les ouvrages ayant le meme indexe que le livre à ajouter : parcoure l'ensemble de cette liste, puis s'il n'y est pas
   deja, créer puis insére en queue le livre correspondant aux arguments de la fonction.
-- `BiblioH* recherche_doublons(BiblioH* b)` : ~O(n) deux ouvrages identiques se trouvant forcement dans la meme liste
-  chainée de la table de hash (car mm clef => mm indice du tableau).  on cherche donc uniquement dans chaque listes
-  chainées du tableau. La bilbioH retournée elle ne contiendrat qu'une case dans son tableau car on ne demande qu'une
-  liste chainée en retour.
+- `BiblioH* recherche_doublons(BiblioH* b)` : ~O(n) ou n est le nombre de collisions faites pour la clef correspondant à
+  l'ouvrage recherché,deux ouvrages identiques se trouvant forcement dans la meme liste chainée de la table de hash (car
+  mm clef => mm indice du tableau).  on cherche donc uniquement dans chaque listes chainées du tableau. La bilbioH
+  retournée elle ne contiendrat qu'une case dans son tableau car on ne demande qu'une liste chainée en retour.
 
 ## Exo3 : Comparaison des deux structures
 
@@ -198,21 +198,25 @@ Voici vos choix:
 ##### Recherche par numero 
 - ![image](./searchByNum.png)
 - OBSERVATIONS:
-    - pour le pire des cas (livre absent), la table de hachage est toujours la plus lente.
-    - lorsque le livre existe la table de hachage a des temps du meme ordre de grandeur que la liste chainée, mais passé
-      un certains nombre de livre, elle devient moins interessante (au alentour de 5000 ouvrages)
-    - La Liste chainée est donc, dans le cas d'une recherche par numero, la structure la plus adaptée pour un grand nombre d'ouvrage (meilleur
-      temps et plus simple à mettre en place)
+    - courbe verte H :**O(n)**: pour le pire des cas (livre absent), la table de hachage est toujours la plus lente.
+    - courbe bleu H :**O(n)**: lorsque le livre existe la table de hachage a des temps du meme ordre de grandeur que la
+      liste chainée, mais passé un certains nombre de livre, elle devient moins interessante (probablement dû aux
+      collisions)
+    - courbes rouge et orange:**O(n)**:La Liste chainée semble donc etre, dans le cas d'une recherche par numero, la
+      structure la plus adaptée (meilleur temps et plus simple à mettre en place)
 ##### Recherche par titre 
 - ![image](./searchByTitle.png)
 - OBSERVATIONS:
-    - ce sont les memes que pour la recherche pas numero, la liste chainée semble etre la structure la plus adaptée.
+    - identiques aux précédentes (recherche pas numero): la liste chainée semble etre la structure la plus adaptée.
 ##### Recherche par auteur 
 - ![image](./searchByAutor.png)
 - OBSERVATIONS:
-    - Ici,comme la clef de la table se fait en fonction du nom de l'auteur, la recherche utilisant le nom a des temps de
-      chercher d'une ordre de grandeur bien inférieur aux temps de la structure de liste chainée.
-    - Dans le cas d'une recherche d'ouvrage par nom d'auteur, la table de hachage est bien plus adaptée.
+    - courbes rouge et orange:**O(n)**:La Liste chainée, dans le cas d'une recherche par nom, conserve les memes temps
+      que pour les recherches précédentes.
+    - courbe bleu H :**O(1)**: comme la clef de la table se fait en fonction du nom de l'auteur, la recherche utilisant
+      le nom a des temps de chercher d'une ordre de grandeur bien inférieur aux temps de la structure de liste chainée.
+    - Dans le cas d'une recherche d'ouvrage par nom d'auteur, la table de hachage est bien plus adaptée.(quasi
+      instantanée si pas/peu de collision)
 #### Q 3.2 comparer les temps de recherche en fonction de la taille de la table de hachage.
 - Creation du fichier `compareHashTableSize.c` dont le main permet la creation des fichiers suivant:
     - `compareHashTableSize.txt` qui grace à gnuplot génére le graphique `hashTableSize.png`
@@ -221,18 +225,16 @@ Voici vos choix:
     - On remarque ici que le temps de recherche est inversement proportionnelle à la taille de la table...ainsi plus une
       table est grande plus elle est efficace (Attention cependant a ne pas oublier le temps necessaire pour sa
       création, de plus l'écart entre les temps pour les taille = nombreElement et 4*nombreElement ne sont pas si
-      éloigné que cela, je pense que pour cette clé, une table 2 a 3 fois superieur au nombre d'éléments evite
-      suffisamment les collisions)
+      éloigné que cela, je pense que pour cette fonction de hachage, une table 2 a 3 fois superieur au nombre d'éléments
+      evite suffisamment les collisions)
 #### Q 3.3 comparer les temps de recherche d'ouvrages multiples (doublons)
 - Creation du fichier `compareSearchDoublons.c` dont le main permet la creation des fichiers suivant:
     - `compareSearchDoublons.txt` qui grace à gnuplot génére le graphique `searchDoublons.png`
 - ![image](./searchDoublons.png)
 - OBSERVATIONS:
-    - **O(n²)**: La courbe rouge correspondant aux temps de recherche utilisant la structure de liste chainée de complexité
-    - **O(n)**:  La courbe bleu correspondant aux temps de recherche utilisant la structure de table de hachage de trois fois la taille du nombre d'ouvrage
+    -  La courbe rouge:**O(n²)**:correspondant aux temps de recherche utilisant la structure de liste chainée de complexité
+    -  La courbe bleu :**O(n)**: correspondant aux temps de recherche utilisant la structure de table de hachage de trois fois la taille du nombre d'ouvrage
 - CCLs:
-    - Lorsque la recherche permet l'utilisation de la cle de hacahge, le temps est quasi constant la ou il est
-      proportionnel à la taille de la biblio pour des listes chainées ou des champs n'etant pas utilisés par la fonction
-      de hachage.
-    - Les tables de hachage sont donc bien plus efficace quand la taille des données sont importantes, et elles le sont
-      d'autant plus quand leurs fonctions limitent au maximum les collisions.
+    - Les tables de hachages sont donc bien plus efficaces quand la taille des données devient trop importantes, et
+      elles le sont d'autant plus quand leurs fonctions limitent au maximum les collisions.(ordre de grandeur de leurs
+      tables >= nombre d'éléments max)
