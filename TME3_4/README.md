@@ -206,3 +206,13 @@ Voici vos choix:
     - Ici,comme la clef de la table se fait en fonction du nom de l'auteur, la recherche utilisant le nom a des temps de
       chercher d'une ordre de grandeur bien inférieur aux temps de la structure de liste chainée.
     - Dans le cas d'une recherche d'ouvrage par nom d'auteur, la table de hachage est bien plus adaptée.
+### Q 3.2 comparer les temps de recherche en fonction de la taille de la table de hachage.
+- Creation du fichier `compareHashTableSize.c` dont le main permet la creation des fichiers suivant:
+    - `compareHashTableSize.txt` qui grace à gnuplot génére le graphique `hashTableSize.png`
+- ![image](./hashTableSize.png)
+- OBSERVATIONS:
+    - On remarque ici que le temps de recherche est inversement proportionnelle à la taille de la table...ainsi plus une
+      table est grande plus elle est efficace (Attention cependant a ne pas oublier le temps necessaire pour sa
+      création, de plus l'écart entre les temps pour les taille = nombreElement et 4*nombreElement ne sont pas si
+      éloigné que cela, je pense que pour cette clé, une table 2 a 3 fois superieur au nombre d'éléments evite
+      suffisamment les collisions)

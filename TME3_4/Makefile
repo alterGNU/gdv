@@ -13,6 +13,9 @@ H: mainH.c biblioH.c entreeSortieH.c utilalea.c
 compTime: compareSearchTime.c entreeSortieLC.c utilalea.c biblioLC.c biblioH.c entreeSortieH.c
 	gcc -Wall -o compTime compareSearchTime.c entreeSortieLC.c utilalea.c biblioLC.c biblioH.c entreeSortieH.c
 
+hashSize: compareHashTableSize.c entreeSortieLC.c utilalea.c biblioLC.c biblioH.c entreeSortieH.c
+	gcc -Wall -o hashSize compareHashTableSize.c entreeSortieLC.c utilalea.c biblioLC.c biblioH.c entreeSortieH.c
+
 clean:
 	rm -f mainH mainLC testH testLC compTime
 
