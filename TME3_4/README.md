@@ -34,6 +34,12 @@
     - `make H`: compile le mainH permettant de lancer le menu pour l'utilisateur : `make H && ./mainH GdeBiblio.txt
       5000` crée une instance de Biblio à partir des 5000 premiéres lignes du fichier GdeBiblio.txt puis affiche le menu
       des actions possibles pour l'utilisateur.
+    - `make compTime`: compile le compareSearchTime permettant de generer les 3 graphiques montrant le temps de
+      recherche necessaire pour la recherche par champ (num, titre, auteur) sur les deux structures de données.
+    - `make hashSize`: compile le compareHashTableSize qui produit le graphique montrant l'évolution du temps de
+      recherche via le champ auteur sur les deux structures de données.
+    - `make doublons`: compile le comparedoublon qui produit le graphique montrant l'évolution du temps de
+      recherche d'ouvrage multiple dans une bibliotheque et cela pour les deux structures.
     - `make clean`: permet de supprimer les binaires produits par les commandes ci-dessus
 
 ### Q1.6 : Ajout de fonctions utiles
@@ -177,7 +183,7 @@ Voici vos choix:
 - ` add_if_new(BiblioH* b, int num, char *titre, char *auteur)` : ~O(m) ou m et la taille de la liste chainée de tous
   les ouvrages ayant le meme indexe que le livre à ajouter : parcoure l'ensemble de cette liste, puis s'il n'y est pas
   deja, créer puis insére en queue le livre correspondant aux arguments de la fonction.
-- `BiblioH* recherche_doublons(BiblioH* b)` : ~O(n²) deux ouvrages identiques se trouvant forcement dans la meme liste
+- `BiblioH* recherche_doublons(BiblioH* b)` : ~O(n) deux ouvrages identiques se trouvant forcement dans la meme liste
   chainée de la table de hash (car mm clef => mm indice du tableau).  on cherche donc uniquement dans chaque listes
   chainées du tableau. La bilbioH retournée elle ne contiendrat qu'une case dans son tableau car on ne demande qu'une
   liste chainée en retour.
@@ -222,4 +228,11 @@ Voici vos choix:
     - `compareSearchDoublons.txt` qui grace à gnuplot génére le graphique `searchDoublons.png`
 - ![image](./searchDoublons.png)
 - OBSERVATIONS:
-    - On remarque ici que le temps de recherche utilisant la structure de liste chainée de complexité
+    - **O(n²)**: La courbe rouge correspondant aux temps de recherche utilisant la structure de liste chainée de complexité
+    - **O(n)**:  La courbe bleu correspondant aux temps de recherche utilisant la structure de table de hachage de trois fois la taille du nombre d'ouvrage
+- CCLs:
+    - Lorsque la recherche permet l'utilisation de la cle de hacahge, le temps est quasi constant la ou il est
+      proportionnel à la taille de la biblio pour des listes chainées ou des champs n'etant pas utilisés par la fonction
+      de hachage.
+    - Les tables de hachage sont donc bien plus efficace quand la taille des données sont importantes, et elles le sont
+      d'autant plus quand leurs fonctions limitent au maximum les collisions.
