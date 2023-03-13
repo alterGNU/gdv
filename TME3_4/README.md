@@ -184,11 +184,12 @@ Voici vos choix:
 
 ## Exo3 : Comparaison des deux structures
 
-### Q 3.1 comparer les temps de recherche sur les deux structures (ListeChainée vs TableHash)
+### Q3.4 : Jusitifier les courbes en fonction de la compléxité
+#### Q 3.1 comparer les temps de recherche sur les deux structures (ListeChainée vs TableHash)
 - Creation du fichier `compareSearchTime.c` dont le main permet la creation des fichiers suivant:
     - `compareSearchByNum.txt` qui grace à gnuplot génére le graphique `searchByNum.png`
     - `compareSearchByTitle.txt` qui grace à gnuplot génére le graphique `searchByTitle.png`
-#### Recherche par numero 
+##### Recherche par numero 
 - ![image](./searchByNum.png)
 - OBSERVATIONS:
     - pour le pire des cas (livre absent), la table de hachage est toujours la plus lente.
@@ -196,17 +197,17 @@ Voici vos choix:
       un certains nombre de livre, elle devient moins interessante (au alentour de 5000 ouvrages)
     - La Liste chainée est donc, dans le cas d'une recherche par numero, la structure la plus adaptée pour un grand nombre d'ouvrage (meilleur
       temps et plus simple à mettre en place)
-#### Recherche par titre 
+##### Recherche par titre 
 - ![image](./searchByTitle.png)
 - OBSERVATIONS:
     - ce sont les memes que pour la recherche pas numero, la liste chainée semble etre la structure la plus adaptée.
-#### Recherche par auteur 
+##### Recherche par auteur 
 - ![image](./searchByAutor.png)
 - OBSERVATIONS:
     - Ici,comme la clef de la table se fait en fonction du nom de l'auteur, la recherche utilisant le nom a des temps de
       chercher d'une ordre de grandeur bien inférieur aux temps de la structure de liste chainée.
     - Dans le cas d'une recherche d'ouvrage par nom d'auteur, la table de hachage est bien plus adaptée.
-### Q 3.2 comparer les temps de recherche en fonction de la taille de la table de hachage.
+#### Q 3.2 comparer les temps de recherche en fonction de la taille de la table de hachage.
 - Creation du fichier `compareHashTableSize.c` dont le main permet la creation des fichiers suivant:
     - `compareHashTableSize.txt` qui grace à gnuplot génére le graphique `hashTableSize.png`
 - ![image](./hashTableSize.png)
@@ -216,3 +217,9 @@ Voici vos choix:
       création, de plus l'écart entre les temps pour les taille = nombreElement et 4*nombreElement ne sont pas si
       éloigné que cela, je pense que pour cette clé, une table 2 a 3 fois superieur au nombre d'éléments evite
       suffisamment les collisions)
+#### Q 3.3 comparer les temps de recherche d'ouvrages multiples (doublons)
+- Creation du fichier `compareSearchDoublons.c` dont le main permet la creation des fichiers suivant:
+    - `compareSearchDoublons.txt` qui grace à gnuplot génére le graphique `searchDoublons.png`
+- ![image](./searchDoublons.png)
+- OBSERVATIONS:
+    - On remarque ici que le temps de recherche utilisant la structure de liste chainée de complexité

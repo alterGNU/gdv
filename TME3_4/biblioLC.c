@@ -62,8 +62,8 @@ void liberer_BiblioLC(Biblio* b){
         liberer_livreLC(l);
         l = n;
     }
-    free(b);
     b->L = NULL;
+    free(b);
 }
 
 void inserer_en_teteLC(Biblio* b, int num, char *titre, char *auteur){
@@ -145,8 +145,8 @@ void fusionLC(Biblio* b1, Biblio* b2){
         while (tmp1->suiv!=NULL){ tmp1 = tmp1->suiv;} // parcour b1 jusqu'au bout
     }
     tmp1->suiv = b2->L;                               // joint fin b1 avec debur b2
-    free(b2);                                         
     b2->L = NULL;
+    free(b2);                                         
 }
 
 void add_if_newLC(Biblio* b,int num, char *titre, char *auteur){
@@ -158,7 +158,8 @@ void add_if_newLC(Biblio* b,int num, char *titre, char *auteur){
         last = p;
         p = p->suiv;
     }
-    last->suiv = creer_livreLC(num, titre, auteur);
+    Livre* new = creer_livreLC(num, titre, auteur);
+    last->suiv = new;
 }
 
 Biblio* recherche_doublonsLC(Biblio* b){
