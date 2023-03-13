@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
     char * entete3="set title \"Comparaison des temps de recherche par AUTEUR\"\nset xlabel \"Nbr livre\"\nset ylabel \"Temps de recherche (s)\"\nplot \"compareSearchByAutor.txt\" using 1:2 title \"ListeChainée_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"red\" lw 1.2\nset term png\nset output \"searchByAutor.png\"\nreplot \"compareSearchByAutor.txt\" using 1:3 title \"ListeChainée_(_a_b_s_e_n_t_)_\" with lines lc rgb \"orange\" lw 1.2 ,\"compareSearchByAutor.txt\" using 1:4 title \"TableHash_(_p_r_e_s_e_n_t_)_\" with lines lc rgb \"blue\" lw 1.2 ,\"compareSearchByAutor.txt\" using 1:5 title \"TableHash_(_a_b_s_e_n_t_)_\" with lines lc rgb \"green\" lw 1.2\n";
     fprintf(sortie3,"%s",entete3);
 
-    for(int nbL = 100;nbL<=10000;nbL+=100){
+    for(int nbL = 1000;nbL<=50000;nbL+=1000){
         clock_t t1, t2;
         int t = (int) nbL / 2;       // taille de la table de hachage => moitié du nb d'element
         // Structures sur lesquelles travailler
