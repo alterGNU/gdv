@@ -38,6 +38,7 @@ Biblio* creer_biblioLC(){
 }
 
 void afficher_biblioLC(Biblio* b){
+    if (!b){ printf("Il n'y a pas de bibliotheque ici\n");exit(0);}
     if (b->L){
         Livre *tmp = b->L;
         printf("Voici les livres de la bibliothque:\n");
@@ -50,7 +51,7 @@ void afficher_biblioLC(Biblio* b){
         }
         printf("La bibliotheque contient %d livre%s\n",cpt,(cpt!=0)?"s.":".");
     }else{
-        printf("Il n'y a pas de bibliotheque ici\n");
+        printf("La bibliotheque est vide\n");
     }
 }
 
@@ -62,7 +63,6 @@ void liberer_BiblioLC(Biblio* b){
         liberer_livreLC(l);
         l = n;
     }
-    b->L = NULL;
     free(b);
 }
 
@@ -145,7 +145,7 @@ void fusionLC(Biblio* b1, Biblio* b2){
         while (tmp1->suiv!=NULL){ tmp1 = tmp1->suiv;} // parcour b1 jusqu'au bout
     }
     tmp1->suiv = b2->L;                               // joint fin b1 avec debur b2
-    b2->L = NULL;
+    b2->L=NULL;
     free(b2);                                         
 }
 
